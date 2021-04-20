@@ -53,7 +53,8 @@ namespace Event
 			{
 				std::apply( update, arguments );
 			}
-
+			/// @brief The callback of this observer. Will be called when event is updated.
+			/// @param ...
 			virtual void update( UpdateArgs... ) = 0;
 		};
 
