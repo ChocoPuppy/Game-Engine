@@ -28,7 +28,6 @@ namespace Event
 			friend class SmartEventManager;
 			friend _ISmartObserver;
 		public:
-			typedef updateArguments = std::tuple<UpdateArgs...>;
 			void update( UpdateArgs... updateArgs )
 			{
 				for (_ISmartObserver * const & observer : *getObservers())

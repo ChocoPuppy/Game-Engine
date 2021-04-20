@@ -49,11 +49,6 @@ namespace Event
 		{
 			friend ASmartEvent<UpdateArgs...>;
 
-			void _update( std::tuple<UpdateArgs...> arguments )
-			{
-				std::apply( update, arguments );
-			}
-
 			virtual void update( UpdateArgs... ) = 0;
 		};
 
