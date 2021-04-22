@@ -47,7 +47,8 @@ namespace Event
 		template<typename... UpdateArgs>
 		class _ISmartObserverArgumented : protected _ISmartObserver
 		{
-			friend ASmartEvent<UpdateArgs...>;
+			using AbstractedEvent = ASmartEvent<UpdateArgs...>;
+			friend AbstractedEvent;
 
 			virtual void update( UpdateArgs... ) = 0;
 		};
@@ -59,7 +60,6 @@ namespace Event
 		class ASmartObserver : _ISmartObserverArgumented<UpdateArgs...>
 		{
 			friend class ASmartEvent<UpdateArgs...>;
-
 		public:
 			ASmartObserver()
 			{
