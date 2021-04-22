@@ -30,7 +30,7 @@ public:
 private:
 	friend int main();
 
-	class ExitInputHandler : Event::SmartEvent::ASmartObserver<ButtonDownEvent, InputManager *, Button>
+	class ExitInputHandler : Event::SmartEvent::ASmartObserver<ButtonDownEvent>
 	{
 		virtual void update( InputManager * inputManager, Button button ) override;
 	};
