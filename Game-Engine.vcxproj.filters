@@ -102,9 +102,6 @@
     <ClCompile Include="ISmartObserver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Joystick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine.h">
@@ -212,11 +209,11 @@
     <ClInclude Include="ButtonEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Joystick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ISmartEvent.h">
       <Filter>Header Files\Event\SmartEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterPack.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
