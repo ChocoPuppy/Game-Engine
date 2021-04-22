@@ -16,20 +16,6 @@ namespace Event
 			friend class _ISmartObserver;
 			static std::unordered_set<std::unique_ptr<_ISmartEvent>> registeredEvents;
 
-		public:
-			template<class EventType>
-			static EventType * getEvent()
-			{
-				for (auto & event : registeredEvents)
-				{
-					EventType * target = dynamic_cast<EventType *>( event.get() );
-					if (target != nullptr)
-					{
-						return target;
-					}
-				}
-				return nullptr;
-			}
 			template<class EventType>
 			static EventType * registerEvent()
 			{
@@ -43,6 +29,26 @@ namespace Event
 				registeredEvents.emplace( newEvent );
 				return newObj;
 			}
+
+			template<class EventType>
+			static EventType * getEvent()
+			{
+				for (auto & event : registeredEvents)
+				{
+					EventType * target = dynamic_cast<EventType *>( event.get() );
+					if (target != nullptr)
+					{
+						return target;
+					}
+				}
+				return nullptr;
+			}
+		public:
+		};
+		template<class EventType>
+		struct EventHandle
+		{
+			public void update();
 		};
 	}
 }
