@@ -47,7 +47,8 @@ namespace Event
 		template<typename... UpdateArgs>
 		class _ISmartObserverArgumented : protected _ISmartObserver
 		{
-			friend ASmartEvent<UpdateArgs...>;
+			using AbstractedEvent = ASmartEvent<UpdateArgs...>;
+			friend AbstractedEvent;
 
 			void _update( std::tuple<UpdateArgs...> arguments )
 			{
@@ -65,7 +66,6 @@ namespace Event
 		class ASmartObserver : _ISmartObserverArgumented<UpdateArgs...>
 		{
 			friend class ASmartEvent<UpdateArgs...>;
-
 		public:
 			ASmartObserver()
 			{
