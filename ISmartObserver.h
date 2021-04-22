@@ -1,8 +1,6 @@
 #pragma once
 #include "SmartEventManager.h"
 #include "ISmartEvent.h"
-#include <stdexcept>
-#include <tuple>
 namespace Event
 {
 	namespace SmartEvent
@@ -13,54 +11,43 @@ namespace Event
 		class _ISmartObserver
 		{
 			template<class EventType>
-			static EventType * requestEvent()
+			EventType * requestEvent()
 			{
 				return SmartEventManager::getEvent<EventType>();
-			}
-			template<class EventType>
-			static _ISmartEvent * requestGenericEvent()
-			{
-				EventType * baseEvent = requestEvent<EventType>();
-				_ISmartEvent * genericEvent = static_cast<_ISmartEvent *>( baseEvent );
-				if (genericEvent == nullptr)
-				{
-					throw new std::invalid_argument( "The event type cannot be converted to ASmartEvent." );
-					exit( 1 );
-				}
-				return genericEvent;
 			}
 		protected:
 			template<class EventType>
 			void unsubscribeFromEvent()
 			{
-				requestGenericEvent<EventType>()->unregisterObserver( this );
+				requestEvent<EventType>()->registerObserver( this );
 			}
 			template<class EventType>
 			void subscribeToEvent()
 			{
-				requestGenericEvent<EventType>()->registerObserver( this );
+				requestEvent<EventType>()->unregisterObserver( this );
 			}
 
 			virtual ~_ISmartObserver();
 		};
 
-		template<typename... UpdateArgs>
+		template<typename... _UpdateArgs>
 		class _ISmartObserverArgumented : protected _ISmartObserver
 		{
-			using AbstractedEvent = ASmartEvent<UpdateArgs...>;
+			using AbstractedEvent = ASmartEvent<_UpdateArgs...>;
 			friend AbstractedEvent;
 
-			virtual void update( UpdateArgs... ) = 0;
+			virtual void update( _UpdateArgs... ) = 0;
 		};
 
 		/// @brief An observer that automatically subscribes and unsubscribes to a specific event upon creation & destruction.
 		/// @tparam EventType The event type to subscribe to.
 		/// @tparam ...UpdateArgs The arguments the event type will pass.
-		template<class EventType, typename... UpdateArgs>
-		class ASmartObserver : _ISmartObserverArgumented<UpdateArgs...>
+		template<class EventType>
+		class ASmartObserver : EventType::UpdateArgs::template apply<_ISmartObserverArgumented>
 		{
-			friend class ASmartEvent<UpdateArgs...>;
+			friend class EventType::UpdateArgs::template apply<ASmartEvent>;
 		public:
+
 			ASmartObserver()
 			{
 				_ISmartObserver::subscribeToEvent<EventType>();
