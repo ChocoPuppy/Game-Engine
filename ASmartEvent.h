@@ -1,46 +1,47 @@
 #pragma once
 #include <unordered_set>
 #include <tuple>
+#include <unordered_set>
 #include "ISmartEvent.h"
 #include "ISmartObserver.h"
+#include "ParameterPack.h"
 namespace Event
 {
 	namespace SmartEvent
 	{
-		template<typename...>
-		class _ISmartObserverArgumented;
-
-		class _ASmartEvent : _ISmartEvent
-		{
-			friend _ISmartObserver;
-			ObserverSet registeredObservers;
-			virtual void registerObserver( _ISmartObserver * observer ) final;
-			virtual void unregisterObserver( _ISmartObserver * observer ) final;
-
-		protected:
-			ObserverSet const * getObservers() const;
-		};
 		/// @brief An abstract event type. Events should have no context.
-		/// @tparam ...UpdateArgs The arguments to pass when being updated. This is to pass the context of the update to the observers.
-		template<typename... UpdateArgs>
-		class ASmartEvent : _ASmartEvent
+		template<typename... _UpdateArgs>
+		class ASmartEvent : public _ISmartEvent
 		{
 			friend class SmartEventManager;
 			friend _ISmartObserver;
-		public:
-			void update( UpdateArgs... updateArgs )
+
+			using SmartObserverWithArguments = _ISmartObserverArgumented<_UpdateArgs...>;
+			std::unordered_set<SmartObserverWithArguments *> registeredObservers;
+
+			void registerObserver( _ISmartObserver * observer )
 			{
-				for (_ISmartObserver * const & observer : *getObservers())
+				registeredObservers.insert( dynamic_cast<SmartObserverWithArguments *>( observer ) );
+			}
+			void unregisterObserver( _ISmartObserver * observer )
+			{
+				registeredObservers.erase( dynamic_cast<SmartObserverWithArguments *>( observer ) );
+			}
+
+			std::unordered_set<SmartObserverWithArguments *> * getObservers()
+			{
+				return &registeredObservers;
+			}
+
+			void update( _UpdateArgs... updateArgs )
+			{
+				for (SmartObserverWithArguments * const & observer : *getObservers())
 				{
-					_ISmartObserverArgumented<UpdateArgs...> * argumentedObserver = dynamic_cast<_ISmartObserverArgumented<UpdateArgs...> *>( observer );
-					if (argumentedObserver == nullptr)
-					{
-						std::cerr << "Whoops, an observer has subscribed to an event it isn't compatible with!" << std::endl;
-						exit( 1 );
-					}
-					argumentedObserver->update( updateArgs... );
+					observer->update( updateArgs... );
 				}
 			}
+		public:
+			using UpdateArgs = ParameterPack<_UpdateArgs...>;
 		};
 	}
 }
