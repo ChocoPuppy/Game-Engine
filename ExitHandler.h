@@ -1,7 +1,10 @@
 #pragma once
-#include "InputManager.h"
-#include "ISmartObserver.h"
-class ExitHandler : Event::SmartEvent::ASmartObserver<ButtonPressedEvent>
+#include "ASmartObserver.h"
+#include "ButtonEvent.h"
+class ExitHandler : Event::SmartEvent::ASmartObserver<AnyButtonPressedEvent>
 {
 	virtual void update( InputManager * manager, const Button button ) override;
+
+public:
+	ExitHandler();
 };

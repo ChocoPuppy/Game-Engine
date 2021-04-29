@@ -1,18 +1,4 @@
 #pragma once
-#include "ASmartEvent.h"
-#include "Button.h"
-class InputManager;
-
-class ButtonEvent : public Event::SmartEvent::ASmartEvent<InputManager *, Button>
-{
-	friend InputManager;
-};
-
-class ButtonDownEvent final : public ButtonEvent
-{};
-
-class ButtonPressedEvent final : public ButtonEvent
-{};
-
-class ButtonReleasedEvent final :public ButtonEvent
-{};
+//This is the header you probably want to include. This just exists to prevent a circular dependency since InputManager stores the ButtonEvents, but the ButtonEvents need to have access to the InputManager beforehand so they can be templated.
+#include "_ButtonEvent.h"
+#include "InputManager.h"

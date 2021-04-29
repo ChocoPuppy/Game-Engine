@@ -8,7 +8,7 @@
 
 #include "SDLVideo.h"
 
-#include "ISmartObserver.h"
+#include "ExitHandler.h"
 #include "Button.h"
 #include "ButtonEvent.h"
 class InputManager;
@@ -30,11 +30,6 @@ public:
 private:
 	friend int main();
 
-	class ExitInputHandler : Event::SmartEvent::ASmartObserver<ButtonDownEvent>
-	{
-		virtual void update( InputManager * inputManager, Button button ) override;
-	};
-
 	bool running = true;
 	static constexpr unsigned long millisecondsPerSecond = 1000;
 	unsigned long maxFPS = 30;
@@ -47,7 +42,7 @@ private:
 
 	//	float timeSinceLastFrame;
 
-	ExitInputHandler exitInputHandler;
+	ExitHandler _exitHandler;
 
 	SDL::Renderer * _renderer;
 	SDL::Window * _window;

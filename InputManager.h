@@ -1,10 +1,11 @@
 #pragma once
-#include "ASmartEvent.h"
-#include "Button.h"
+
 #include "SDLBase.h"
 #include <unordered_map>
 #include <unordered_set>
-#include "ButtonEvent.h"
+#include "EventHandle.h"
+#include "_ButtonEvent.h"
+
 class InputManager
 {
 	friend int main();
@@ -12,9 +13,6 @@ class InputManager
 	InputManager();
 	void updateAllButtonEvents();
 
-public:
-
-private:
 	enum class ButtonState
 	{
 		UP,
@@ -26,9 +24,9 @@ private:
 	mutable std::unordered_map<Button, ButtonState> _buttonStates;
 	std::unordered_map<SDL_Scancode, Button> _keyBoundToButton;
 
-	ButtonDownEvent * _buttonDownEvent;
-	ButtonPressedEvent * _buttonPressedEvent;
-	ButtonReleasedEvent * _buttonReleasedEvent;
+	Event::SmartEvent::EventHandle<AnyButtonDownEvent> _AnyButtonDownEvent;
+	Event::SmartEvent::EventHandle<AnyButtonPressedEvent> _AnyButtonPressedEvent;
+	Event::SmartEvent::EventHandle<AnyButtonReleasedEvent> _AnyButtonReleasedEvent;
 
 	void pushButton( Button button );
 	void liftButton( Button button );

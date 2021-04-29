@@ -1,4 +1,9 @@
 #include "ExitHandler.h"
+#include <iostream>
+ExitHandler::ExitHandler() : ASmartObserver()
+{
+	std::cout << "ExitHandler generated." << std::endl;
+}
 
 void ExitHandler::update( InputManager *, const Button button )
 {

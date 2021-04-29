@@ -20,15 +20,13 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-GameEngine::GameEngine()
+GameEngine::GameEngine() : _exitHandler()
 {
 	initializeSDL();
 
 	generateWindow();
 
 	generateRenderer();
-
-	exitInputHandler = ExitInputHandler();
 }
 
 GameEngine::~GameEngine()
@@ -153,18 +151,6 @@ void GameEngine::initializeSDL()
 	{
 		SDL::passSDLError( "Failed to initialize SDL image" );
 	}
-}
-
-void GameEngine::ExitInputHandler::update( InputManager *, Button button )
-{
-	switch (button) //Basically if (button != Button::QUIT) return; but slightly quicker, since events are probably something you want to get through as quick as possible if they don't actually qualify.
-	{
-	case Button::QUIT:
-		break;
-	default:
-		return;
-	}
-	std::cout << "Ending..." << endl;
 }
 
 GameEngine::GameContext::GameContext( AssetManager * assets, Scene * scene )
