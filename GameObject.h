@@ -14,6 +14,8 @@ public:
 	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) = 0;
 	virtual void simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * assets );
 	virtual void render( unsigned long millisecondsToSimulate, AssetManager * assets, SDL::Renderer * renderer );
+
+	void rawMove( Vector2D toPosition );
 protected:
 	std::string _ID;
 	std::string _textureID;

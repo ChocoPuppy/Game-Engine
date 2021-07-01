@@ -25,3 +25,8 @@ void GameObject::render( unsigned long, AssetManager * assets, SDL::Renderer * r
 
 	texture->render( renderer, SDL_Rect(), destination );
 }
+
+void GameObject::rawMove( Vector2D toPosition )
+{
+	transform.position = toPosition;
+}
