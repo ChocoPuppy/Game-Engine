@@ -11,22 +11,11 @@
 #include "ISmartObserver.h"
 #include "Button.h"
 #include "ButtonEvent.h"
+#include "GameContext.h"
 class InputManager;
 
 class GameEngine
 {
-public:
-	struct GameContext
-	{
-	private:
-		AssetManager * _assets;
-		Scene * _scene;
-	public:
-		GameContext( AssetManager * assets, Scene * scene );
-
-		AssetManager * getAssets();
-		Scene * getScene();
-	};
 private:
 	friend int main();
 

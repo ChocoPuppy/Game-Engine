@@ -205,6 +205,7 @@
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Dino.h" />
     <ClInclude Include="ExitHandler.h" />
+    <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />

@@ -10,7 +10,7 @@ int main()
 
 	Scene * gameScene = new GameScene();
 
-	GameEngine::GameContext context = GameEngine::GameContext( &assets, gameScene );
+	GameContext context = GameContext( &assets, gameScene );
 	while (true)
 	{
 		engine.update( context, &inputManager );

@@ -218,5 +218,8 @@
     <ClInclude Include="ISmartEvent.h">
       <Filter>Header Files\Event\SmartEvent</Filter>
     </ClInclude>
+    <ClInclude Include="GameContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
