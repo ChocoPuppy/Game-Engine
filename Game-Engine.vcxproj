@@ -185,6 +185,7 @@
     <ClCompile Include="InputOld.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLError.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
