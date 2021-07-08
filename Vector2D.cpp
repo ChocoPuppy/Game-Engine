@@ -22,7 +22,7 @@ double & Vector2D::y()
 
 float Vector2D::magnitude() const
 {
-	return sqrtf( x() * x() + y() * y() );
+	return sqrtf( (float)( ( x() * x() ) + ( y() * y() ) ) );
 }
 
 Vector2D Vector2D::normalize() const
@@ -35,24 +35,28 @@ Vector2D Vector2D::normalize() const
 		normalizedVector.x() /= mag;
 		normalizedVector.y() /= mag;
 	}
+	return normalizedVector;
 }
 
-void Vector2D::operator+=( Vector2D const & rhs )
+Vector2D & Vector2D::operator+=( Vector2D const & rhs )
 {
 	x() += rhs.x();
 	y() += rhs.y();
+	return *this;
 }
 
-void Vector2D::operator-=( Vector2D const & rhs )
+Vector2D & Vector2D::operator-=( Vector2D const & rhs )
 {
 	x() -= rhs.x();
 	y() -= rhs.y();
+	return *this;
 }
 
-void Vector2D::operator*=( float rhs )
+Vector2D & Vector2D::operator*=( float rhs )
 {
 	x() *= rhs;
 	y() *= rhs;
+	return *this;
 }
 
 Vector2D operator+( Vector2D lhs, Vector2D const & rhs )
@@ -63,4 +67,9 @@ Vector2D operator+( Vector2D lhs, Vector2D const & rhs )
 Vector2D operator-( Vector2D lhs, Vector2D const & rhs )
 {
 	return lhs -= rhs;
+}
+
+Vector2D operator*( Vector2D lhs, float rhs )
+{
+	return lhs *= rhs;
 }
