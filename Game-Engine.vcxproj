@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{B53F0888-CE3D-4934-B032-C8132CCED473}</ProjectGuid>
     <RootNamespace>GameEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>Game-Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -56,6 +56,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
+    <Import Project="..\SmartEvent2\SmartEvent2.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -80,7 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;./SmartEvent2</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -165,10 +166,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AEvent.cpp" />
     <ClCompile Include="AnimatedGameObject.cpp" />
     <ClCompile Include="AnimatedTexture.cpp" />
-    <ClCompile Include="ASmartEvent.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -179,25 +178,19 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputOld.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="ISmartObserver.cpp" />
-    <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="SDLMain.cpp" />
-    <ClCompile Include="SmartEventManager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="WalkingDino.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AEvent.h" />
     <ClInclude Include="AnimatedGameObject.h" />
     <ClInclude Include="AnimatedTexture.h" />
-    <ClInclude Include="ASmartEvent.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Button.h" />
@@ -212,23 +205,18 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="IObserver.h" />
-    <ClInclude Include="ISmartEvent.h" />
-    <ClInclude Include="ISmartObserver.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SDLBase.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="SDLMain.h" />
-    <ClInclude Include="Joystick.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="SDLVideo.h" />
     <ClInclude Include="Size.h" />
-    <ClInclude Include="SmartEventManager.h" />
     <ClInclude Include="TextureWrapper.h" />
     <ClInclude Include="Transform2D.h" />
+    <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />

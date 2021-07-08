@@ -2,33 +2,28 @@
 
 #include <chrono>
 #include <thread>
-#include <algorithm>
-
-#include <SDL_image.h>
+#include <SDL_Image.h>
 
 #include "SDLMain.h"
-#include "Texture.h"
+#include "SDLVideo.h"
 #include "SDLError.h"
-#include "Dino.h"
-#include "WalkingDino.h"
-#include "Size.h"
+
+#include "GameObject.h"
+#include "Texture.h"
 #include "Color.h"
-#include "Coordinates.h"
 #include "InputManager.h"
 
 using std::cout;
 using std::cerr;
 using std::endl;
 
-GameEngine::GameEngine()
+GameEngine::GameEngine() : exitInputHandler()
 {
 	initializeSDL();
 
 	generateWindow();
 
 	generateRenderer();
-
-	exitInputHandler = ExitInputHandler();
 }
 
 GameEngine::~GameEngine()
@@ -153,32 +148,4 @@ void GameEngine::initializeSDL()
 	{
 		SDL::passSDLError( "Failed to initialize SDL image" );
 	}
-}
-
-void GameEngine::ExitInputHandler::update( InputManager *, Button button )
-{
-	switch (button) //Basically if (button != Button::QUIT) return; but slightly quicker, since events are probably something you want to get through as quick as possible if they don't actually qualify.
-	{
-	case Button::QUIT:
-		break;
-	default:
-		return;
-	}
-	std::cout << "Ending..." << endl;
-}
-
-GameEngine::GameContext::GameContext( AssetManager * assets, Scene * scene )
-{
-	_assets = assets;
-	_scene = scene;
-}
-
-AssetManager * GameEngine::GameContext::getAssets()
-{
-	return _assets;
-}
-
-Scene * GameEngine::GameContext::getScene()
-{
-	return _scene;
 }

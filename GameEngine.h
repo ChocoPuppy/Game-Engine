@@ -6,11 +6,9 @@
 #include <ostream>
 #include "Scene.h"
 
-#include "SDLVideo.h"
-
-#include "ISmartObserver.h"
 #include "Button.h"
 #include "ButtonEvent.h"
+#include "ExitHandler.h"
 #include "GameContext.h"
 class InputManager;
 
@@ -18,11 +16,6 @@ class GameEngine
 {
 private:
 	friend int main();
-
-	class ExitInputHandler : Event::SmartEvent::ASmartObserver<ButtonDownEvent, InputManager *, Button>
-	{
-		virtual void update( InputManager * inputManager, Button button ) override;
-	};
 
 	bool running = true;
 	static constexpr unsigned long millisecondsPerSecond = 1000;
@@ -36,7 +29,7 @@ private:
 
 	//	float timeSinceLastFrame;
 
-	ExitInputHandler exitInputHandler;
+	ExitHandler exitInputHandler;
 
 	SDL::Renderer * _renderer;
 	SDL::Window * _window;
