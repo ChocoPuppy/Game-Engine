@@ -1,7 +1,9 @@
 #include "PhysicsObject.h"
 
-void PhysicsObject::simulatePhysics( unsigned long, AssetManager * )
-{}
+void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * )
+{
+	transform().position += velocity() * (float)millisecondsToSimulate;
+}
 
 void PhysicsObject::rawMove( Vector2D toPosition )
 {
