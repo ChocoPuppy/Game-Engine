@@ -16,12 +16,6 @@
     <Filter Include="Header Files\SDLWrapper">
       <UniqueIdentifier>{7b3fb676-2b77-4254-92d1-8fcc01e0a2d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Event">
-      <UniqueIdentifier>{28a0d060-b387-428c-a04d-4b16f78e6da7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Event\SmartEvent">
-      <UniqueIdentifier>{43501bbf-70b2-4b3f-b71e-b2f9e82fcd7c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,31 +72,13 @@
     <ClCompile Include="InputOld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SmartEventManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ExitHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ASmartEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ISmartObserver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Joystick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -117,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedTexture.h">
@@ -179,21 +152,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\SDLWrapper</Filter>
     </ClInclude>
-    <ClInclude Include="AEvent.h">
-      <Filter>Header Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="IObserver.h">
-      <Filter>Header Files\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="ASmartEvent.h">
-      <Filter>Header Files\Event\SmartEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="SmartEventManager.h">
-      <Filter>Header Files\Event\SmartEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="ISmartObserver.h">
-      <Filter>Header Files\Event\SmartEvent</Filter>
-    </ClInclude>
     <ClInclude Include="InputOld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -206,19 +164,16 @@
     <ClInclude Include="ExitHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ButtonEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Joystick.h">
+    <ClInclude Include="GameContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ISmartEvent.h">
-      <Filter>Header Files\Event\SmartEvent</Filter>
+    <ClInclude Include="TextureWrapper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameContext.h">
+    <ClInclude Include="UnConstGetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

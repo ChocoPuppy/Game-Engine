@@ -1,13 +1,9 @@
 #pragma once
-#include "ASmartEvent.h"
+#include "Event/SmartEvent/ASmartEvent.h"
 #include "Button.h"
 class InputManager;
 
-class ButtonEvent : public Event::SmartEvent::ASmartEvent<InputManager *, Button>
-{
-	friend InputManager;
-	using Event::SmartEvent::ASmartEvent<InputManager *, Button>::update;
-};
+using ButtonEvent = Event::SmartEvent::SmartEvent<InputManager *, Button>;
 
 class ButtonDownEvent final : public ButtonEvent
 {};

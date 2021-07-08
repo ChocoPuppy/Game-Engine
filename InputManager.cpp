@@ -1,18 +1,13 @@
 #include "InputManager.h"
-#include "SmartEventManager.h"
 
 using namespace Event::SmartEvent;
 
-InputManager::InputManager()
+InputManager::InputManager() : _buttonDownEvent(), _buttonPressedEvent(), _buttonReleasedEvent()
 {
 	_keyBoundToButton.emplace( SDL_SCANCODE_W, Button::UP );
 	_keyBoundToButton.emplace( SDL_SCANCODE_S, Button::DOWN );
 	_keyBoundToButton.emplace( SDL_SCANCODE_A, Button::LEFT );
 	_keyBoundToButton.emplace( SDL_SCANCODE_D, Button::RIGHT );
-
-	_buttonDownEvent = SmartEventManager::registerEvent <ButtonDownEvent>();
-	_buttonPressedEvent = SmartEventManager::registerEvent <ButtonPressedEvent>();
-	_buttonReleasedEvent = SmartEventManager::registerEvent <ButtonReleasedEvent>();
 }
 
 void InputManager::updateInputs()
@@ -114,17 +109,17 @@ void InputManager::updateAllButtonEvents()
 		if (isButtonDown( button ))
 		{
 			std::cout << ButtonHelper::buttonToString( button ) << " is down." << std::endl;
-			_buttonDownEvent->update( this, button );
+			_buttonDownEvent.update( this, button );
 		}
 		if (isButtonPressed( button ))
 		{
 			std::cout << ButtonHelper::buttonToString( button ) << " is pressed." << std::endl;
-			_buttonPressedEvent->update( this, button );
+			_buttonPressedEvent.update( this, button );
 		}
 		if (isButtonReleased( button ))
 		{
 			std::cout << ButtonHelper::buttonToString( button ) << " has been released." << std::endl;
-			_buttonReleasedEvent->update( this, button );
+			_buttonReleasedEvent.update( this, button );
 		}
 	}
 }
