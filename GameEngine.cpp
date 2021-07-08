@@ -109,7 +109,7 @@ void GameEngine::render( unsigned long millisecondsToSimulate, GameContext conte
 
 void GameEngine::updateInput( unsigned long, GameContext, InputManager * input )
 {
-	input->updateInputs();
+	input->_updateInputs();
 }
 
 void GameEngine::generateWindow()
