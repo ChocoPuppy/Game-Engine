@@ -11,22 +11,14 @@ std::string GameObject::ID()
 	return _ID;
 }
 
-void GameObject::simulatePhysics( unsigned long, AssetManager * )
-{}
-
 void GameObject::render( unsigned long, AssetManager * assets, SDL::Renderer * renderer )
 {
 	SDL_Rect destination;
-	destination.x = (int)transform.position.x();
-	destination.y = (int)transform.position.y();
-	destination.w = (int)transform.scale.x();
-	destination.h = (int)transform.scale.y();
+	destination.x = (int)transform().position.x();
+	destination.y = (int)transform().position.y();
+	destination.w = (int)transform().scale.x();
+	destination.h = (int)transform().scale.y();
 	Texture * texture = assets->getAsset<Texture>( _textureID );
 
 	texture->render( renderer, SDL_Rect(), destination );
-}
-
-void GameObject::rawMove( Vector2D toPosition )
-{
-	transform.position = toPosition;
 }
