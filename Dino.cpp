@@ -1,9 +1,9 @@
 #include "Dino.h"
 
-Dino::Dino() : GameObject("Dino","Texture.Dino")
+Dino::Dino() : GameObject( "Dino", "Texture.Dino" )
 {
-	transform.position.x() = 25;
-	transform.position.y() = 25;
+	transform.position.x() = 75;
+	transform.position.y() = 75;
 	transform.scale.x() = 100;
 	transform.scale.y() = 100;
 }

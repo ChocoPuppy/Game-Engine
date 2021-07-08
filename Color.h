@@ -7,7 +7,7 @@ struct Color : private std::tuple<int, int, int, int>
 	inline int & green() { return std::get<2>( *getBase() ); }
 	inline int & alpha() { return std::get<3>( *getBase() ); }
 
-	Color( int red, int green, int blue, int alpha = 255 ) : Base( red, green, blue, alpha ) {}
+	constexpr Color( int red, int green, int blue, int alpha = 255 ) : Base( red, green, blue, alpha ) {}
 private:
 	using Base = std::tuple<int, int, int, int>;
 	Base * getBase()
