@@ -11,24 +11,16 @@ std::string GameObject::ID()
 	return _ID;
 }
 
-void GameObject::simulatePhysics( unsigned long, AssetManager * )
-{}
-
 void GameObject::render( unsigned long, AssetManager * assets, SDL::Renderer * renderer )
 {
-	Texture * texture = assets->getAsset<Texture>( _textureID );
-	Size textureSize = texture->getSize();
-	SDL_Rect clip{};
-	clip.h = textureSize.height();
-	clip.w = textureSize.width();
-	SDL_Rect destination{};
+	SDL_Rect destination;
 	destination.x = (int)transform.position.x();
 	destination.y = (int)transform.position.y();
 	destination.w = (int)transform.scale.x();
 	destination.h = (int)transform.scale.y();
+	Texture * texture = assets->getAsset<Texture>( _textureID );
 
-	texture->render( renderer, clip, destination );
-	//	std::cout << ID() << " rendered." << std::endl;
+	texture->render( renderer, SDL_Rect(), destination );
 }
 
 void GameObject::rawMove( Vector2D toPosition )
