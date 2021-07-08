@@ -12,9 +12,9 @@ struct Vector2D : std::pair<double, double>
 	float magnitude() const;
 	Vector2D normalize() const;
 
-	void operator+=( Vector2D const & rhs );
-	void operator-=( Vector2D const & rhs );
-	void operator*=( float rhs );
+	Vector2D & operator+=( Vector2D const & rhs );
+	Vector2D & operator-=( Vector2D const & rhs );
+	Vector2D & operator*=( float rhs );
 
 	friend Vector2D operator+( Vector2D lhs, Vector2D const & rhs );
 	friend Vector2D operator-( Vector2D lhs, Vector2D const & rhs );
