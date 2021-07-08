@@ -206,6 +206,7 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="PhysicsConstants.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
