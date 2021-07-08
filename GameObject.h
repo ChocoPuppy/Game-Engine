@@ -6,7 +6,7 @@ class GameObject : public PhysicsObject
 {
 public:
 	GameObject( std::string ID, std::string textureID );
-	~GameObject();
+	virtual ~GameObject();
 
 	std::string ID();
 
