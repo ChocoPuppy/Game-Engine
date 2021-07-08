@@ -16,10 +16,6 @@ class InputManager
 	friend int main();
 	friend class GameEngine;
 
-	InputManager();
-	void updateAllButtonEvents();
-public:
-
 private:
 
 	enum class ButtonState
@@ -36,6 +32,10 @@ private:
 	EventHandle<ButtonDownEvent> _buttonDownEvent;
 	EventHandle<ButtonPressedEvent> _buttonPressedEvent;
 	EventHandle<ButtonReleasedEvent> _buttonReleasedEvent;
+
+	InputManager();
+
+	void updateAllButtonEvents();
 
 	void pushButton( Button button );
 	void liftButton( Button button );
