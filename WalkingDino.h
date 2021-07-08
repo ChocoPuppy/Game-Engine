@@ -8,4 +8,3 @@ public:
 	// Inherited via AnimatedGameObject
 	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) override;
 };
-

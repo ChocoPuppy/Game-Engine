@@ -39,10 +39,11 @@ namespace SDL
 
 		Window();
 
-		SDL_Window * getWindow();
+		SDL_Window * _getWindow() const;
+		SDL_Window * _getWindow();
 
-		Uint32 getFlags();
-		SDL_bool convertBool( bool );
+		Uint32 getFlags() const;
+		static SDL_bool convertBool( bool );
 	public:
 
 		~Window();
@@ -61,13 +62,13 @@ namespace SDL
 		void show();
 		void restore();
 
-		Coordinates getPosition();
-		Size getSize();
-		bool getIsFullscreen();
-		bool getIsDesktopFullscreen();
-		bool getIsBorderless();
-		bool getIsResizable();
-		bool getIsMinimised();
-		bool getIsMaximised();
+		Coordinates getPosition() const;
+		Size getSize() const;
+		bool getIsFullscreen() const;
+		bool getIsDesktopFullscreen() const;
+		bool getIsBorderless() const;
+		bool getIsResizable() const;
+		bool getIsMinimised() const;
+		bool getIsMaximised() const;
 	};
 }

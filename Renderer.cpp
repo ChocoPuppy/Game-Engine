@@ -7,7 +7,7 @@ SDL_Renderer * SDL::Renderer::getRenderer()
 
 SDL::Renderer::Renderer( Window * window )
 {
-	_renderer = SDL_CreateRenderer( window->getWindow(), -1, 0 );
+	_renderer = SDL_CreateRenderer( window->_getWindow(), -1, 0 );
 	if (_renderer == nullptr)
 	{
 		SDL::passSDLError( "Failed to create SDL renderer" );

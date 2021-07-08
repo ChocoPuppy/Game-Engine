@@ -1,5 +1,4 @@
 #pragma once
-#include "SDLBase.h"
 #include "Asset.h"
 #include "Texture.h"
 #include <string>

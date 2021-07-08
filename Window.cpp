@@ -46,13 +46,12 @@ void SDL::WindowBuilder::setTitle( const std::string & title )
 void SDL::WindowBuilder::reset()
 {
 	_window = std::unique_ptr<Window>( new Window() );
-	//	_window->hide();
 }
 
 SDL::Window * SDL::WindowBuilder::getWindow()
 {
 	SDL::Window * result = _window.release();
-	if (result->getWindow() == nullptr)
+	if (result->_getWindow() == nullptr)
 	{
 		SDL::passSDLError( "Failed to create SDL window" );
 	}
@@ -64,22 +63,28 @@ SDL::Window * SDL::WindowBuilder::getWindow()
 SDL::Window::Window()
 {
 	_window = SDL_CreateWindow( NULL, 0, 0, 0, 0, 0 );
+
 	if (_window == NULL) { passSDLError( "Failed to create window" ); }
 }
 
 SDL::Window::~Window()
 {
-	SDL_DestroyWindow( getWindow() );
+	SDL_DestroyWindow( _getWindow() );
 }
 
-SDL_Window * SDL::Window::getWindow()
+SDL_Window * SDL::Window::_getWindow() const
 {
 	return _window;
 }
 
-Uint32 SDL::Window::getFlags()
+SDL_Window * SDL::Window::_getWindow()
 {
-	const Uint32 flags = SDL_GetWindowFlags( getWindow() );
+	return const_cast<SDL_Window *>( const_cast<const SDL::Window *>( this )->_getWindow() );
+}
+
+Uint32 SDL::Window::getFlags() const
+{
+	const Uint32 flags = SDL_GetWindowFlags( _getWindow() );
 	return flags;
 }
 
@@ -90,106 +95,106 @@ SDL_bool SDL::Window::convertBool( bool input )
 
 void SDL::Window::setPosition( Coordinates coords )
 {
-	SDL_SetWindowPosition( getWindow(), coords.x(), coords.y() );
+	SDL_SetWindowPosition( _getWindow(), coords.x(), coords.y() );
 }
 
 void SDL::Window::setSize( Size size )
 {
-	SDL_SetWindowSize( getWindow(), size.height(), size.width() );
+	SDL_SetWindowSize( _getWindow(), size.height(), size.width() );
 }
 
 void SDL::Window::setIsFullscreen( bool state )
 {
-	int result = SDL_SetWindowFullscreen( getWindow(), ( state ) ? SDL_WINDOW_FULLSCREEN : 0 );
+	int result = SDL_SetWindowFullscreen( _getWindow(), ( state ) ? SDL_WINDOW_FULLSCREEN : 0 );
 	if (result != SDLGenericSuccessCode) { passSDLError( "Failed to make window fullscreen." ); }
 }
 
 void SDL::Window::setIsDesktopFullscreen( bool state )
 {
-	int result = SDL_SetWindowFullscreen( getWindow(), ( state ) ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0 );
+	int result = SDL_SetWindowFullscreen( _getWindow(), ( state ) ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0 );
 	if (result != SDLGenericSuccessCode) { passSDLError( "Failed to make window desktop fullscreen." ); }
 }
 
 void SDL::Window::setIsBorderless( bool state )
 {
-	SDL_SetWindowBordered( getWindow(), convertBool( state ) );
+	SDL_SetWindowBordered( _getWindow(), convertBool( state ) );
 }
 
 void SDL::Window::setIsResizable( bool state )
 {
-	SDL_SetWindowResizable( getWindow(), convertBool( state ) );
+	SDL_SetWindowResizable( _getWindow(), convertBool( state ) );
 }
 
 void SDL::Window::setTitle( const std::string & title )
 {
-	SDL_SetWindowTitle( getWindow(), title.c_str() );
+	SDL_SetWindowTitle( _getWindow(), title.c_str() );
 }
 
 void SDL::Window::minimize()
 {
-	SDL_MinimizeWindow( getWindow() );
+	SDL_MinimizeWindow( _getWindow() );
 }
 
 void SDL::Window::maximize()
 {
-	SDL_MaximizeWindow( getWindow() );
+	SDL_MaximizeWindow( _getWindow() );
 }
 
 void SDL::Window::hide()
 {
-	SDL_HideWindow( getWindow() );
+	SDL_HideWindow( _getWindow() );
 }
 
 void SDL::Window::show()
 {
-	SDL_ShowWindow( getWindow() );
+	SDL_ShowWindow( _getWindow() );
 }
 
 void SDL::Window::restore()
 {
-	SDL_RestoreWindow( getWindow() );
+	SDL_RestoreWindow( _getWindow() );
 }
 
-Coordinates SDL::Window::getPosition()
+Coordinates SDL::Window::getPosition() const
 {
 	Coordinates coords;
-	SDL_GetWindowPosition( getWindow(), &coords.x(), &coords.y() );
+	SDL_GetWindowPosition( _getWindow(), &coords.x(), &coords.y() );
 	return coords;
 }
 
-Size SDL::Window::getSize()
+Size SDL::Window::getSize() const
 {
 	Size size;
-	SDL_GetWindowSize( getWindow(), &size.width(), &size.height() );
+	SDL_GetWindowSize( _getWindow(), &size.width(), &size.height() );
 	return size;
 }
 
-bool SDL::Window::getIsFullscreen()
+bool SDL::Window::getIsFullscreen() const
 {
 	return ( getFlags() & SDL_WINDOW_FULLSCREEN ) > 0;
 }
 
-bool SDL::Window::getIsDesktopFullscreen()
+bool SDL::Window::getIsDesktopFullscreen() const
 {
 	return getFlags() & SDL_WINDOW_FULLSCREEN_DESKTOP;
 }
 
-bool SDL::Window::getIsBorderless()
+bool SDL::Window::getIsBorderless() const
 {
 	return getFlags() & SDL_WINDOW_BORDERLESS;
 }
 
-bool SDL::Window::getIsResizable()
+bool SDL::Window::getIsResizable() const
 {
 	return getFlags() & SDL_WINDOW_RESIZABLE;
 }
 
-bool SDL::Window::getIsMinimised()
+bool SDL::Window::getIsMinimised() const
 {
 	return getFlags() & SDL_WINDOW_MINIMIZED;
 }
 
-bool SDL::Window::getIsMaximised()
+bool SDL::Window::getIsMaximised() const
 {
 	return getFlags() & SDL_WINDOW_MAXIMIZED;
 }

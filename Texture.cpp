@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "SDLError.h"
+#include "UnConstGetter.h"
 using namespace SDL;
 
 Texture::Texture( std::string path, Renderer * renderer )
@@ -38,9 +39,14 @@ Texture::~Texture()
 	SDL_DestroyTexture( _data );
 }
 
-SDL_Texture * Texture::getData()
+SDL_Texture const * SDL::Texture::getData() const
 {
 	return _data;
+}
+
+SDL_Texture * Texture::getData()
+{
+	return _unConstGetter( getData() );
 }
 
 void Texture::render( Renderer * render, SDL_Rect clip, SDL_Rect destination )
@@ -52,9 +58,11 @@ void Texture::render( Renderer * render, SDL_Rect clip, SDL_Rect destination )
 	}
 }
 
-Size SDL::Texture::getSize()
+Size SDL::Texture::getSize() const
 {
 	Size size = Size();
-	SDL_QueryTexture( getData(), nullptr, nullptr, &size.width(), &size.height() );
+	//usually you shouldn't do this. But I know SDL_QueryTexture doesn't actually alter any data so I feel safe casting away the const this time.
+	SDL_Texture * nonConstData = const_cast<SDL_Texture *>( getData() );
+	SDL_QueryTexture( nonConstData, nullptr, nullptr, &size.width(), &size.height() );
 	return size;
 }
