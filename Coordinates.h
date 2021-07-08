@@ -6,5 +6,5 @@ public:
 	inline int & x() { return first; }
 	inline int & y() { return second; }
 
-	Coordinates( int x = 0, int y = 0 ) : std::pair<int, int>( x, y ) {}
+	constexpr Coordinates( int x = 0, int y = 0 ) : std::pair<int, int>( x, y ) {}
 };
