@@ -18,7 +18,7 @@ class InputManager
 
 private:
 
-	enum class ButtonState
+	enum class _ButtonState
 	{
 		UP,
 		PRESSED,
@@ -26,7 +26,7 @@ private:
 		RELEASED
 	};
 
-	mutable std::unordered_map<Button, ButtonState> _buttonStates;
+	mutable std::unordered_map<Button, _ButtonState> _buttonStates;
 	std::unordered_map<SDL_Scancode, Button> _keyBoundToButton;
 
 	EventHandle<ButtonDownEvent> _buttonDownEvent;
@@ -35,17 +35,17 @@ private:
 
 	InputManager();
 
-	void updateAllButtonEvents();
+	void _updateAllButtonEvents();
 
-	void pushButton( Button button );
-	void liftButton( Button button );
+	void _pushButton( Button button );
+	void _liftButton( Button button );
 
-	void liftUnpressedButtons( std::unordered_set<Button> pressedButtons );
+	void _liftUnpressedButtons( std::unordered_set<Button> pressedButtons );
 
-	void updateInputs();
+	void _updateInputs();
 
-	ButtonState checkButton( Button button ) const;
-	bool isButtonState( Button button, ButtonState state ) const;
+	_ButtonState _checkButton( Button button ) const;
+	bool _isButtonState( Button button, _ButtonState state ) const;
 public:
 	bool isButtonDown( Button button ) const;
 	bool isButtonPressed( Button button ) const;
