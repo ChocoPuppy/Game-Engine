@@ -9,7 +9,7 @@ namespace SDL
 	private:
 		SDL_Renderer * _renderer;
 
-		SDL_Renderer * getRenderer();
+		SDL_Renderer * _getRenderer();
 	public:
 		Renderer( Window * window );
 		~Renderer();

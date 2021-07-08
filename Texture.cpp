@@ -26,7 +26,7 @@ Texture::Texture( std::string path, Renderer * renderer )
 	{
 		SDL::passSDLError( "Failed to load image. Path: " + path );
 	}
-	_data = SDL_CreateTextureFromSurface( renderer->getRenderer(), textureSurface );
+	_data = SDL_CreateTextureFromSurface( renderer->_getRenderer(), textureSurface );
 	if (_data == NULL)
 	{
 		SDL::passSDLError( "Failed to convert image to texture. Path: " + path );
@@ -39,19 +39,19 @@ Texture::~Texture()
 	SDL_DestroyTexture( _data );
 }
 
-SDL_Texture const * SDL::Texture::getData() const
+SDL_Texture const * SDL::Texture::_getData() const
 {
 	return _data;
 }
 
-SDL_Texture * Texture::getData()
+SDL_Texture * Texture::_getData()
 {
-	return _unConstGetter<SDL_Texture const *, SDL_Texture *>( const_cast<Texture const *>( this )->getData() );
+	return _unConstGetter<SDL_Texture const *, SDL_Texture *>( const_cast<Texture const *>( this )->_getData() );
 }
 
 void Texture::render( Renderer * render, SDL_Rect clip, SDL_Rect destination )
 {
-	const int renderResult = SDL_RenderCopyEx( render->getRenderer(), getData(), &clip, &destination, 0, NULL, SDL_FLIP_NONE );
+	const int renderResult = SDL_RenderCopyEx( render->_getRenderer(), _getData(), &clip, &destination, 0, NULL, SDL_FLIP_NONE );
 	if (renderResult != SDL::SDLGenericSuccessCode)
 	{
 		SDL::passSDLError( "Failed to render texture" );
@@ -62,7 +62,7 @@ Size SDL::Texture::getSize() const
 {
 	Size size = Size();
 	//usually you shouldn't do this. But I know SDL_QueryTexture doesn't actually alter any data so I feel safe casting away the const this time.
-	SDL_Texture * nonConstData = const_cast<SDL_Texture *>( getData() );
+	SDL_Texture * nonConstData = const_cast<SDL_Texture *>( _getData() );
 	SDL_QueryTexture( nonConstData, nullptr, nullptr, &size.width(), &size.height() );
 	return size;
 }

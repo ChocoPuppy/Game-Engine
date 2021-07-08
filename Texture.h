@@ -6,9 +6,8 @@ namespace SDL
 	class Texture
 	{
 		SDL_Texture * _data;
-	protected:
-		SDL_Texture const * getData() const;
-		SDL_Texture * getData();
+		SDL_Texture const * _getData() const;
+		SDL_Texture * _getData();
 	public:
 		Texture( std::string path, Renderer * renderer );
 		~Texture();

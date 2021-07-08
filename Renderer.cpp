@@ -1,6 +1,6 @@
 #include "Renderer.h"
 #include "SDLError.h"
-SDL_Renderer * SDL::Renderer::getRenderer()
+SDL_Renderer * SDL::Renderer::_getRenderer()
 {
 	return _renderer;
 }
@@ -16,22 +16,22 @@ SDL::Renderer::Renderer( Window * window )
 
 SDL::Renderer::~Renderer()
 {
-	SDL_DestroyRenderer( getRenderer() );
+	SDL_DestroyRenderer( _getRenderer() );
 }
 
 void SDL::Renderer::setDrawColor( Color color )
 {
-	int rendererDrawResult = SDL_SetRenderDrawColor( getRenderer(), (Uint8)color.red(), (Uint8)color.green(), (Uint8)color.blue(), (Uint8)color.alpha() );
+	int rendererDrawResult = SDL_SetRenderDrawColor( _getRenderer(), (Uint8)color.red(), (Uint8)color.green(), (Uint8)color.blue(), (Uint8)color.alpha() );
 	if (rendererDrawResult != SDL::SDLGenericSuccessCode) SDL::passSDLError( "Failed to set the base color of the renderer" );
 }
 
 void SDL::Renderer::clear()
 {
-	const int rendererClearResult = SDL_RenderClear( getRenderer() );
+	const int rendererClearResult = SDL_RenderClear( _getRenderer() );
 	if (rendererClearResult != SDL::SDLGenericSuccessCode) SDL::passSDLError( "Failed to clear renderer" );
 }
 
 void SDL::Renderer::present()
 {
-	SDL_RenderPresent( getRenderer() );
+	SDL_RenderPresent( _getRenderer() );
 }
