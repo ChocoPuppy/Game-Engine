@@ -1,6 +1,6 @@
 #include "AnimatedTexture.h"
 #include "SDLError.h"
-AnimatedTexture::AnimatedTexture( std::string path, SDL::Renderer * renderer, int frameCount, unsigned long frameDurationMilliseconds ) : Texture( path, renderer ), _frameCount( frameCount ), _frameDurationMilliseconds( frameDurationMilliseconds )
+AnimatedTexture::AnimatedTexture( std::string ID, std::string path, SDL::Renderer * renderer, int frameCount, unsigned long frameDurationMilliseconds ) : Texture( ID, path, renderer ), _frameCount( frameCount ), _frameDurationMilliseconds( frameDurationMilliseconds )
 {}
 
 AnimatedTexture::~AnimatedTexture()

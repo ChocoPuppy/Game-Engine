@@ -46,7 +46,7 @@ SDL_Texture const * SDL::Texture::_getData() const
 
 SDL_Texture * Texture::_getData()
 {
-	return _unConstGetter<SDL_Texture const *, SDL_Texture *>( const_cast<Texture const *>( this )->_getData() );
+	return _data;
 }
 
 void Texture::render( Renderer * render, SDL_Rect clip, SDL_Rect destination )

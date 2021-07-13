@@ -1,7 +1,10 @@
 #pragma once
-
-#include "SDLBase.h"
-
 #include <string>
 class Asset
-{};
+{
+	std::string _ID;
+public:
+	Asset( std::string ID ) : _ID( ID ) {}
+	virtual ~Asset() = default;
+	std::string const & getID() { return _ID; }
+};
