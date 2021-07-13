@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <map>
 #include <memory>
 #include <vector>
 #include "Window.h"
@@ -21,6 +21,6 @@ public:
 	std::string getID() const;
 
 protected:
-	std::unordered_map<std::string, GameObject *> _gameObjects;
+	std::map<std::string, GameObject *> _gameObjects;
 	std::string _ID;
 };
