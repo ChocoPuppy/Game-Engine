@@ -73,7 +73,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;.\SmartEvent2\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -81,7 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;./SmartEvent2</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;.\SmartEvent2\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -105,10 +105,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,6 +125,8 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <StringPooling>true</StringPooling>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalIncludeDirectories>F:\Documents\Work\Visual Studio\SmartEvent\SmartEvent;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +161,7 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <SupportJustMyCode>true</SupportJustMyCode>
       <StringPooling>true</StringPooling>
+      <AdditionalIncludeDirectories>F:\Documents\Work\Visual Studio\SmartEvent\SmartEvent;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -205,6 +211,12 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IObserver.h" />
+    <ClInclude Include="Joystick.h" />
+    <ClInclude Include="_ISmartEvent.h" />
+    <ClInclude Include="ASmartObserver.h" />
+    <ClInclude Include="ParameterPack.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
@@ -218,6 +230,7 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="_ButtonEvent.h" />
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
