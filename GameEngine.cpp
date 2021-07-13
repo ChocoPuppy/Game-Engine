@@ -66,7 +66,7 @@ SDL::Window * GameEngine::getWindow()
 	return _window;
 }
 
-inline unsigned long GameEngine::getMaxFPS()
+unsigned long GameEngine::getMaxFPS()
 {
 	return maxFPS;
 }
@@ -91,15 +91,11 @@ void GameEngine::simulatePhysics( unsigned long, GameContext )
 
 void GameEngine::render( unsigned long millisecondsToSimulate, GameContext context )
 {
-	//	cout << "Reh" << endl;
 	SDL::Renderer * renderer = getRenderer();
 
+	renderer->setDrawColor( Color::Yellow() );
+
 	renderer->clear();
-
-	constexpr Uint8 red = 255, green = 0, blue = 255, alpha = 255;
-
-	renderer->setDrawColor( Color( red, green, blue, alpha ) );
-	//	Texture * dino = assets->getAsset<Texture>( "Texture.Dino" );
 	for (GameObject * obj : context.getScene()->getGameObjects())
 	{
 		obj->render( millisecondsToSimulate, context.getAssets(), renderer );
