@@ -1,6 +1,6 @@
 #pragma once
-#include "Event/SmartEvent/ASmartEvent.h"
 #include "Button.h"
+#include <Event/SmartEvent/ASmartEvent.h>
 class InputManager;
 
 using ButtonEvent = Event::SmartEvent::SmartEvent<InputManager *, Button>;
