@@ -55,9 +55,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-    <Import Project="..\SmartEvent2\SmartEvent2.vcxitems" Label="Shared" />
-  </ImportGroup>
+  <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -73,32 +71,32 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;.\SmartEvent2\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;Dependencies\SmartEvent\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;.\SmartEvent2\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;Dependencies\SmartEvent\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
@@ -142,7 +140,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>F:\Documents\Work\Visual Studio\SmartEvent\SmartEvent;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +160,8 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <SupportJustMyCode>true</SupportJustMyCode>
       <StringPooling>true</StringPooling>
-      <AdditionalIncludeDirectories>F:\Documents\Work\Visual Studio\SmartEvent\SmartEvent;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -211,12 +211,6 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
-    <ClInclude Include="IObserver.h" />
-    <ClInclude Include="Joystick.h" />
-    <ClInclude Include="_ISmartEvent.h" />
-    <ClInclude Include="ASmartObserver.h" />
-    <ClInclude Include="ParameterPack.h" />
-    <ClInclude Include="Player.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
@@ -230,7 +224,6 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="_ButtonEvent.h" />
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

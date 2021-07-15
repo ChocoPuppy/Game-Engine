@@ -5,13 +5,7 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game-Engine", "Game-Engine.vcxproj", "{B53F0888-CE3D-4934-B032-C8132CCED473}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SmartEvent2", "..\SmartEvent2\SmartEvent2.vcxitems", "{E3AA2CF9-599A-42BB-A675-94B6CAF40597}"
-EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\SmartEvent2\SmartEvent2.vcxitems*{b53f0888-ce3d-4934-b032-c8132cced473}*SharedItemsImports = 4
-		..\SmartEvent2\SmartEvent2.vcxitems*{e3aa2cf9-599a-42bb-a675-94b6caf40597}*SharedItemsImports = 9
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86

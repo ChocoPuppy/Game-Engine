@@ -1,5 +1,5 @@
 #pragma once
-#include "Event/SmartEvent/ASmartEvent.h"
+#include <SmartEvent/SmartEvent.h>
 #include "Button.h"
 class InputManager;
 
@@ -11,5 +11,5 @@ class ButtonDownEvent final : public ButtonEvent
 class ButtonPressedEvent final : public ButtonEvent
 {};
 
-class ButtonReleasedEvent final :public ButtonEvent
+class ButtonReleasedEvent final : public ButtonEvent
 {};
