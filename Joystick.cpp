@@ -10,14 +10,14 @@ double Joystick::_spaceFromMin() const
 	return MIN_SIZE - getRawValue();
 }
 
-double Joystick::_clampToMinMaxSize( double number ) const
+double Joystick::clampToMinMaxSize( double number )
 {
 	return CustomMaths::clamp( number, MAX_SIZE, MIN_SIZE );
 }
 
 void Joystick::setRawValue( double value )
 {
-	_value = _clampToMinMaxSize( value );
+	_value = clampToMinMaxSize( value );
 }
 
 void Joystick::pushValue( double push )
@@ -59,6 +59,16 @@ double Joystick::getRawValue() const
 	return _value;
 }
 
+bool Joystick::isValuePositive() const
+{
+	return getRawValue() > 0;
+}
+
+bool Joystick::isValueNegative() const
+{
+	return getRawValue() < 0;
+}
+
 double Joystick::getDead() const
 {
 	return _dead;
@@ -69,11 +79,6 @@ double Joystick::getGravity() const
 	return _gravity;
 }
 
-bool Joystick::getWillSnap() const
-{
-	return _willSnap;
-}
-
 void Joystick::setDead( double value )
 {
 	_dead = value;
@@ -82,9 +87,4 @@ void Joystick::setDead( double value )
 void Joystick::setGravity( double value )
 {
 	_gravity = value;
-}
-
-void Joystick::setWillSnap( bool value )
-{
-	_willSnap = value;
 }

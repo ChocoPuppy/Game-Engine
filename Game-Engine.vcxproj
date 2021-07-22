@@ -193,6 +193,7 @@
     <ClCompile Include="SDLMain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="VirtualInputJoystick.cpp" />
     <ClCompile Include="WalkingDino.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -231,6 +232,7 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="VirtualInputJoystick.h" />
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
