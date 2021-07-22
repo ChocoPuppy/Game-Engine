@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -184,6 +184,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="InputOld.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="CustomMaths.h" />
     <ClInclude Include="Dino.h" />
     <ClInclude Include="ExitHandler.h" />
     <ClInclude Include="GameContext.h" />
@@ -211,6 +213,8 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Joystick.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
