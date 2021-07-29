@@ -39,7 +39,7 @@ namespace Event
 		/// @tparam EventType The event type to subscribe to.
 		/// @tparam ...UpdateArgs The arguments the event type will pass.
 		template<class EventType>
-		class ASmartObserver : EventType::_SmartObserverWithArguments
+		class ASmartObserver : public virtual EventType::_SmartObserverWithArguments
 		{
 			using base = typename EventType::_SmartObserverWithArguments;
 			friend base;

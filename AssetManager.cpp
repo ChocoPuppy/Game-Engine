@@ -9,6 +9,8 @@ AssetManager::AssetManager( SDL::Renderer * renderer )
 	constexpr unsigned long frameDurationMilliseconds = 100;
 	_loadAsset<AnimatedTexture>( "Texture.Dino.Walking", "Assets/dino.walking.png", renderer, frameCount, frameDurationMilliseconds );
 	//	_assets["Texture.Dino.Walking"] = new AnimatedTexture( "Assets/dino.walking.png", renderer, frameCount, frameDurationMilliseconds );
+
+	_loadAsset<AnimatedTexture>( "Texture.Player.Running", "Assets/player.running.png", renderer, frameCount, frameDurationMilliseconds );
 }
 
 AssetManager::~AssetManager()

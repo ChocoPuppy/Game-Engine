@@ -7,7 +7,7 @@ template<Button positiveButton, Button negativeButton>
 class VirtualInputJoystick :
 	public Joystick
 {
-	struct _VirtualInputJoystickObserver : Event::SmartEvent::ASmartObserver<ButtonDownEvent>
+	struct _VirtualInputJoystickObserver : Event::SmartEvent::ASmartObserver<ButtonDownEvent>, Event::SmartEvent::ASmartObserver<ButtonPressedEvent>
 	{
 		VirtualInputJoystick & _parent;
 		_VirtualInputJoystickObserver( VirtualInputJoystick & parent ) : _parent( parent ) {}
@@ -18,8 +18,10 @@ class VirtualInputJoystick :
 			{
 			case positiveButton:
 				_parent._pushOnInput( true );
+				break;
 			case negativeButton:
 				_parent._pushOnInput( false );
+				break;
 			}
 		}
 	};
@@ -28,8 +30,6 @@ class VirtualInputJoystick :
 
 	double _pushForce;
 	double _willSnap;
-
-	VirtualInputJoystick( double pushForce ) : inputObserver( *this ), _pushForce( pushForce ) {}
 
 	void _pushOnInput( bool positivePush )
 	{
@@ -50,6 +50,8 @@ protected:
 	void setPushForce( double value ) { _pushForce = clampToMinMaxSize( value ); }
 public:
 	using Joystick::updateGravity;
+
+	VirtualInputJoystick( double pushForce ) : inputObserver( *this ), _pushForce( pushForce ) {}
 
 	void setWillSnap( bool value ) { _willSnap = value; }
 
