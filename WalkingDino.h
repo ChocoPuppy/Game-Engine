@@ -4,7 +4,7 @@ class WalkingDino :
 	public AnimatedGameObject
 {
 public:
-	WalkingDino();
+	WalkingDino( std::string ID = "WalkingDino" );
 	// Inherited via AnimatedGameObject
 	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) override;
 };

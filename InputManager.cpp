@@ -106,27 +106,27 @@ void InputManager::_updateAllButtonEvents()
 		//	std::cout << "getting to update events." << std::endl;
 
 		Button button = buttonStatePair.first;
-		if (isButtonDown( button ))
-		{
-			std::cout << ButtonHelper::buttonToString( button ) << " is down." << std::endl;
-			_buttonDownEvent.update( this, button );
-		}
 		if (isButtonPressed( button ))
 		{
-			std::cout << ButtonHelper::buttonToString( button ) << " is pressed." << std::endl;
+			//			std::cout << ButtonHelper::buttonToString( button ) << " is pressed." << std::endl;
 			_buttonPressedEvent.update( this, button );
 		}
+		if (isButtonDown( button ))
+		{
+			//			std::cout << ButtonHelper::buttonToString( button ) << " is down." << std::endl;
+			_buttonDownEvent.update( this, button );
+		}
+
 		if (isButtonReleased( button ))
 		{
-			std::cout << ButtonHelper::buttonToString( button ) << " has been released." << std::endl;
+			//			std::cout << ButtonHelper::buttonToString( button ) << " has been released." << std::endl;
 			_buttonReleasedEvent.update( this, button );
 		}
 	}
 }
-
 bool InputManager::isButtonDown( Button button ) const
 {
-	return _isButtonState( button, _ButtonState::DOWN ) || _isButtonState( button, _ButtonState::PRESSED );
+	return _isButtonState( button, _ButtonState::DOWN );
 }
 
 bool InputManager::isButtonPressed( Button button ) const

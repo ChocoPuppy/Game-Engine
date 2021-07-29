@@ -20,8 +20,9 @@ protected:
 	/// @param push The amount to push value by.
 	void pushValue( double push );
 
-	void updateGravity();
+	void updateGravity( unsigned long millisecondsToSimulate = 1000 );
 public:
+	Joystick();
 
 	double getValue() const;
 	double getRawValue() const;

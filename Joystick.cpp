@@ -25,10 +25,10 @@ void Joystick::pushValue( double push )
 	setRawValue( getRawValue() + push );
 }
 
-void Joystick::updateGravity()
+void Joystick::updateGravity( unsigned long )
 {
 	double value = getRawValue();
-	double gravity = getGravity();
+	double gravity = getGravity();//* millisecondsToSimulate
 
 	if (value > 0)
 		if (( value - gravity ) < 0)
@@ -44,6 +44,9 @@ void Joystick::updateGravity()
 	else if (value == 0)
 		return;
 }
+
+Joystick::Joystick() : _value( 0 ), _dead( 0 )
+{}
 
 double Joystick::getValue() const
 {

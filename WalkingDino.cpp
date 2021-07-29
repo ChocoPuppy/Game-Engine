@@ -1,6 +1,6 @@
 #include "WalkingDino.h"
 
-WalkingDino::WalkingDino() : AnimatedGameObject( "WalkingDino", "Texture.Dino.Walking" )
+WalkingDino::WalkingDino( std::string ID ) : AnimatedGameObject( ID, "Texture.Dino.Walking" )
 {
 	transform().position.x() = 200;
 	transform().position.y() = 75;

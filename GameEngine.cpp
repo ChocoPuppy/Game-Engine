@@ -79,9 +79,12 @@ void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext con
 	updateInput( millisecondsToSimulate, context, input );
 }
 
-void GameEngine::simulateAI( unsigned long, GameContext )
+void GameEngine::simulateAI( unsigned long millisecondsToSimulate, GameContext context )
 {
-	//	cout << "Aeh" << endl;
+	for (GameObject * obj : context.getScene()->getGameObjects())
+	{
+		obj->simulateAI( millisecondsToSimulate, context.getAssets() );
+	}
 }
 
 void GameEngine::simulatePhysics( unsigned long millisecondsToSimulate, GameContext context )
