@@ -20,7 +20,7 @@ void InputManager::_updateInputs()
 		switch (checkEvent.type)
 		{
 		case SDL_QUIT:
-			_buttonStates[Button::QUIT] = _ButtonState::DOWN;
+			_buttonStates[Button::QUIT].state = _ButtonState::DOWN;
 			hasBeenPushedThisFrame.emplace( Button::QUIT );
 			break;
 		case SDL_KEYDOWN:
@@ -41,9 +41,9 @@ InputManager::_ButtonState InputManager::_checkButton( Button button ) const
 {
 	if (_buttonStates.find( button ) == _buttonStates.cend())
 	{
-		_buttonStates[button] = _ButtonState::UP;
+		_buttonStates[button].state = _ButtonState::UP;
 	}
-	return _buttonStates[button];
+	return _buttonStates[button].state;
 }
 
 bool InputManager::_isButtonState( Button button, _ButtonState state ) const
@@ -53,16 +53,15 @@ bool InputManager::_isButtonState( Button button, _ButtonState state ) const
 
 void InputManager::_pushButton( Button button )
 {
-	_ButtonState state = _buttonStates[button];
-	switch (state)
+	switch (_buttonStates[button].state)
 	{
 		[[__fallthrough]]
 	case _ButtonState::UP:
 	case _ButtonState::RELEASED:
-		_buttonStates[button] = _ButtonState::PRESSED;
+		_buttonStates[button].state = _ButtonState::PRESSED;
 		break;
 	case _ButtonState::PRESSED:
-		_buttonStates[button] = _ButtonState::DOWN;
+		_buttonStates[button].state = _ButtonState::DOWN;
 		break;
 	default:
 		break;
@@ -71,16 +70,16 @@ void InputManager::_pushButton( Button button )
 
 void InputManager::_liftButton( Button button )
 {
-	switch (_buttonStates[button])
+	switch (_buttonStates[button].state)
 	{
 		//If pressed or down, set to release. The fallthrough tag just tells the compiler to not complain about the lack of a break on the first case.
 		[[__fallthrough]]
 	case _ButtonState::PRESSED:
 	case _ButtonState::DOWN:
-		_buttonStates[button] = _ButtonState::RELEASED;
+		_buttonStates[button].state = _ButtonState::RELEASED;
 		break;
 	case _ButtonState::RELEASED:
-		_buttonStates[button] = _ButtonState::UP;
+		_buttonStates[button].state = _ButtonState::UP;
 		break;
 	default:
 		break;
