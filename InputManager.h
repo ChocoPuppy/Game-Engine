@@ -25,8 +25,13 @@ private:
 		DOWN,
 		RELEASED
 	};
+	struct _ButtonStatus
+	{
+		_ButtonState state;
+		unsigned long lastUpdatedAtMillisecond;
+	};
 
-	mutable std::unordered_map<Button, _ButtonState> _buttonStates;
+	mutable std::unordered_map<Button, _ButtonStatus> _buttonStates;
 	std::unordered_map<SDL_Scancode, Button> _keyBoundToButton;
 
 	EventHandle<ButtonDownEvent> _buttonDownEvent;
