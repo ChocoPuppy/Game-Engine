@@ -1,5 +1,7 @@
 #include "PhysicsObject.h"
 
+PhysicsObject::PhysicsObject() : _useGravity( true ) {}
+
 void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * )
 {
 	transform().position += velocity() * (float)millisecondsToSimulate;
@@ -18,4 +20,14 @@ Transform2D & PhysicsObject::transform()
 Vector2D & PhysicsObject::velocity()
 {
 	return _velocity;
+}
+
+bool PhysicsObject::affectedByGravity()
+{
+	return _useGravity;
+}
+
+void PhysicsObject::SetIsAffectedByGravity( bool value )
+{
+	_useGravity = value;
 }
