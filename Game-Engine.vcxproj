@@ -187,6 +187,7 @@
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLError.cpp" />
@@ -218,6 +219,8 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PhysicsConstants.h" />
+    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
