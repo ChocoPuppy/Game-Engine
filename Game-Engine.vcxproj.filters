@@ -206,5 +206,8 @@
     <ClInclude Include="VirtualInputJoystick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Framerate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

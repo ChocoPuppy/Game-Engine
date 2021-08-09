@@ -7,7 +7,7 @@ template<Button positiveButton, Button negativeButton>
 class VirtualInputJoystick :
 	public Joystick
 {
-	struct _VirtualInputJoystickObserver : Event::SmartEvent::ASmartObserver<ButtonDownEvent>, Event::SmartEvent::ASmartObserver<ButtonPressedEvent>
+	struct _VirtualInputJoystickObserver : Event::SmartEvent::ASmartObserver<ButtonPressedEvent>, Event::SmartEvent::ASmartObserver<ButtonDownEvent>
 	{
 		VirtualInputJoystick & _parent;
 		_VirtualInputJoystickObserver( VirtualInputJoystick & parent ) : _parent( parent ) {}
@@ -33,10 +33,9 @@ class VirtualInputJoystick :
 
 	void _pushOnInput( bool positivePush )
 	{
-		double toPush = ( positivePush ) ? getPushForce() : -getPushForce();
 		if (getWillSnap())
 			_snap( positivePush );
-		pushValue( toPush );
+		pushValue( getPushForce( positivePush ) );
 	}
 
 	void _snap( bool pushIsPositive )
@@ -44,7 +43,10 @@ class VirtualInputJoystick :
 		bool pushingAgainstPositive = isValuePositive() && !pushIsPositive;
 		bool pushingAgainstNegative = isValueNegative() && pushIsPositive;
 		if (pushingAgainstPositive || pushingAgainstNegative)
+		{
+			//			std::cout << "Snap!" << std::endl;
 			setRawValue( 0 );
+		}
 	}
 protected:
 	void setPushForce( double value ) { _pushForce = clampToMinMaxSize( value ); }
@@ -55,6 +57,6 @@ public:
 
 	void setWillSnap( bool value ) { _willSnap = value; }
 
-	double getPushForce() const { return _pushForce; }
+	double getPushForce( bool positivePush = true ) const { return ( positivePush ) ? _pushForce : -_pushForce; }
 	bool getWillSnap() const { return _willSnap; }
 };
