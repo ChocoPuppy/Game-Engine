@@ -1,5 +1,6 @@
 #pragma once
 #include "Button.h"
+#include "Framerate.h"
 #include "SDLBase.h"
 #include <unordered_map>
 #include <unordered_set>
@@ -31,6 +32,8 @@ private:
 		unsigned long lastUpdatedAtMillisecond;
 	};
 
+	static constexpr unsigned long minimumMillisecondsBetweenButtonUpdates = Framerate::minimumFrameTime;
+
 	mutable std::unordered_map<Button, _ButtonStatus> _buttonStates;
 	std::unordered_map<SDL_Scancode, Button> _keyBoundToButton;
 
@@ -41,6 +44,8 @@ private:
 	InputManager();
 
 	void _updateAllButtonEvents();
+
+	bool _canButtonBeUpdated( Button button ) const;
 
 	void _pushButton( Button button );
 	void _liftButton( Button button );

@@ -73,10 +73,10 @@ unsigned long GameEngine::getMaxFPS()
 
 void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext context, InputManager * input )
 {
+	updateInput( millisecondsToSimulate, context, input );
 	simulateAI( millisecondsToSimulate, context );
 	simulatePhysics( millisecondsToSimulate, context );
 	render( millisecondsToSimulate, context );
-	updateInput( millisecondsToSimulate, context, input );
 }
 
 void GameEngine::simulateAI( unsigned long millisecondsToSimulate, GameContext context )

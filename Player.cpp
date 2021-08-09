@@ -1,6 +1,6 @@
 #include "Player.h"
 #include <iostream>
-Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Running" ), _speed( 1 ), _xInput( 0.5 ), _yInput( 0.5 )
+Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Running" ), _speed( 1 ), _xInput( 0.9 ), _yInput( 0.9 )
 {
 	transform.position.x() = 200;
 	transform.position.y() = 200;
@@ -22,7 +22,7 @@ void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * )
 	movement.x() = _xInput.getValue() * getSpeed() * ( millisecondsToSimulate / 1000.0 ) * ANTI_NYOOM_COEFFICIENT;
 	movement.y() = -_yInput.getValue() * getSpeed() * ( millisecondsToSimulate / 1000.0 ) * ANTI_NYOOM_COEFFICIENT;
 
-	std::cout << _xInput.getValue() << std::endl;
+	//	std::cout << _xInput.getValue() << std::endl;
 
 	transform.position.x() += movement.x();
 	transform.position.y() += movement.y();
