@@ -13,12 +13,18 @@ std::string GameObject::ID()
 
 void GameObject::render( unsigned long, AssetManager * assets, SDL::Renderer * renderer )
 {
-	SDL_Rect destination;
+	SDL_Rect destination{};
 	destination.x = (int)transform().position.x();
 	destination.y = (int)transform().position.y();
 	destination.w = (int)transform().scale.x();
 	destination.h = (int)transform().scale.y();
-	Texture * texture = assets->getAsset<Texture>( _textureID );
 
-	texture->render( renderer, SDL_Rect(), destination );
+	Texture * texture = assets->getAsset<Texture>( _textureID );
+	Size textureSize = texture->getSize();
+
+	SDL_Rect clip{};
+	clip.w = textureSize.width();
+	clip.h = textureSize.height();
+
+	texture->render( renderer, clip, destination );
 }
