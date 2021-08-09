@@ -3,5 +3,6 @@
 struct Transform2D
 {
 	Vector2D position;
+	float rotation = 0;
 	Vector2D scale;
 };

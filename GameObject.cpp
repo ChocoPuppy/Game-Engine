@@ -26,5 +26,7 @@ void GameObject::render( unsigned long, AssetManager * assets, SDL::Renderer * r
 	clip.w = textureSize.width();
 	clip.h = textureSize.height();
 
-	texture->render( renderer, clip, destination );
+	float rotation = transform().rotation;
+
+	texture->render( renderer, clip, destination, rotation );
 }
