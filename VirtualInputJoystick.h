@@ -17,10 +17,10 @@ class VirtualInputJoystick :
 			switch (input)
 			{
 			case positiveButton:
-				_parent._pushOnInput( true );
+				_parent._inputPush( true );
 				break;
 			case negativeButton:
-				_parent._pushOnInput( false );
+				_parent._inputPush( false );
 				break;
 			}
 		}
@@ -31,7 +31,7 @@ class VirtualInputJoystick :
 	double _pushForce;
 	double _willSnap;
 
-	void _pushOnInput( bool positivePush )
+	void _inputPush( bool positivePush )
 	{
 		if (getWillSnap())
 			_snap( positivePush );
