@@ -10,26 +10,32 @@ InputManager::InputManager() : _buttonEvent()
 
 void InputManager::_updateInputs()
 {
-	std::unordered_set<Button> hasBeenPushedThisFrame;
 	SDL_Event checkEvent;
 	while (SDL_PollEvent( &checkEvent ))
 	{
+		Button button;
 		switch (checkEvent.type)
 		{
 		case SDL_QUIT:
 			_pushButton( Button::QUIT );
-			hasBeenPushedThisFrame.emplace( Button::QUIT );
 			break;
 		case SDL_KEYDOWN:
-			Button button = getButtonBoundToKey( checkEvent.key.keysym.scancode );
+			button = getButtonBoundToKey( checkEvent.key.keysym.scancode );
 			if (button != Button::NONE)
 			{
+				std::cout << ButtonHelper::buttonToString( button ) << " is being pushed this frame." << std::endl;
 				_pushButton( button );
-				hasBeenPushedThisFrame.emplace( button );
 			}
+			break;
+		case SDL_KEYUP:
+			button = getButtonBoundToKey( checkEvent.key.keysym.scancode );
+			if (button != Button::NONE)
+			{
+				_liftButton( button );
+			}
+			break;
 		}
 	}
-	_liftUnpressedButtons( hasBeenPushedThisFrame );
 	//This is called at the end of the function instead of as pressed buttons are found so that all the other buttons are confirmed to be updated (for example, dual key combos like ctrl+v might not trigger depending on which key has been pressed first)
 	_updateAllButtonEvents();
 }
@@ -74,8 +80,6 @@ void InputManager::_pushButton( Button button )
 	case _ButtonState::PRESSED:
 		buttonState = _ButtonState::DOWN;
 		break;
-	default:
-		break;
 	}
 	//	}
 }
@@ -97,23 +101,8 @@ void InputManager::_liftButton( Button button )
 	case _ButtonState::RELEASED:
 		buttonState = _ButtonState::UP;
 		break;
-	default:
-		break;
 	}
 	//	}
-}
-
-void InputManager::_liftUnpressedButtons( std::unordered_set<Button> pressedButtons )
-{
-	//Go through all currently tracked buttons (all buttons we're currently reading the states for, so all buttons that have actually been checked or pushed).
-	for (auto & button : _buttonStates)
-	{
-		//If the button hasn't been pushed this frame, Lift it.
-		if (pressedButtons.find( button.first ) == pressedButtons.cend())
-		{
-			_liftButton( button.first );
-		}
-	}
 }
 
 void InputManager::_regenerateButtonKeyPairings()
