@@ -126,6 +126,11 @@ bool InputManager::isButtonPressed( Button button ) const
 	return _isButtonState( button, _ButtonState::PRESSED );
 }
 
+bool InputManager::isButtonDownOrPressed( Button button ) const
+{
+	return isButtonDown( button ) || isButtonPressed( button );
+}
+
 bool InputManager::isButtonReleased( Button button ) const
 {
 	return _isButtonState( button, _ButtonState::RELEASED );
