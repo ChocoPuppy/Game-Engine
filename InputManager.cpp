@@ -3,7 +3,7 @@
 #include "SDLMain.h"
 using namespace Event::SmartEvent;
 
-InputManager::InputManager() : _buttonDownEvent(), _buttonPressedEvent(), _buttonReleasedEvent()
+InputManager::InputManager() : _buttonEvent()
 {
 	_keyBoundToButton.emplace( SDL_SCANCODE_W, Button::UP );
 	_keyBoundToButton.emplace( SDL_SCANCODE_S, Button::DOWN );
@@ -21,7 +21,7 @@ void InputManager::_updateInputs()
 		switch (checkEvent.type)
 		{
 		case SDL_QUIT:
-			_buttonStates[Button::QUIT].state = _ButtonState::DOWN;
+			_pushButton( Button::QUIT );
 			hasBeenPushedThisFrame.emplace( Button::QUIT );
 			break;
 		case SDL_KEYDOWN:
@@ -54,45 +54,45 @@ bool InputManager::_isButtonState( Button button, _ButtonState state ) const
 
 void InputManager::_pushButton( Button button )
 {
-	if (_canButtonBeUpdated( button ))
+	//	if (_canButtonBeUpdated( button ))
+	//	{
+	//		_buttonStates[button].lastUpdatedAtMillisecond = SDL::getTicks();
+	switch (_buttonStates[button].state)
 	{
-		_buttonStates[button].lastUpdatedAtMillisecond = SDL::getTicks();
-		switch (_buttonStates[button].state)
-		{
-			[[__fallthrough]]
-		case _ButtonState::UP:
-		case _ButtonState::RELEASED:
-			_buttonStates[button].state = _ButtonState::PRESSED;
-			break;
-		case _ButtonState::PRESSED:
-			_buttonStates[button].state = _ButtonState::DOWN;
-			break;
-		default:
-			break;
-		}
+		[[__fallthrough]]
+	case _ButtonState::UP:
+	case _ButtonState::RELEASED:
+		_buttonStates[button].state = _ButtonState::PRESSED;
+		break;
+	case _ButtonState::PRESSED:
+		_buttonStates[button].state = _ButtonState::DOWN;
+		break;
+	default:
+		break;
 	}
+	//	}
 }
 
 void InputManager::_liftButton( Button button )
 {
-	if (_canButtonBeUpdated( button ))
+	//	if (_canButtonBeUpdated( button ))
+	//	{
+	//		_buttonStates[button].lastUpdatedAtMillisecond = SDL::getTicks();
+	switch (_buttonStates[button].state)
 	{
-		_buttonStates[button].lastUpdatedAtMillisecond = SDL::getTicks();
-		switch (_buttonStates[button].state)
-		{
-			//If pressed or down, set to release. The fallthrough tag just tells the compiler to not complain about the lack of a break on the first case.
-			[[__fallthrough]]
-		case _ButtonState::PRESSED:
-		case _ButtonState::DOWN:
-			_buttonStates[button].state = _ButtonState::RELEASED;
-			break;
-		case _ButtonState::RELEASED:
-			_buttonStates[button].state = _ButtonState::UP;
-			break;
-		default:
-			break;
-		}
+		//If pressed or down, set to release. The fallthrough tag just tells the compiler to not complain about the lack of a break on the first case.
+		[[__fallthrough]]
+	case _ButtonState::PRESSED:
+	case _ButtonState::DOWN:
+		_buttonStates[button].state = _ButtonState::RELEASED;
+		break;
+	case _ButtonState::RELEASED:
+		_buttonStates[button].state = _ButtonState::UP;
+		break;
+	default:
+		break;
 	}
+	//	}
 }
 
 void InputManager::_liftUnpressedButtons( std::unordered_set<Button> pressedButtons )
@@ -109,34 +109,13 @@ void InputManager::_liftUnpressedButtons( std::unordered_set<Button> pressedButt
 
 void InputManager::_updateAllButtonEvents()
 {
-	for (auto & buttonStatePair : _buttonStates)
-	{
-		//	std::cout << "getting to update events." << std::endl;
-
-		Button button = buttonStatePair.first;
-		if (isButtonPressed( button ))
-		{
-			//			std::cout << ButtonHelper::buttonToString( button ) << " is pressed." << std::endl;
-			_buttonPressedEvent.update( this, button );
-		}
-		if (isButtonDown( button ))
-		{
-			//			std::cout << ButtonHelper::buttonToString( button ) << " is down." << std::endl;
-			_buttonDownEvent.update( this, button );
-		}
-
-		if (isButtonReleased( button ))
-		{
-			//			std::cout << ButtonHelper::buttonToString( button ) << " has been released." << std::endl;
-			_buttonReleasedEvent.update( this, button );
-		}
-	}
+	_buttonEvent.update( this );
 }
-bool InputManager::_canButtonBeUpdated( Button button ) const
-{
+//bool InputManager::_canButtonBeUpdated( Button button ) const
+//{
 	//	std::cout << _buttonStates[button].lastUpdatedAtMillisecond + minimumMillisecondsBetweenButtonUpdates << " vs " << SDL::getTicks() << std::endl;
-	return _buttonStates[button].lastUpdatedAtMillisecond + minimumMillisecondsBetweenButtonUpdates < SDL::getTicks();
-}
+//	return _buttonStates[button].lastUpdatedAtMillisecond + minimumMillisecondsBetweenButtonUpdates < SDL::getTicks();
+//}
 bool InputManager::isButtonDown( Button button ) const
 {
 	return _isButtonState( button, _ButtonState::DOWN );
