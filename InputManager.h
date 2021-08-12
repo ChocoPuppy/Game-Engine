@@ -57,7 +57,9 @@ private:
 	_ButtonState _checkButton( Button button ) const;
 	bool _isButtonState( Button button, _ButtonState state ) const;
 public:
+
 	bool isButtonDown( Button button ) const;
 	bool isButtonPressed( Button button ) const;
+	bool isButtonDownOrPressed( Button button ) const;
 	bool isButtonReleased( Button button ) const;
 };
