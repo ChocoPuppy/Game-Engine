@@ -2,26 +2,26 @@
 #include "Joystick.h"
 #include <SmartEvent/ASmartObserver.h>
 #include "ButtonEvent.h"
+#include "InputManager.h"
 
 template<Button positiveButton, Button negativeButton>
 class VirtualInputJoystick :
 	public Joystick
 {
-	struct _VirtualInputJoystickObserver : Event::SmartEvent::ASmartObserver<ButtonPressedEvent>, Event::SmartEvent::ASmartObserver<ButtonDownEvent>
+	struct _VirtualInputJoystickObserver : Event::SmartEvent::ASmartObserver<ButtonEvent>
 	{
 		VirtualInputJoystick & _parent;
 		_VirtualInputJoystickObserver( VirtualInputJoystick & parent ) : _parent( parent ) {}
 
-		virtual void update( InputManager *, Button input ) override
+		virtual void update( InputManager * input ) override
 		{
-			switch (input)
+			if (input->isButtonDown( positiveButton ) || input->isButtonPressed( positiveButton ))
 			{
-			case positiveButton:
 				_parent._inputPush( true );
-				break;
-			case negativeButton:
+			}
+			if (input->isButtonDown( negativeButton ) || input->isButtonPressed( negativeButton ))
+			{
 				_parent._inputPush( false );
-				break;
 			}
 		}
 	};
