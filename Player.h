@@ -2,7 +2,7 @@
 #include "VirtualInputJoystick.h"
 class Player : public AnimatedGameObject
 {
-	static constexpr double ANTI_NYOOM_COEFFICIENT = 0.000001;
+	static constexpr double ANTI_NYOOM_COEFFICIENT = 0.000000001;
 
 	VirtualInputJoystick<Button::RIGHT, Button::LEFT> _xInput;
 	VirtualInputJoystick<Button::UP, Button::DOWN> _yInput;

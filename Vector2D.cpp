@@ -1,5 +1,6 @@
 #include "Vector2D.h"
 #include <math.h>
+#include <iostream>
 double const & Vector2D::x() const
 {
 	return first;
@@ -22,12 +23,12 @@ double & Vector2D::y()
 
 float Vector2D::magnitude() const
 {
-	return sqrtf( (float)( ( x() * x() ) + ( y() * y() ) ) );
+	return sqrtf( (float)( x() * x() + y() * y() ) );
 }
 
 Vector2D Vector2D::normalize() const
 {
-	Vector2D normalizedVector;
+	Vector2D normalizedVector = *this;
 	float mag = magnitude();
 
 	if (mag > 0)
