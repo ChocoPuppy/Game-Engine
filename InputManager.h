@@ -29,7 +29,7 @@ private:
 	struct _ButtonStatus
 	{
 		_ButtonState state;
-		unsigned long lastUpdatedAtMillisecond;
+		//		unsigned long lastUpdatedAtMillisecond;
 	};
 
 	//	static constexpr unsigned long minimumMillisecondsBetweenButtonUpdates = Framerate::minimumFrameTime;
@@ -57,6 +57,7 @@ private:
 	_ButtonState _checkButton( Button button ) const;
 	bool _isButtonState( Button button, _ButtonState state ) const;
 public:
+	Button getButtonBoundToKey( SDL_Scancode key ) const;
 
 	bool isButtonDown( Button button ) const;
 	bool isButtonPressed( Button button ) const;

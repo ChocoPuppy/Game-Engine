@@ -25,11 +25,11 @@ void InputManager::_updateInputs()
 			hasBeenPushedThisFrame.emplace( Button::QUIT );
 			break;
 		case SDL_KEYDOWN:
-			if (_keyBoundToButton.find( checkEvent.key.keysym.scancode ) != _keyBoundToButton.cend())
+			Button button = getButtonBoundToKey( checkEvent.key.keysym.scancode );
+			if (button != Button::NONE)
 			{
-				currentlySelectedButton = _keyBoundToButton[checkEvent.key.keysym.scancode];
-				_pushButton( currentlySelectedButton );
-				hasBeenPushedThisFrame.emplace( currentlySelectedButton );
+				_pushButton( button );
+				hasBeenPushedThisFrame.emplace( button );
 			}
 		}
 	}
@@ -52,20 +52,31 @@ bool InputManager::_isButtonState( Button button, _ButtonState state ) const
 	return _checkButton( button ) == state;
 }
 
+Button InputManager::getButtonBoundToKey( SDL_Scancode key ) const
+{
+	Button button = Button::NONE;
+	if (_keyBoundToButton.find( key ) != _keyBoundToButton.cend())
+	{
+		button = _keyBoundToButton.at( key );
+	}
+	return button;
+}
+
 void InputManager::_pushButton( Button button )
 {
+	_ButtonState & buttonState = _buttonStates[button].state;
 	//	if (_canButtonBeUpdated( button ))
 	//	{
 	//		_buttonStates[button].lastUpdatedAtMillisecond = SDL::getTicks();
-	switch (_buttonStates[button].state)
+	switch (buttonState)
 	{
 		[[__fallthrough]]
 	case _ButtonState::UP:
 	case _ButtonState::RELEASED:
-		_buttonStates[button].state = _ButtonState::PRESSED;
+		buttonState = _ButtonState::PRESSED;
 		break;
 	case _ButtonState::PRESSED:
-		_buttonStates[button].state = _ButtonState::DOWN;
+		buttonState = _ButtonState::DOWN;
 		break;
 	default:
 		break;
@@ -75,19 +86,20 @@ void InputManager::_pushButton( Button button )
 
 void InputManager::_liftButton( Button button )
 {
+	_ButtonState & buttonState = _buttonStates[button].state;
 	//	if (_canButtonBeUpdated( button ))
 	//	{
 	//		_buttonStates[button].lastUpdatedAtMillisecond = SDL::getTicks();
-	switch (_buttonStates[button].state)
+	switch (buttonState)
 	{
 		//If pressed or down, set to release. The fallthrough tag just tells the compiler to not complain about the lack of a break on the first case.
 		[[__fallthrough]]
 	case _ButtonState::PRESSED:
 	case _ButtonState::DOWN:
-		_buttonStates[button].state = _ButtonState::RELEASED;
+		buttonState = _ButtonState::RELEASED;
 		break;
 	case _ButtonState::RELEASED:
-		_buttonStates[button].state = _ButtonState::UP;
+		buttonState = _ButtonState::UP;
 		break;
 	default:
 		break;
@@ -97,6 +109,7 @@ void InputManager::_liftButton( Button button )
 
 void InputManager::_liftUnpressedButtons( std::unordered_set<Button> pressedButtons )
 {
+	//Go through all currently tracked buttons (all buttons we're currently reading the states for, so all buttons that have actually been checked or pushed).
 	for (auto & button : _buttonStates)
 	{
 		//If the button hasn't been pushed this frame, Lift it.
