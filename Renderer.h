@@ -1,4 +1,5 @@
 #pragma once
+#include "SDLVideo.h"
 #include "Window.h"
 #include "Color.h"
 namespace SDL

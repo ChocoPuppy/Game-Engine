@@ -1,5 +1,5 @@
 #pragma once
-#include "SDLBase.h"
+#include "SDLVideo.h"
 #include "Renderer.h"
 namespace SDL
 {
