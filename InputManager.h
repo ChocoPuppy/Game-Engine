@@ -43,6 +43,7 @@ private:
 
 	InputManager();
 
+	void _regenerateButtonKeyPairings();
 	void _updateAllButtonEvents();
 
 	//	bool _canButtonBeUpdated( Button button ) const;

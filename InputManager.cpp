@@ -5,16 +5,12 @@ using namespace Event::SmartEvent;
 
 InputManager::InputManager() : _buttonEvent()
 {
-	_keyBoundToButton.emplace( SDL_SCANCODE_W, Button::UP );
-	_keyBoundToButton.emplace( SDL_SCANCODE_S, Button::DOWN );
-	_keyBoundToButton.emplace( SDL_SCANCODE_A, Button::LEFT );
-	_keyBoundToButton.emplace( SDL_SCANCODE_D, Button::RIGHT );
+	_regenerateButtonKeyPairings();
 }
 
 void InputManager::_updateInputs()
 {
 	std::unordered_set<Button> hasBeenPushedThisFrame;
-	Button currentlySelectedButton;
 	SDL_Event checkEvent;
 	while (SDL_PollEvent( &checkEvent ))
 	{
@@ -118,6 +114,15 @@ void InputManager::_liftUnpressedButtons( std::unordered_set<Button> pressedButt
 			_liftButton( button.first );
 		}
 	}
+}
+
+void InputManager::_regenerateButtonKeyPairings()
+{
+	_keyBoundToButton.clear();
+	_keyBoundToButton.emplace( SDL_SCANCODE_W, Button::UP );
+	_keyBoundToButton.emplace( SDL_SCANCODE_S, Button::DOWN );
+	_keyBoundToButton.emplace( SDL_SCANCODE_A, Button::LEFT );
+	_keyBoundToButton.emplace( SDL_SCANCODE_D, Button::RIGHT );
 }
 
 void InputManager::_updateAllButtonEvents()
