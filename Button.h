@@ -2,6 +2,7 @@
 #include <string>
 enum class Button
 {
+	NONE,
 	QUIT,
 	UP,
 	DOWN,
