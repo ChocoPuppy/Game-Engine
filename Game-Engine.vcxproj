@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>ClangCL</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;Dependencies\SmartEvent\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -79,15 +79,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.16\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;Dependencies\SmartEvent\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -95,8 +95,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.14\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.16\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
