@@ -3,6 +3,10 @@
 #include "Rect2D.h"
 #include <string>
 struct Transform2D;
+class AssetManager;
+
+class RenderEngine;
+
 namespace Collision
 {
 	class ICollider
@@ -16,7 +20,7 @@ namespace Collision
 		/// @return The smallest possible rectangle that can fit the collider in it.
 		virtual Rect2D extentsOfCollider() const = 0;
 
-		virtual void render( Transform2D const & transform ) const;
+		virtual void render( Transform2D const & transform, AssetManager const & assets, RenderEngine const & renderer ) const;
 		bool isTrigger() const { return _isTrigger; }
 		void setIsTrigger( bool value ) { _isTrigger = value; }
 

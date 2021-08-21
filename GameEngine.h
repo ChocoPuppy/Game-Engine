@@ -11,7 +11,7 @@
 #include "ExitHandler.h"
 #include "GameContext.h"
 class InputManager;
-
+class RenderEngine;
 class GameEngine
 {
 private:
@@ -31,7 +31,7 @@ private:
 
 	ExitHandler exitInputHandler;
 
-	SDL::Renderer * _renderer;
+	RenderEngine * _renderer;
 	SDL::Window * _window;
 
 	GameEngine();
@@ -51,7 +51,7 @@ private:
 public:
 	void update( GameContext context, InputManager * input );
 
-	SDL::Renderer * getRenderer();
+	RenderEngine * getRenderer();
 	SDL::Window * getWindow();
 
 	unsigned long getMaxFPS();

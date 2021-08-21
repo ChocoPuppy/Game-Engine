@@ -12,6 +12,7 @@
 #include "Texture.h"
 #include "Color.h"
 #include "InputManager.h"
+#include "RenderEngine.h"
 
 using std::cout;
 using std::cerr;
@@ -56,7 +57,7 @@ void GameEngine::update( GameContext context, InputManager * input )
 	//	cout << frameEndTimeMilliseconds - frameStartTimeMilliseconds << endl;
 }
 
-SDL::Renderer * GameEngine::getRenderer()
+RenderEngine * GameEngine::getRenderer()
 {
 	return _renderer;
 }
@@ -95,7 +96,7 @@ void GameEngine::simulatePhysics( unsigned long millisecondsToSimulate, GameCont
 
 void GameEngine::render( unsigned long millisecondsToSimulate, GameContext context )
 {
-	SDL::Renderer * renderer = getRenderer();
+	RenderEngine * renderer = getRenderer();
 
 	renderer->setDrawColor( Color::Yellow() );
 
@@ -129,7 +130,7 @@ void GameEngine::generateWindow()
 
 void GameEngine::generateRenderer()
 {
-	_renderer = new SDL::Renderer( getWindow() );
+	_renderer = new RenderEngine( getWindow() );
 }
 
 void GameEngine::initializeSDL()
