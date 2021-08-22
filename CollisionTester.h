@@ -24,23 +24,20 @@ namespace Collision
 		Collision test( ColliderA const & colliderA, ColliderB const & colliderB ) = delete;
 	};
 
-	namespace
+	template<class ColA, class ColB>
+	Collision testSpecificOverlap( ColA const & colA, ColB const & colB )
 	{
-		template<class ColA, class ColB>
-		Collision _testSpecificOverlap( ColA const & colA, ColB const & colB, Collision defaultIfNoSpecificOverlap )
+		Collision result = Collision();
+		//Check if a specified overlap test exists of either order. If it does, replace the result with that.
+		if (std::is_default_constructible_v<TestForSpecificOverlap<ColA, ColB>>)
 		{
-			Collision result = defaultIfNoSpecificOverlap;
-			//Check if a specified overlap test exists of either order. If it does, replace the result with that.
-			if (std::is_default_constructible_v<TestForSpecificOverlap<ColA, ColB>>)
-			{
-				result = TestForSpecificOverlap<ColA, ColB>().test( colA, colB );
-			}
-			else if (std::is_default_constructible_v<TestForSpecificOverlap<ColB, ColA>>)
-			{
-				result = TestForSpecificOverlap<ColB, ColA>().test( colB, colA );
-			}
-			return result;
+			result = TestForSpecificOverlap<ColA, ColB>().test( colA, colB );
 		}
+		else if (std::is_default_constructible_v<TestForSpecificOverlap<ColB, ColA>>)
+		{
+			result = TestForSpecificOverlap<ColB, ColA>().test( colB, colA );
+		}
+		return result;
 	}
 
 	Collision testForGenericOverlap( ICollider const & colA, ICollider const & colB );
@@ -61,7 +58,11 @@ namespace Collision
 		Collision result = testForGenericOverlap( colA, colB );
 		if (result.intersectDistance != 0)
 		{
-			result = _testSpecificOverlap<ColA, ColB>( colA, colB, result );
+			Collision specificResult = testSpecificOverlap<ColA, ColB>( colA, colB );
+			if (specificResult.intersectDistance != 0)
+			{
+				result = specificResult;
+			}
 		}
 		return result;
 	}
