@@ -1,11 +1,40 @@
 #include "PhysicsEngine.h"
 #include "ICollider.h"
-void PhysicsEngine::_addCollider( Collision::ICollider * collider )
+#include "CollisionTester.h"
+#include <utility>
+#include <algorithm>
+#include "PhysicsObject.h"
+void PhysicsEngine::_addCollider( ICollider * collider )
 {
-	_colliders.insert( collider );
+	_getColliders().push_back( collider );
 }
 
-void PhysicsEngine::_removeCollider( Collision::ICollider * collider )
+void PhysicsEngine::_removeCollider( ICollider * collider )
 {
-	_colliders.erase( collider );
+	auto position = std::find( _getColliders().begin(), _colliders.end(), collider );
+	_getColliders().erase( position );
+}
+
+std::vector<ICollider *> & PhysicsEngine::_getColliders()
+{
+	return _colliders;
+}
+
+void PhysicsEngine::updatePhysics( unsigned long millisecondsToSimulate, std::vector<PhysicsObject *> physicsObjects )
+{
+	//Basically tests every element against each other, but it's just optimised so it doesn't pull out a pair already checked. We don't need to check x against itself, so we check every element after x against it. We know every element less than x has already been checked against every other element.
+	for (int x = 0; x < _getColliders().size(); x++)
+		for (int y = x + 1; y < _getColliders().size(); y++)
+		{
+			Collision::Collision collision = Collision::testForOverlap( _getColliders()[x], _getColliders()[y] );
+			if (collision.intersectDistance != 0)
+			{
+				_overlapEvent.update( collision, _getColliders()[x], _getColliders()[y] );
+			}
+		}
+
+	for (PhysicsObject * object : physicsObjects)
+	{
+		object->simulatePhysics( millisecondsToSimulate );
+	}
 }
