@@ -16,9 +16,6 @@
     <Filter Include="Header Files\SDLWrapper">
       <UniqueIdentifier>{7b3fb676-2b77-4254-92d1-8fcc01e0a2d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\2D">
-      <UniqueIdentifier>{e2c7b592-85d2-440e-a640-545b9de499aa}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
