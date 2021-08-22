@@ -36,14 +36,14 @@ void GameEngine::setMaxFPS( float )
 	//	maxFPS = desiredFPS;
 }
 
-void GameEngine::update( GameContext context, InputManager * input )
+void GameEngine::update( GameContext context )
 {
 	frameStartTimeMilliseconds = SDL::getTicks();
 	const unsigned long previousFrameDurationMilliseconds = frameEndTimeMilliseconds - frameStartTimeMilliseconds;
 	//	cout << frameEndTimeMilliseconds << endl;
 	//	cout << frameStartTimeMilliseconds << endl;
 	//	cout << previousFrameDurationMilliseconds << endl << endl;
-	simulate( previousFrameDurationMilliseconds, context, input );
+	simulate( previousFrameDurationMilliseconds, context );
 	const unsigned long currentTimeMilliseconds = SDL::getTicks();
 	const unsigned long frameDurationMilliseconds = currentTimeMilliseconds - frameStartTimeMilliseconds;
 	frameEndTimeMilliseconds = SDL::getTicks();
@@ -72,12 +72,12 @@ unsigned long GameEngine::getMaxFPS()
 	return maxFPS;
 }
 
-void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext context, InputManager * input )
+void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext context )
 {
 	simulateAI( millisecondsToSimulate, context );
 	simulatePhysics( millisecondsToSimulate, context );
 	render( millisecondsToSimulate, context );
-	updateInput( millisecondsToSimulate, context, input );
+	updateInput( millisecondsToSimulate, context );
 }
 
 void GameEngine::simulateAI( unsigned long, GameContext )
@@ -108,9 +108,9 @@ void GameEngine::render( unsigned long millisecondsToSimulate, GameContext conte
 	renderer->present();
 }
 
-void GameEngine::updateInput( unsigned long, GameContext, InputManager * input )
+void GameEngine::updateInput( unsigned long, GameContext context )
 {
-	input->_updateInputs();
+	context.getInputManager()->_updateInputs();
 }
 
 void GameEngine::generateWindow()

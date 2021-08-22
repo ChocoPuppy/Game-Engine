@@ -11,7 +11,7 @@ int main()
 
 	Scene * gameScene = new GameScene();
 
-	GameContext context = GameContext( &assets, gameScene );
+	GameContext context = GameContext( &assets, gameScene, &inputManager );
 	while (true)
 	{
 		engine.update( context, &inputManager );
