@@ -13,6 +13,7 @@
 #include "Color.h"
 #include "InputManager.h"
 #include "RenderEngine.h"
+#include "PhysicsEngine.h"
 
 using std::cout;
 using std::cerr;
@@ -88,10 +89,10 @@ void GameEngine::simulateAI( unsigned long, GameContext )
 void GameEngine::simulatePhysics( unsigned long millisecondsToSimulate, GameContext context )
 {
 	auto gameObjects = context.getScene()->getGameObjects();
+	auto physicsObjects = std::vector<PhysicsObject *>();
 	for (auto gameObject : gameObjects)
-	{
-		gameObject->simulatePhysics( millisecondsToSimulate );
-	}
+		physicsObjects.emplace_back( static_cast<PhysicsObject *>( gameObject ) );
+	context.getPhysicsEngine()->updatePhysics( millisecondsToSimulate, physicsObjects );
 }
 
 void GameEngine::render( unsigned long millisecondsToSimulate, GameContext context )
