@@ -2,7 +2,7 @@
 
 PhysicsObject::PhysicsObject() : _transform( std::make_shared<Transform2D>() ), _useGravity( true ) {}
 
-void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * )
+void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate )
 {
 	transform()->position += velocity() * (float)millisecondsToSimulate;
 }

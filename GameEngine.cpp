@@ -90,7 +90,7 @@ void GameEngine::simulatePhysics( unsigned long millisecondsToSimulate, GameCont
 	auto gameObjects = context.getScene()->getGameObjects();
 	for (auto gameObject : gameObjects)
 	{
-		gameObject->simulatePhysics( millisecondsToSimulate, context.getAssets() );
+		gameObject->simulatePhysics( millisecondsToSimulate );
 	}
 }
 

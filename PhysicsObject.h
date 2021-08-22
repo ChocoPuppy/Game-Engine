@@ -8,7 +8,7 @@ class PhysicsObject
 public:
 	PhysicsObject();
 
-	virtual void simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * assets );
+	virtual void simulatePhysics( unsigned long millisecondsToSimulate );
 	void rawMove( Vector2D toPosition );
 
 	std::shared_ptr<Transform2D> transform();
