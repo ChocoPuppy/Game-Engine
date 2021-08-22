@@ -1,18 +1,18 @@
 #include "PhysicsObject.h"
 
-PhysicsObject::PhysicsObject() : _useGravity( true ) {}
+PhysicsObject::PhysicsObject() : _transform( std::make_shared<Transform2D>() ), _useGravity( true ) {}
 
 void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * )
 {
-	transform().position += velocity() * (float)millisecondsToSimulate;
+	transform()->position += velocity() * (float)millisecondsToSimulate;
 }
 
 void PhysicsObject::rawMove( Vector2D toPosition )
 {
-	transform().position = toPosition;
+	transform()->position = toPosition;
 }
 
-Transform2D & PhysicsObject::transform()
+std::shared_ptr<Transform2D> PhysicsObject::transform()
 {
 	return _transform;
 }

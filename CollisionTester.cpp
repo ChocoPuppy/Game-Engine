@@ -4,7 +4,7 @@
 #include "ICollider.h"
 #include "CircleCollider2D.h"
 
-Collision::Collision Collision::testForGenericOverlap( ColliderAtPosition<ICollider> const colA, ColliderAtPosition<ICollider> const colB )
+Collision::Collision Collision::testForGenericOverlap( ICollider const & colA, ICollider const & colB )
 {
 	Collision collision = Collision();
 	Vector2D colABottomRight;
@@ -12,20 +12,20 @@ Collision::Collision Collision::testForGenericOverlap( ColliderAtPosition<IColli
 	Vector2D colBBottomRight;
 	Vector2D colBTopLeft;
 	{
-		Rect2D colAExtents = colA.collider.extentsOfCollider();
-		Rect2D colBExtents = colB.collider.extentsOfCollider();
+		Rect2D colAExtents = colA.extentsOfCollider();
+		Rect2D colBExtents = colB.extentsOfCollider();
 
-		colABottomRight = relativeColliderPositionToWorldPosition( colAExtents.BottomRightCorner(), colA.position );
-		colATopLeft = relativeColliderPositionToWorldPosition( colAExtents.TopLeftCorner(), colA.position );
-		colBBottomRight = relativeColliderPositionToWorldPosition( colBExtents.BottomRightCorner(), colB.position );
-		colBTopLeft = relativeColliderPositionToWorldPosition( colBExtents.TopLeftCorner(), colB.position );
+		colABottomRight = relativeColliderPositionToWorldPosition( colAExtents.BottomRightCorner(), colA.getWorldPosition() );
+		colATopLeft = relativeColliderPositionToWorldPosition( colAExtents.TopLeftCorner(), colA.getWorldPosition() );
+		colBBottomRight = relativeColliderPositionToWorldPosition( colBExtents.BottomRightCorner(), colB.getWorldPosition() );
+		colBTopLeft = relativeColliderPositionToWorldPosition( colBExtents.TopLeftCorner(), colB.getWorldPosition() );
 	}
 
 	bool isColARightPastColBLeft = colABottomRight < colBTopLeft;
 	bool isColALeftBeforeColBRight = colATopLeft > colBBottomRight;
 	if (isColARightPastColBLeft && isColALeftBeforeColBRight)
 	{
-		collision.intersectDistance = ( colA.position - colB.position ).magnitude();
+		collision.intersectDistance = ( colA.getWorldPosition() - colB.getWorldPosition() ).magnitude();
 	}
 
 	return collision;

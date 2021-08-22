@@ -2,6 +2,7 @@
 #include "Transform2D.h"
 #include "AssetManager.h"
 #include "ICollider.h"
+#include <memory>
 class PhysicsObject
 {
 public:
@@ -10,7 +11,7 @@ public:
 	virtual void simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * assets );
 	void rawMove( Vector2D toPosition );
 
-	Transform2D & transform();
+	std::shared_ptr<Transform2D> transform();
 	Vector2D & velocity();
 	bool affectedByGravity();
 
@@ -22,7 +23,7 @@ public:
 		return dynamic_cast<ColliderType *>( _collider );
 	}
 private:
-	Transform2D _transform;
+	std::shared_ptr<Transform2D> _transform;
 	Vector2D _velocity;
 	bool _useGravity;
 

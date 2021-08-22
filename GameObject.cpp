@@ -19,5 +19,5 @@ std::string GameObject::textureID()
 
 void GameObject::render( unsigned long, AssetManager * assets, RenderEngine * renderer )
 {
-	renderer->renderTexture( transform(), *assets->getAsset<Texture>( textureID() ) );
+	renderer->renderTexture( *transform(), *assets->getAsset<Texture>( textureID() ) );
 }
