@@ -180,6 +180,7 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CircleCollider2D.cpp" />
+    <ClCompile Include="CollisionsThisFrame.cpp" />
     <ClCompile Include="CollisionTester.cpp" />
     <ClCompile Include="Dino.cpp" />
     <ClCompile Include="ExitHandler.cpp" />
@@ -193,6 +194,7 @@
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="Rect2D.cpp" />
+    <ClCompile Include="RectCollider2D.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -211,6 +213,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Circle2D.h" />
     <ClInclude Include="CircleCollider2D.h" />
+    <ClInclude Include="CollisionsThisFrame.h" />
     <ClInclude Include="ICollider.h" />
     <ClInclude Include="CollisionTester.h" />
     <ClInclude Include="Color.h" />
