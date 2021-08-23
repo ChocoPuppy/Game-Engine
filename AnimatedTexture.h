@@ -8,7 +8,7 @@ public:
 	~AnimatedTexture();
 
 	void updateFrame( unsigned long millisecondsToSimulate );
-	virtual void render( SDL::Renderer * renderer, SDL_Rect  clip, SDL_Rect  destination, double rotation = 0 ) override;
+	virtual void render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect  destination, double rotation = 0 ) const override;
 private:
 	int _frameCount;
 	unsigned long _frameDurationMilliseconds;

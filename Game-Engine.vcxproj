@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;Dependencies\SmartEvent\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.16\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -87,7 +87,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);Dependencies\SDL2-2.0.14\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x86;Dependencies\SmartEvent\lib\x86;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -95,7 +95,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);Dependencies\SDL2-2.0.16\include;Dependencies\SDL2_image-2.0.5\include;Dependencies\SmartEvent\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);Dependencies\SDL2-2.0.16\lib\x64;Dependencies\SDL2_image-2.0.5\lib\x64;Dependencies\SmartEvent\lib\x64;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -179,17 +179,25 @@
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CircleCollider2D.cpp" />
+    <ClCompile Include="CollisionsThisFrame.cpp" />
+    <ClCompile Include="CollisionTester.cpp" />
     <ClCompile Include="Dino.cpp" />
     <ClCompile Include="ExitHandler.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="ICollider.cpp" />
     <ClCompile Include="InputOld.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="Rect2D.cpp" />
+    <ClCompile Include="RectCollider2D.cpp" />
+    <ClCompile Include="RenderEngine.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLError.cpp" />
@@ -206,7 +214,13 @@
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Circle2D.h" />
+    <ClInclude Include="CircleCollider2D.h" />
+    <ClInclude Include="CollisionsThisFrame.h" />
+    <ClInclude Include="ICollider.h" />
+    <ClInclude Include="CollisionTester.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="CustomMaths.h" />
     <ClInclude Include="Dino.h" />
@@ -219,10 +233,15 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="OverlapEvent.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PhysicsConstants.h" />
+    <ClInclude Include="PhysicsEngine.h" />
+    <ClInclude Include="PhysicsEvent.h" />
     <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="Rect2D.h" />
+    <ClInclude Include="RectCollider2D.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />

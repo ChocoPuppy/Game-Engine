@@ -1,19 +1,22 @@
 #include "PhysicsObject.h"
 
-PhysicsObject::PhysicsObject() : _useGravity( true ), _rotationalVelocity( 0 ) {}
+PhysicsObject::PhysicsObject() :_transform( std::make_shared<Transform2D>() ), _rotationalVelocity( 0 ), _useGravity( true ) {}
 
-void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate, AssetManager * )
+void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate )
 {
-	transform().position += velocity() * (float)millisecondsToSimulate;
-	transform().rotation += _rotationalVelocity;
+	if (!isKinematic())
+	{
+		transform()->position += velocity() * (float)millisecondsToSimulate;
+		transform()->rotation += _rotationalVelocity;
+	}
 }
 
 void PhysicsObject::rawMove( Vector2D toPosition )
 {
-	transform().position = toPosition;
+	transform()->position = toPosition;
 }
 
-Transform2D & PhysicsObject::transform()
+std::shared_ptr<Transform2D> PhysicsObject::transform()
 {
 	return _transform;
 }
@@ -28,12 +31,40 @@ float & PhysicsObject::rotationalVelocity()
 	return _rotationalVelocity;
 }
 
-bool PhysicsObject::affectedByGravity()
+bool PhysicsObject::affectedByGravity() const
 {
 	return _useGravity;
 }
-
-void PhysicsObject::SetIsAffectedByGravity( bool value )
+bool PhysicsObject::isKinematic() const
+{
+	return _isKinematic;
+}
+float PhysicsObject::getMass() const
+{
+	return _mass;
+}
+void PhysicsObject::setIsAffectedByGravity( bool value )
 {
 	_useGravity = value;
+}
+
+void PhysicsObject::setIsKinematic( bool value )
+{
+	_isKinematic = value;
+}
+
+void PhysicsObject::setMass( float value )
+{
+	_mass = value;
+}
+
+void PhysicsObject::impulse( Vector2D velocity )
+{
+	_velocity += velocity;
+}
+
+void PhysicsObject::push( Vector2D force )
+{
+	if (!isKinematic())
+		transform()->position += force;
 }

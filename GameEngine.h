@@ -10,8 +10,7 @@
 #include "ButtonEvent.h"
 #include "ExitHandler.h"
 #include "GameContext.h"
-class InputManager;
-
+class RenderEngine;
 class GameEngine
 {
 private:
@@ -31,7 +30,7 @@ private:
 
 	ExitHandler exitInputHandler;
 
-	SDL::Renderer * _renderer;
+	RenderEngine * _renderer;
 	SDL::Window * _window;
 
 	GameEngine();
@@ -39,19 +38,19 @@ private:
 
 	void setMaxFPS( float desiredFPS );
 
-	void simulate( unsigned long millisecondsToSimulate, GameContext context, InputManager * input );
+	void simulate( unsigned long millisecondsToSimulate, GameContext context );
 	void simulateAI( unsigned long millisecondsToSimulate, GameContext context );
 	void simulatePhysics( unsigned long millisecondsToSimulate, GameContext context );
 	void render( unsigned long millisecondsToSimulate, GameContext context );
-	void updateInput( unsigned long millisecondsToSimulate, GameContext context, InputManager * input );
+	void updateInput( unsigned long millisecondsToSimulate, GameContext context );
 
 	void initializeSDL();
 	void generateWindow();
 	void generateRenderer();
 public:
-	void update( GameContext context, InputManager * input );
+	void update( GameContext context );
 
-	SDL::Renderer * getRenderer();
+	RenderEngine * getRenderer();
 	SDL::Window * getWindow();
 
 	unsigned long getMaxFPS();

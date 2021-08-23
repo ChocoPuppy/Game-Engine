@@ -1,11 +1,11 @@
 #include "Player.h"
 #include <iostream>
-Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Running" ), _speed( 1 ), _xInput( 0.9 ), _yInput( 0.9 )
+Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Running" ), _xInput( 0.9 ), _yInput( 0.9 ), _speed( 1 )
 {
-	transform().position.x() = 200;
-	transform().position.y() = 200;
-	transform().scale.x() = 100;
-	transform().scale.y() = 100;
+	transform()->position.x() = 200;
+	transform()->position.y() = 200;
+	transform()->scale.x() = 100;
+	transform()->scale.y() = 100;
 
 	_xInput.setGravity( 0.4 );
 	_xInput.setDead( 0.01 );

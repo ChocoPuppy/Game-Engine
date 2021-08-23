@@ -60,6 +60,18 @@ Vector2D & Vector2D::operator*=( float rhs )
 	return *this;
 }
 
+Vector2D & Vector2D::operator/=( float rhs )
+{
+	x() /= rhs;
+	y() /= rhs;
+	return *this;
+}
+
+Vector2D Vector2D::operator/( float rhs )
+{
+	return Vector2D( *this ) /= rhs;
+}
+
 Vector2D operator+( Vector2D lhs, Vector2D const & rhs )
 {
 	return lhs += rhs;
@@ -68,6 +80,13 @@ Vector2D operator+( Vector2D lhs, Vector2D const & rhs )
 Vector2D operator-( Vector2D lhs, Vector2D const & rhs )
 {
 	return lhs -= rhs;
+}
+
+Vector2D operator-( Vector2D lhs )
+{
+	lhs.x() *= -1;
+	lhs.y() *= -1;
+	return lhs;
 }
 
 Vector2D operator*( Vector2D lhs, float rhs )

@@ -80,6 +80,8 @@ void InputManager::_pushButton( Button button )
 	case _ButtonState::PRESSED:
 		buttonState = _ButtonState::DOWN;
 		break;
+	case _ButtonState::DOWN:
+		break;
 	}
 	//	}
 }
@@ -100,6 +102,8 @@ void InputManager::_liftButton( Button button )
 		break;
 	case _ButtonState::RELEASED:
 		buttonState = _ButtonState::UP;
+		break;
+	case _ButtonState::UP:
 		break;
 	}
 	//	}
