@@ -7,9 +7,10 @@
 class AssetManager;
 
 class RenderEngine;
-class PhysicsEngine;
+
 namespace Collision
 {
+	class PhysicsEngine;
 	class ICollider
 	{
 		PhysicsEngine & _engine;
@@ -29,6 +30,15 @@ namespace Collision
 		std::shared_ptr<Transform2D const> attatchedToTransform() const;
 		Vector2D getOffsetFromTransform() const;
 		Vector2D getWorldPosition() const;
+
+		/// @brief Translates the position relative to this collider into the world position.
+		/// @param relativePosition
+		/// @return
+		Vector2D realtivePositionToWorldPosition( Vector2D relativePosition ) const;
+		/// @brief Translates the world position into a position relative to this collider.
+		/// @param worldPosition
+		/// @return
+		Vector2D worldPositionToRelativePosition( Vector2D worldPosition ) const;
 
 		void attatchToTransform( std::shared_ptr<Transform2D const> transform );
 		void setOffsetFromTransform( Vector2D offset );

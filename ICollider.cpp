@@ -41,6 +41,16 @@ Vector2D ICollider::getOffsetFromTransform() const
 	return _offset;
 }
 
+Vector2D Collision::ICollider::realtivePositionToWorldPosition( Vector2D relativePosition ) const
+{
+	return getWorldPosition() + relativePosition;
+}
+
+Vector2D Collision::ICollider::worldPositionToRelativePosition( Vector2D worldPosition ) const
+{
+	return worldPosition - getWorldPosition();
+}
+
 void ICollider::attatchToTransform( std::shared_ptr<Transform2D const> transform )
 {
 	_attatchedToTransform = transform;
