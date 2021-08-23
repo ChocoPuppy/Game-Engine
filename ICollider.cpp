@@ -7,44 +7,46 @@
 #include "RenderEngine.h"
 #include "PhysicsEngine.h"
 
-Collision::ICollider::ICollider( PhysicsEngine & engine, std::shared_ptr<Transform2D const> attatchedTo ) : _engine( engine ), _attatchedToTransform( attatchedTo )
+using namespace Collision;
+
+ICollider::ICollider( PhysicsEngine & engine, std::shared_ptr<Transform2D const> attatchedTo ) : _engine( engine ), _attatchedToTransform( attatchedTo )
 {
 	_engine._addCollider( this );
 }
 
-Collision::ICollider::~ICollider()
+ICollider::~ICollider()
 {
 	_engine._removeCollider( this );
 }
 
-void Collision::ICollider::render( AssetManager const & assets, RenderEngine const & renderer ) const
+void ICollider::render( AssetManager const & assets, RenderEngine const & renderer ) const
 {
 	Transform2D transformData = *attatchedToTransform();
 	transformData.position += getOffsetFromTransform();
 	renderer.renderTexture( transformData, *assets.getAsset<Texture>( getTextureID() ) );
 }
 
-Vector2D Collision::ICollider::getWorldPosition() const
+Vector2D ICollider::getWorldPosition() const
 {
 	return _attatchedToTransform->position + getOffsetFromTransform();
 }
 
-std::shared_ptr<Transform2D const> Collision::ICollider::attatchedToTransform() const
+std::shared_ptr<Transform2D const> ICollider::attatchedToTransform() const
 {
 	return _attatchedToTransform;
 }
 
-Vector2D Collision::ICollider::getOffsetFromTransform() const
+Vector2D ICollider::getOffsetFromTransform() const
 {
 	return _offset;
 }
 
-void Collision::ICollider::attatchToTransform( std::shared_ptr<Transform2D const> transform )
+void ICollider::attatchToTransform( std::shared_ptr<Transform2D const> transform )
 {
 	_attatchedToTransform = transform;
 }
 
-void Collision::ICollider::setOffsetFromTransform( Vector2D offset )
+void ICollider::setOffsetFromTransform( Vector2D offset )
 {
 	_offset = offset;
 }
