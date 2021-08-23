@@ -61,8 +61,6 @@ namespace Collision
 
 	CollisionData testForGenericOverlap( ICollider const & colA, ICollider const & colB );
 
-	Vector2D relativeColliderPositionToWorldPosition( Vector2D relativePosition, Vector2D worldPosition );
-
 	//	Collision rectOverlap( ColliderAtPosition const & colA, ColliderAtPosition const & colB );
 
 	/// @brief Tests if two colliders are overlapping. If the bounding boxes of the colliders aren't overlapping, the specific overlap tests aren't run.
