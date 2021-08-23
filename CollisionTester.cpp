@@ -2,9 +2,10 @@
 #include "Vector2D.h"
 #include "Rect2D.h"
 #include "ICollider.h"
-#include "CircleCollider2D.h"
 
-Collision::CollisionData Collision::testForGenericOverlap( ICollider const & colA, ICollider const & colB )
+using namespace Collision;
+
+CollisionData Collision::testForGenericOverlap( ICollider const & colA, ICollider const & colB )
 {
 	CollisionData collision = CollisionData();
 	Vector2D colABottomRight;
@@ -15,10 +16,10 @@ Collision::CollisionData Collision::testForGenericOverlap( ICollider const & col
 		Rect2D colAExtents = colA.extentsOfCollider();
 		Rect2D colBExtents = colB.extentsOfCollider();
 
-		colABottomRight = relativeColliderPositionToWorldPosition( colAExtents.BottomRightCorner(), colA.getWorldPosition() );
-		colATopLeft = relativeColliderPositionToWorldPosition( colAExtents.TopLeftCorner(), colA.getWorldPosition() );
-		colBBottomRight = relativeColliderPositionToWorldPosition( colBExtents.BottomRightCorner(), colB.getWorldPosition() );
-		colBTopLeft = relativeColliderPositionToWorldPosition( colBExtents.TopLeftCorner(), colB.getWorldPosition() );
+		colABottomRight = colA.relativePositionToWorldPosition( colAExtents.BottomRightCorner() );
+		colATopLeft = colA.relativePositionToWorldPosition( colAExtents.TopLeftCorner() );
+		colBBottomRight = colB.relativePositionToWorldPosition( colBExtents.BottomRightCorner() );
+		colBTopLeft = colB.relativePositionToWorldPosition( colBExtents.TopLeftCorner() );
 	}
 
 	bool isColARightPastColBLeft = colABottomRight < colBTopLeft;
@@ -29,9 +30,4 @@ Collision::CollisionData Collision::testForGenericOverlap( ICollider const & col
 	}
 
 	return collision;
-}
-
-Vector2D Collision::relativeColliderPositionToWorldPosition( Vector2D relativePosition, Vector2D worldPosition )
-{
-	return relativePosition + worldPosition;
 }
