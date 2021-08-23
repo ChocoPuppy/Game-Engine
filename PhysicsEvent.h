@@ -3,6 +3,6 @@
 
 namespace Collision
 {
-	class CollisionsThisFrame;
-	class PhysicsEvent : Event::SmartEvent::SmartEvent <CollisionsThisFrame &> {};
+	struct CollisionsThisFrame;
+	class PhysicsEvent : public Event::SmartEvent::SmartEvent <CollisionsThisFrame *> {};
 }

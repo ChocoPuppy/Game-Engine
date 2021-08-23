@@ -1,8 +1,8 @@
 #pragma once
 #include <SmartEvent/SmartEvent.h>
 
-namespace
+namespace Collision
 {
-	class CollisionsThisFrame;
-	class OverlapEvent : public Event::SmartEvent::SmartEvent<CollisionsThisFrame &> {};
+	struct CollisionsThisFrame;
+	class OverlapEvent : public Event::SmartEvent::SmartEvent<CollisionsThisFrame *> {};
 }
