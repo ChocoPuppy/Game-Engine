@@ -41,7 +41,7 @@ Vector2D ICollider::getOffsetFromTransform() const
 	return _offset;
 }
 
-Vector2D Collision::ICollider::realtivePositionToWorldPosition( Vector2D relativePosition ) const
+Vector2D Collision::ICollider::relativePositionToWorldPosition( Vector2D relativePosition ) const
 {
 	return getWorldPosition() + relativePosition;
 }

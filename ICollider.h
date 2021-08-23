@@ -34,7 +34,7 @@ namespace Collision
 		/// @brief Translates the position relative to this collider into the world position.
 		/// @param relativePosition
 		/// @return
-		Vector2D realtivePositionToWorldPosition( Vector2D relativePosition ) const;
+		Vector2D relativePositionToWorldPosition( Vector2D relativePosition ) const;
 		/// @brief Translates the world position into a position relative to this collider.
 		/// @param worldPosition
 		/// @return
