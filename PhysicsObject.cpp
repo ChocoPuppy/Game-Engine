@@ -22,7 +22,7 @@ Vector2D & PhysicsObject::velocity()
 	return _velocity;
 }
 
-bool PhysicsObject::affectedByGravity()
+bool PhysicsObject::affectedByGravity() const
 {
 	return _useGravity;
 }
@@ -30,4 +30,9 @@ bool PhysicsObject::affectedByGravity()
 void PhysicsObject::SetIsAffectedByGravity( bool value )
 {
 	_useGravity = value;
+}
+
+void PhysicsObject::impulse( Vector2D velocity )
+{
+	_velocity += velocity;
 }

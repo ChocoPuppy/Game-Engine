@@ -13,9 +13,11 @@ public:
 
 	std::shared_ptr<Transform2D> transform();
 	Vector2D & velocity();
-	bool affectedByGravity();
+
+	bool affectedByGravity() const;
 
 	void SetIsAffectedByGravity( bool value );
+	void impulse( Vector2D velocity );
 
 	template<class ColliderType = Collision::ICollider>
 	ColliderType * getCollider()
