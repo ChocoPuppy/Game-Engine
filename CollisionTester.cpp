@@ -4,9 +4,9 @@
 #include "ICollider.h"
 #include "CircleCollider2D.h"
 
-Collision::Collision Collision::testForGenericOverlap( ICollider const & colA, ICollider const & colB )
+Collision::CollisionData Collision::testForGenericOverlap( ICollider const & colA, ICollider const & colB )
 {
-	Collision collision = Collision();
+	CollisionData collision = CollisionData();
 	Vector2D colABottomRight;
 	Vector2D colATopLeft;
 	Vector2D colBBottomRight;

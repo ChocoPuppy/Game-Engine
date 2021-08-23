@@ -5,11 +5,12 @@
 #include <type_traits>
 namespace Collision
 {
-	struct Collision
+	struct CollisionData
 	{
 		float intersectDistance;
 	};
-	/// @brief A std::hash-like class for specialized overlap checking functions. This default implementation prevents test from being called since it's not a specialization.
+
+	/// @brief A std::hash-like class for specialized overlap checking functions. This default implementation can't be called.
 	/// @tparam ColliderA
 	/// @tparam ColliderB
 	template<class ColliderA, class ColliderB>
@@ -21,26 +22,37 @@ namespace Collision
 		void operator=( TestForSpecificOverlap const & ) = delete;
 		void operator=( TestForSpecificOverlap && ) = delete;
 
-		Collision test( ColliderA const & colliderA, ColliderB const & colliderB ) = delete;
+		CollisionData test( ColliderA const & colliderA, ColliderB const & colliderB ) = delete;
 	};
 
-	template<class ColA, class ColB>
-	Collision testSpecificOverlap( ColA const & colA, ColB const & colB )
+	namespace
 	{
-		Collision result = Collision();
-		//Check if a specified overlap test exists of either order. If it does, replace the result with that.
-		if (std::is_default_constructible_v<TestForSpecificOverlap<ColA, ColB>>)
-		{
-			result = TestForSpecificOverlap<ColA, ColB>().test( colA, colB );
-		}
-		else if (std::is_default_constructible_v<TestForSpecificOverlap<ColB, ColA>>)
-		{
-			result = TestForSpecificOverlap<ColB, ColA>().test( colB, colA );
-		}
-		return result;
+		template<class ColA, class ColB>
+		using DoesSpecificOverlapTestForPairExist = std::is_default_constructible<TestForSpecificOverlap<ColA, ColB>>;
+	}
+	//If there's no overload for TestForSpecificOverlap then just return blank data.
+	template<class ColA, class ColB>
+	typename std::enable_if_t<( !DoesSpecificOverlapTestForPairExist<ColA, ColB>::value && !DoesSpecificOverlapTestForPairExist<ColB, ColA>::value ), CollisionData>
+		testSpecificOverlap( ColA const & colA, ColB const & colB )
+	{
+		return CollisionData{};
+	}
+	//Otherwise run the overlap test and return that.
+	template<class ColA, class ColB>
+	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColA, ColB>::value, CollisionData>
+		testSpecificOverlap( ColA const & colA, ColB const & colB )
+	{
+		return TestForSpecificOverlap<ColA, ColB>.test( colA, colB );
 	}
 
-	Collision testForGenericOverlap( ICollider const & colA, ICollider const & colB );
+	template<class ColA, class ColB>
+	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColB, ColA>::value, CollisionData>
+		testSpecificOverlap( ColA const & colA, ColB const & colB )
+	{
+		return TestForSpecificOverlap<ColB, ColA>.test( colB, colA );
+	}
+
+	CollisionData testForGenericOverlap( ICollider const & colA, ICollider const & colB );
 
 	Vector2D relativeColliderPositionToWorldPosition( Vector2D relativePosition, Vector2D worldPosition );
 
@@ -53,12 +65,12 @@ namespace Collision
 	/// @param colB
 	/// @return Data about the overlap (or lack thereof).
 	template<class ColA, class ColB>
-	Collision testForOverlap( ColA const & colA, ColB const & colB )
+	CollisionData testForOverlap( ColA const & colA, ColB const & colB )
 	{
-		Collision result = testForGenericOverlap( colA, colB );
+		CollisionData result = testForGenericOverlap( colA, colB );
 		if (result.intersectDistance != 0)
 		{
-			Collision specificResult = testSpecificOverlap<ColA, ColB>( colA, colB );
+			CollisionData specificResult = testSpecificOverlap<ColA, ColB>( colA, colB );
 			if (specificResult.intersectDistance != 0)
 			{
 				result = specificResult;

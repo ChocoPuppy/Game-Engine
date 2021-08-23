@@ -1,10 +1,6 @@
 #pragma once
+#include "CollisionTester.h"
 #include <SmartEvent/SmartEvent.h>
 
-namespace Collision
-{
-	class ICollider;
-}
-
-class OverlapEvent : public Event::SmartEvent::SmartEvent<Collision::Collision, Collision::ICollider &, Collision::ICollider &>
+class OverlapEvent : public Event::SmartEvent::SmartEvent<Collision::CollisionData, Collision::ICollider &, Collision::ICollider &>
 {};
