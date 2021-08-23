@@ -231,6 +231,7 @@
     <ClInclude Include="OverlapEvent.h" />
     <ClInclude Include="PhysicsConstants.h" />
     <ClInclude Include="PhysicsEngine.h" />
+    <ClInclude Include="PhysicsEvent.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="Rect2D.h" />
     <ClInclude Include="RectCollider2D.h" />
