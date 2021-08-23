@@ -17,7 +17,7 @@ namespace Collision
 	class TestForSpecificOverlap<RectCollider2D, RectCollider2D>
 	{
 		//Since the generic test is the same as this, don't actually bother testing. This is just explicitly stated so people don't get confused.
-		bool test( RectCollider2D const & colliderA, RectCollider2D const & colliderB, CollisionData & data )
+		bool test( RectCollider2D const &, RectCollider2D const &, CollisionData & )
 		{
 			return true;
 		}
