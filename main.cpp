@@ -9,7 +9,7 @@ int main()
 	AssetManager assets = AssetManager( static_cast<SDL::Renderer *>( engine.getRenderer() ) );
 	InputManager inputManager = InputManager();
 	Scene * gameScene = new GameScene();
-	PhysicsEngine physicsEngine = PhysicsEngine();
+	Collision::PhysicsEngine physicsEngine = Collision::PhysicsEngine();
 
 	GameContext context = GameContext( &assets, gameScene, &inputManager, &physicsEngine );
 	while (true)
