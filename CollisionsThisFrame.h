@@ -1,25 +1,28 @@
 #pragma once
 #include <map>
 #include <set>
+#include <type_traits>
+
 namespace Collision
 {
 	struct CollisionData;
 	class ICollider;
 	class PhysicsEngine;
 
-	struct CollisionsThisFrame : std::map<std::pair<ICollider *, ICollider *>, CollisionData *>
+	struct CollisionsThisFrame : std::map<std::pair<ICollider *, ICollider *>, CollisionData >
 	{
 		friend PhysicsEngine;
 
-		using BaseMap = std::map<std::pair<ICollider *, ICollider *>, CollisionData *>;
+		using ColliderPair = std::pair<ICollider *, ICollider *>;
+		using BaseMap = std::map<ColliderPair, CollisionData >;
 
-		std::set<std::pair<ICollider *, ICollider *>> getCollisionsInvolvingCollider( ICollider * collider );
+		std::set<ColliderPair *> getCollisionsInvolvingCollider( ICollider const * collider ) const;
 
-		CollisionData & dataOfCollision( std::pair<ICollider *, ICollider *> * key );
+		CollisionData dataOfCollision( ColliderPair key ) const;
 
 	private:
 
-		std::multimap<ICollider *, std::pair<ICollider *, ICollider *>> _associatedCollisionsCache;
+		mutable std::multimap<ICollider const *, ColliderPair> _associatedCollisionsCache;
 
 		CollisionsThisFrame( BaseMap && collisions );
 		void _recalculateCache();

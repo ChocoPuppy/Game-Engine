@@ -1,16 +1,21 @@
 #include "CollisionsThisFrame.h"
-
+#include "CollisionTester.h"
 using namespace Collision;
 
-std::set<std::pair<ICollider *, ICollider *>> CollisionsThisFrame::getCollisionsInvolvingCollider( ICollider * collider )
+std::set<CollisionsThisFrame::ColliderPair *> CollisionsThisFrame::getCollisionsInvolvingCollider( ICollider const * collider ) const
 {
 	auto equalRange = _associatedCollisionsCache.equal_range( collider );
-	return std::set<std::pair<ICollider *, ICollider *>>( equalRange.first, equalRange.second );
+	std::set<ColliderPair *> relatedCollisions{};
+	for (auto & collision = equalRange.first; collision != equalRange.second; collision++)
+	{
+		relatedCollisions.emplace( &collision->second );
+	}
+	return relatedCollisions;
 }
 
-CollisionData & CollisionsThisFrame::dataOfCollision( std::pair<ICollider *, ICollider *> * key )
+CollisionData CollisionsThisFrame::dataOfCollision( ColliderPair key ) const
 {
-	return *at( *key );
+	return at( key );
 }
 
 void Collision::CollisionsThisFrame::_recalculateCache()
