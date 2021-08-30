@@ -17,6 +17,7 @@ namespace Collision
 		using BaseMap = std::map<ColliderPair, CollisionData >;
 
 		std::set<ColliderPair *> getCollisionsInvolvingCollider( ICollider const * collider ) const;
+		std::set<ColliderPair> getCollisions();
 
 		CollisionData dataOfCollision( ColliderPair key ) const;
 
