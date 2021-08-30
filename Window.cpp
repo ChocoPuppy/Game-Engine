@@ -95,7 +95,7 @@ SDL_bool SDL::Window::convertBool( bool input )
 
 void SDL::Window::setPosition( Coordinates coords )
 {
-	SDL_SetWindowPosition( _getWindow(), coords.x(), coords.y() );
+	SDL_SetWindowPosition( _getWindow(), coords.x, coords.y );
 }
 
 void SDL::Window::setSize( Size size )
@@ -158,7 +158,7 @@ void SDL::Window::restore()
 Coordinates SDL::Window::getPosition() const
 {
 	Coordinates coords;
-	SDL_GetWindowPosition( _getWindow(), &coords.x(), &coords.y() );
+	SDL_GetWindowPosition( _getWindow(), &coords.x, &coords.y );
 	return coords;
 }
 
