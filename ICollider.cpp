@@ -9,15 +9,11 @@
 
 using namespace Collision;
 
-ICollider::ICollider( PhysicsEngine & engine, std::shared_ptr<Transform2D const> attatchedTo ) : _engine( engine ), _attatchedToTransform( attatchedTo )
-{
-	_engine._addCollider( this );
-}
+ICollider::ICollider( std::shared_ptr<Transform2D const> attatchedTo ) : _census( this ), _attatchedToTransform( attatchedTo )
+{}
 
 ICollider::~ICollider()
-{
-	_engine._removeCollider( this );
-}
+{}
 
 void ICollider::render( AssetManager const & assets, RenderEngine const & renderer ) const
 {
@@ -48,7 +44,7 @@ Vector2D Collision::ICollider::relativePositionToWorldPosition( Vector2D relativ
 
 Vector2D Collision::ICollider::worldPositionToRelativePosition( Vector2D worldPosition ) const
 {
-	return worldPosition - getWorldPosition();
+	return  worldPosition - getWorldPosition();
 }
 
 void ICollider::attatchToTransform( std::shared_ptr<Transform2D const> transform )
@@ -59,4 +55,13 @@ void ICollider::attatchToTransform( std::shared_ptr<Transform2D const> transform
 void ICollider::setOffsetFromTransform( Vector2D offset )
 {
 	_offset = offset;
+}
+
+Collision::ICollider::ColliderCensus::ColliderCensus( ICollider * collider ) : _collider( collider )
+{}
+
+void Collision::ICollider::ColliderCensus::update( std::vector<ICollider *> * census )
+{
+	//	std::cout << "Collider registered." << std::endl;
+	census->emplace_back( _collider );
 }

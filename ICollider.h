@@ -4,20 +4,32 @@
 #include <string>
 #include "Transform2D.h"
 #include <memory>
+#include <SmartEvent/ASmartObserver.h>
+#include "GetCollidersEvent.h"
 class AssetManager;
 
 class RenderEngine;
 
 namespace Collision
 {
+	template<class, class>
+	struct TestForSpecificOverlap;
+	struct CollisionData;
 	class PhysicsEngine;
 	class ICollider
 	{
-		PhysicsEngine & _engine;
+		struct ColliderCensus : Event::SmartEvent::ASmartObserver<GetCollidersEvent>
+		{
+			ICollider * _collider;
+			ColliderCensus( ICollider * collider );
+			virtual void update( std::vector<ICollider *> * census ) override;
+		};
+
+		ColliderCensus _census;
 		std::shared_ptr<Transform2D const> _attatchedToTransform;
 		Vector2D _offset;
 	public:
-		ICollider( PhysicsEngine & engine, std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
+		ICollider( std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
 		virtual ~ICollider();
 
 		virtual std::string getTextureID() const = 0;
