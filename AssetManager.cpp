@@ -5,6 +5,10 @@ AssetManager::AssetManager( SDL::Renderer * renderer )
 	_loadAsset<Texture>( "Texture.Dino", "Assets/dino.png", renderer );
 	//	_assets["Texture.Dino"] = new Texture( "Assets/dino.png", renderer );
 
+	_loadAsset<Texture>( "Texture.Debug.Rectangle", "Assets/rectangle.png", renderer );
+
+	_loadAsset<Texture>( "Texture.Debug.Circle", "Assets/circle.png", renderer );
+
 	constexpr int frameCount = 10;
 	constexpr unsigned long frameDurationMilliseconds = 100;
 	_loadAsset<AnimatedTexture>( "Texture.Dino.Walking", "Assets/dino.walking.png", renderer, frameCount, frameDurationMilliseconds );

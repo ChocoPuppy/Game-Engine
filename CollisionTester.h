@@ -13,7 +13,7 @@ namespace Collision
 	/// @tparam ColliderA
 	/// @tparam ColliderB
 	template<class ColliderA, class ColliderB>
-	class TestForSpecificOverlap
+	struct TestForSpecificOverlap
 	{
 		TestForSpecificOverlap() = delete;
 		TestForSpecificOverlap( TestForSpecificOverlap const & ) = delete;
@@ -21,7 +21,7 @@ namespace Collision
 		void operator=( TestForSpecificOverlap const & ) = delete;
 		void operator=( TestForSpecificOverlap && ) = delete;
 
-		bool test( ColliderA const & colliderA, ColliderB const & colliderB, CollisionData & data ) = delete;
+		void operator()( ColliderA const & colliderA, ColliderB const & colliderB, CollisionData & data ) = delete;
 	};
 
 	namespace
@@ -47,15 +47,15 @@ namespace Collision
 	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColA, ColB>::value, bool>
 		testSpecificOverlap( ColA const & colA, ColB const & colB, CollisionData & data )
 	{
-		data = TestForSpecificOverlap<ColA, ColB>.test( colA, colB );
+		TestForSpecificOverlap<ColA, ColB>()( colA, colB, data );
 		return true;
 	}
 
 	template<class ColA, class ColB>
-	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColB, ColA>::value, bool>
+	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColB, ColA>::value && !DoesSpecificOverlapTestForPairExist<ColA, ColB>::value, bool>
 		testSpecificOverlap( ColA const & colA, ColB const & colB, CollisionData & data )
 	{
-		data = TestForSpecificOverlap<ColB, ColA>.test( colB, colA );
+		TestForSpecificOverlap<ColB, ColA>()( colB, colA, data );
 		return true;
 	}
 
@@ -75,7 +75,7 @@ namespace Collision
 		CollisionData result = testForGenericOverlap( colA, colB );
 		if (result.intersectDistance != 0)
 		{
-			//If a specific overlap test exists, results will be overwritten with that value, otherwise nothing happens.
+			//If a specific overlap test exists, results will be overwritten with values from the more accurate specific test, otherwise nothing happens.
 			testSpecificOverlap<ColA, ColB>( colA, colB, result );
 		}
 		return result;
