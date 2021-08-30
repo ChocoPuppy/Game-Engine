@@ -15,11 +15,11 @@ class VirtualInputJoystick :
 
 		virtual void update( InputManager * input ) override
 		{
-			if (input->isButtonDown( positiveButton ) || input->isButtonPressed( positiveButton ))
+			if (input->isButtonDownOrPressed( positiveButton ))
 			{
 				_parent._inputPush( true );
 			}
-			if (input->isButtonDown( negativeButton ) || input->isButtonPressed( negativeButton ))
+			if (input->isButtonDownOrPressed( negativeButton ))
 			{
 				_parent._inputPush( false );
 			}
