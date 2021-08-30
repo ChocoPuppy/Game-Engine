@@ -2,7 +2,7 @@
 #include "InputManager.h"
 void ExitHandler::update( InputManager * input )
 {
-	if (input->isButtonReleased( Button::QUIT ))
+	if (input->isButtonPressed( Button::QUIT ))
 	{
 		exit( 0 );
 	}
