@@ -51,8 +51,6 @@ private:
 	void _pushButton( Button button );
 	void _liftButton( Button button );
 
-	void _liftUnpressedButtons( std::unordered_set<Button> pressedButtons );
-
 	void _updateInputs();
 
 	_ButtonState _checkButton( Button button ) const;

@@ -23,7 +23,7 @@ void InputManager::_updateInputs()
 			button = getButtonBoundToKey( checkEvent.key.keysym.scancode );
 			if (button != Button::NONE)
 			{
-				std::cout << ButtonHelper::buttonToString( button ) << " is being pushed this frame." << std::endl;
+				//				std::cout << ButtonHelper::buttonToString( button ) << " is being pushed this frame." << std::endl;
 				_pushButton( button );
 			}
 			break;
