@@ -9,10 +9,10 @@ void RenderEngine::renderTexture( Transform2D const & transform, Texture const &
 {
 	SDL_Rect destination{};
 
-	destination.x = (int)transform.position.x();
-	destination.y = (int)transform.position.y();
-	destination.w = (int)transform.scale.x();
-	destination.h = (int)transform.scale.y();
+	destination.x = (int)transform.position.x;
+	destination.y = (int)transform.position.y;
+	destination.w = (int)transform.scale.x;
+	destination.h = (int)transform.scale.y;
 
 	SDL_Rect clip{};
 	{

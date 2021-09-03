@@ -4,29 +4,33 @@
 /// @brief All vector2D's from and going into this object is assumed to be relative to the center of the rectangle being at 0,0.
 struct Rect2D
 {
-	constexpr Rect2D( Vector2D size = { 1,1 } )
+	constexpr Rect2D( Vector2D size = { 1,1 } ) noexcept
 	{
 		setSize( size );
 	}
 
-	constexpr float rightEdge() const { return _sizeFromMiddle.x; }
+	constexpr float rightEdge() const noexcept { return _sizeFromMiddle.x; }
 
-	constexpr float leftEdge() const { return -_sizeFromMiddle.x; }
+	constexpr float leftEdge() const noexcept { return -_sizeFromMiddle.x; }
 
-	constexpr float topEdge() const { return _sizeFromMiddle.y; }
+	constexpr float topEdge() const noexcept { return _sizeFromMiddle.y; }
 
-	constexpr float bottomEdge() const { return -_sizeFromMiddle.y; }
+	constexpr float bottomEdge() const noexcept { return -_sizeFromMiddle.y; }
 
+	constexpr Vector2D topLeftCorner() noexcept { return { leftEdge(),topEdge() }; }
+	constexpr Vector2D topRightCorner() noexcept { return { rightEdge(),topEdge() }; }
+	constexpr Vector2D bottomRightCorner() noexcept { return { rightEdge(),bottomEdge() }; }
+	constexpr Vector2D bottomLeftCorner() noexcept { return { leftEdge(), bottomEdge() }; }
 	/// @brief Gives the total width and height of the rectangle.
 	/// @return The distance between TopLeftCornerPos and BottomRightCornerPos.
-	constexpr Vector2D getSize() const
+	constexpr Vector2D getSize() const noexcept
 	{
 		return _sizeFromMiddle * 2;
 	}
 
 	/// @brief Sets the width and height of the rectangle.
 	/// @param value Changes the distance between TopleftCornerPos and BottomRightCornerPos.
-	constexpr void setSize( Vector2D value )
+	constexpr void setSize( Vector2D value ) noexcept
 	{
 		_sizeFromMiddle = value;
 		_sizeFromMiddle.x /= 2;
@@ -69,12 +73,12 @@ struct Rect2D
 		return distanceBetweenRectangleEdges;
 	}
 
-	constexpr bool operator==( Rect2D rhs )
+	constexpr bool operator==( Rect2D rhs ) noexcept
 	{
-		return _sizeFromMiddle == rhs._sizeFromMiddle;
+		return Rect2D::_sizeFromMiddle == rhs._sizeFromMiddle;
 	}
 
-	constexpr bool operator<( Rect2D rhs )
+	constexpr bool operator<( Rect2D rhs ) noexcept
 	{
 		return _sizeFromMiddle < rhs._sizeFromMiddle;
 	}

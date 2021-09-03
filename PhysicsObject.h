@@ -7,6 +7,7 @@ class PhysicsObject
 {
 public:
 	PhysicsObject();
+	virtual ~PhysicsObject();
 
 	virtual void simulatePhysics( unsigned long millisecondsToSimulate );
 	void rawMove( Vector2D toPosition );
@@ -15,29 +16,42 @@ public:
 	Vector2D & velocity();
 
 	bool affectedByGravity() const;
-	bool isKinematic() const;
+	bool isStatic() const;
+	bool isActive() const;
 	float getMass() const;
 
 	void setIsAffectedByGravity( bool value );
-	void setIsKinematic( bool value );
+	void setIsStatic( bool value );
+	void setIsActive( bool value );
 	void setMass( float value );
+	void setCollider( Collision::ICollider * collider );
+	//For moving owned colliders between objects atomically. Helps emphasise that the Collider stored in here is owned by this object and that colliders should usually be only owned by a singular object (as opposed to transforms).
+	void setCollider( std::unique_ptr<Collision::ICollider> && collider );
 
 	void impulse( Vector2D velocity );
 	void push( Vector2D force );
+	void setRotationalVelocity( float velocity ) { _rotationalVelocity = velocity; }
 	float & rotationalVelocity();
+
+	template<class ColliderType = Collision::ICollider>
+	ColliderType const * getCollider() const
+	{
+		return  dynamic_cast<ColliderType const *>( _collider.get() );
+	}
 
 	template<class ColliderType = Collision::ICollider>
 	ColliderType * getCollider()
 	{
-		return dynamic_cast<ColliderType *>( _collider );
+		return  dynamic_cast<ColliderType *>( _collider.get() );
 	}
 private:
 	std::shared_ptr<Transform2D> _transform;
 	Vector2D _velocity;
 	float _rotationalVelocity;
 	bool _useGravity;
-	bool _isKinematic;
+	bool _isStatic;
+	bool _isActive;
 	float _mass;
 
-	Collision::ICollider * _collider;
+	std::unique_ptr<Collision::ICollider> _collider;
 };

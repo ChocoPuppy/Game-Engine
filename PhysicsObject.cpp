@@ -1,12 +1,20 @@
 #include "PhysicsObject.h"
+#include "CircleCollider2D.h"
+PhysicsObject::PhysicsObject() :_transform( std::make_shared<Transform2D>() ), _velocity{ 0,0 }, _rotationalVelocity( 0 ), _useGravity( true ), _isStatic( false ), _isActive( true ), _mass( 1 )
+{
+	Circle2D colliderSize = { 100 };
+	auto collider = new Collision::CircleCollider2D( transform(), colliderSize );
+	setCollider( collider );
+}
 
-PhysicsObject::PhysicsObject() :_transform( std::make_shared<Transform2D>() ), _rotationalVelocity( 0 ), _useGravity( true ) {}
+PhysicsObject::~PhysicsObject()
+{}
 
 void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate )
 {
-	if (!isKinematic())
+	if (!isStatic() && isActive())
 	{
-		transform()->position += velocity() * (float)millisecondsToSimulate;
+		push( velocity() * (float)millisecondsToSimulate );
 		transform()->rotation += _rotationalVelocity;
 	}
 }
@@ -35,9 +43,13 @@ bool PhysicsObject::affectedByGravity() const
 {
 	return _useGravity;
 }
-bool PhysicsObject::isKinematic() const
+bool PhysicsObject::isStatic() const
 {
-	return _isKinematic;
+	return _isStatic;
+}
+bool PhysicsObject::isActive() const
+{
+	return _isActive;
 }
 float PhysicsObject::getMass() const
 {
@@ -48,14 +60,30 @@ void PhysicsObject::setIsAffectedByGravity( bool value )
 	_useGravity = value;
 }
 
-void PhysicsObject::setIsKinematic( bool value )
+void PhysicsObject::setIsStatic( bool value )
 {
-	_isKinematic = value;
+	_isStatic = value;
+}
+
+void PhysicsObject::setIsActive( bool value )
+{
+	_isActive = value;
 }
 
 void PhysicsObject::setMass( float value )
 {
 	_mass = value;
+}
+
+void PhysicsObject::setCollider( Collision::ICollider * collider )
+{
+	setCollider( std::unique_ptr<Collision::ICollider>( collider ) );
+}
+
+void PhysicsObject::setCollider( std::unique_ptr<Collision::ICollider> && collider )
+{
+	_collider = std::forward<std::unique_ptr<Collision::ICollider>>( collider );
+	_collider->attatchToTransform( transform() );
 }
 
 void PhysicsObject::impulse( Vector2D velocity )
@@ -65,6 +93,5 @@ void PhysicsObject::impulse( Vector2D velocity )
 
 void PhysicsObject::push( Vector2D force )
 {
-	if (!isKinematic())
-		transform()->position += force;
+	rawMove( transform()->position + force );
 }
