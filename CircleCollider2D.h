@@ -27,7 +27,7 @@ namespace Collision
 	{
 		void operator()( CircleCollider2D const & colA, CircleCollider2D const & colB, CollisionData & data )
 		{
-			std::cout << "Circle collision" << std::endl;
+			//			std::cout << "Circle collision" << std::endl;
 			const float distance = ( colA.getWorldPosition() - colB.getWorldPosition() ).magnitude();
 			const float colliderRadiusCombined = colA.getCircle().radius + colB.getCircle().radius;
 
