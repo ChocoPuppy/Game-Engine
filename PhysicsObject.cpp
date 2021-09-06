@@ -2,8 +2,9 @@
 #include "CircleCollider2D.h"
 PhysicsObject::PhysicsObject() :_transform( std::make_shared<Transform2D>() ), _velocity{ 0,0 }, _rotationalVelocity( 0 ), _useGravity( true ), _isStatic( false ), _isActive( true ), _mass( 1 )
 {
-	Circle2D colliderSize = { 100 };
+	Circle2D colliderSize = { 50 };
 	auto collider = new Collision::CircleCollider2D( transform(), colliderSize );
+	collider->setOffsetFromTransform( { colliderSize.radius / 2,colliderSize.radius / 2 } );
 	setCollider( collider );
 }
 
