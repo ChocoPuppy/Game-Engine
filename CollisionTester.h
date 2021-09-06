@@ -2,6 +2,7 @@
 #include "Vector2D.h"
 #include "ICollider.h"
 #include <type_traits>
+#include <typeinfo>
 namespace Collision
 {
 	struct CollisionData
@@ -50,13 +51,12 @@ namespace Collision
 		TestForSpecificOverlap<ColA, ColB>()( colA, colB, data );
 		return true;
 	}
-
+	//Otherwise run the overlap test with the values flipped (since overlap testing is symmetrical).
 	template<class ColA, class ColB>
 	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColB, ColA>::value && !DoesSpecificOverlapTestForPairExist<ColA, ColB>::value, bool>
 		testSpecificOverlap( ColA const & colA, ColB const & colB, CollisionData & data )
 	{
-		TestForSpecificOverlap<ColB, ColA>()( colB, colA, data );
-		return true;
+		return testSpecificOverlap( colB, colA, data );
 	}
 
 	CollisionData testForGenericOverlap( ICollider const & colA, ICollider const & colB );
@@ -75,8 +75,12 @@ namespace Collision
 		CollisionData result = testForGenericOverlap( colA, colB );
 		if (result.intersectDistance != 0)
 		{
-			//If a specific overlap test exists, results will be overwritten with values from the more accurate specific test, otherwise nothing happens.
-			testSpecificOverlap<ColA, ColB>( colA, colB, result );
+			//If a specific overlap test exists, results will most likely be overwritten with values from the more accurate specific test, otherwise nothing happens.
+			bool specificOverlapTestExists = testSpecificOverlap<ColA, ColB>( colA, colB, result );
+			if (!specificOverlapTestExists)
+			{
+				std::cout << "Warning: no specific overlap test exists between a " << typeid( ColA )::name << " and a " << typeid( ColB )::name << ". Bounding box check used instead as collision data.";
+			}
 		}
 		return result;
 	}
