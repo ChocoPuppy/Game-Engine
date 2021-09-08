@@ -79,7 +79,7 @@ SDL_Window * SDL::Window::_getWindow() const
 
 SDL_Window * SDL::Window::_getWindow()
 {
-	return const_cast<SDL_Window *>( const_cast<const SDL::Window *>( this )->_getWindow() );
+	return const_cast<SDL_Window *>( const_cast<SDL::Window const *>( this )->_getWindow() );
 }
 
 Uint32 SDL::Window::getFlags() const
