@@ -22,23 +22,19 @@ void GameObject::render( unsigned long, AssetManager * assets, RenderEngine * re
 {
 	if (Config::displayColliders)
 	{
-		Transform2D inheritedTransform{};
-		inheritedTransform.position = getCollider()->getWorldPosition();
-		//		constexpr float ANTI_THICC_COEFFICIENT = 0.01f;
-		inheritedTransform.rotation = 0;
-		inheritedTransform.scale = transform()->scale;
-		Vector2D colliderScale{};
-		Texture * colliderTexture = assets->getAsset<Texture>( getCollider()->getTextureID() );
-		colliderScale.x = getCollider()->extentsOfCollider().getSize().x / 2;
-		colliderScale.y = getCollider()->extentsOfCollider().getSize().y / 2;
-		inheritedTransform.position.x -= colliderScale.x / 2;
-		inheritedTransform.position.y -= colliderScale.y / 2;
-		inheritedTransform.scale.x += colliderScale.x / colliderTexture->getSize().width();
-		inheritedTransform.scale.y += colliderScale.y / colliderTexture->getSize().height();
-		//		std::cout << inheritedTransform.scale.x << " " << inheritedTransform.scale.y << std::endl;
-
-		renderer->renderTexture( inheritedTransform, *colliderTexture );
+		getCollider()->render( *assets, *renderer );
 	}
 
-	renderer->renderTexture( *transform(), *assets->getAsset<Texture>( textureID() ) );
+	static constexpr float PI = 3.14159265f;
+	bool faceLeft = false;
+	if (velocity().magnitude() > 0)
+	{
+		//If the velocity is facing left, flip the image left.
+		if (abs( velocity().angle() ) > ( PI / 2.f ))
+		{
+			faceLeft = true;
+		}
+	}
+	SDL_RendererFlip flip = ( faceLeft ) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	renderer->renderTexture( *transform(), *assets->getAsset<Texture>( textureID() ), flip );
 }

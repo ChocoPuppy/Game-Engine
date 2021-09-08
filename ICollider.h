@@ -37,8 +37,6 @@ namespace Collision
 		/// @return The smallest possible rectangle that can fit the collider in it.
 		virtual Rect2D extentsOfCollider() const = 0;
 
-		virtual void render( AssetManager const & assets, RenderEngine const & renderer ) const;
-
 		std::shared_ptr<Transform2D const> attatchedToTransform() const;
 		Vector2D getOffsetFromTransform() const;
 		Vector2D getWorldPosition() const;
@@ -51,6 +49,8 @@ namespace Collision
 		/// @param worldPosition
 		/// @return
 		Vector2D worldPositionToRelativePosition( Vector2D worldPosition ) const;
+
+		virtual void render( AssetManager & assets, RenderEngine & renderer );
 
 		void attatchToTransform( std::shared_ptr<Transform2D const> transform );
 		void setOffsetFromTransform( Vector2D offset );

@@ -1,5 +1,6 @@
 #pragma once
 #include <utility>
+#include <math.h>
 struct Vector2D : std::pair<double, double>
 {
 	constexpr Vector2D( double x = 0, double y = 0 ) noexcept : std::pair<double, double>{ x,y }, x( first ), y( second ) {}
@@ -25,6 +26,8 @@ struct Vector2D : std::pair<double, double>
 	}
 
 	constexpr Vector2D abs() const { return { std::abs( x ),std::abs( y ) }; }
+
+	constexpr float angle() const { return -atan2f( y, x ); }
 
 	constexpr float magnitude() const
 	{

@@ -15,11 +15,24 @@ ICollider::ICollider( std::shared_ptr<Transform2D const> attatchedTo ) : _census
 ICollider::~ICollider()
 {}
 
-void ICollider::render( AssetManager const & assets, RenderEngine const & renderer ) const
+void ICollider::render( AssetManager & assets, RenderEngine & renderer )
 {
-	Transform2D transformData = *attatchedToTransform();
-	transformData.position += getOffsetFromTransform();
-	renderer.renderTexture( transformData, *assets.getAsset<Texture>( getTextureID() ) );
+	Transform2D inheritedTransform{};
+	inheritedTransform.position = getWorldPosition();
+	//		constexpr float ANTI_THICC_COEFFICIENT = 0.01f;
+	inheritedTransform.rotation = 0;
+	inheritedTransform.scale = attatchedToTransform()->scale;
+	Vector2D colliderScale{};
+	Texture const * colliderTexture = assets.getAsset<Texture>( getTextureID() );
+	colliderScale.x = extentsOfCollider().getSize().x / 2;
+	colliderScale.y = extentsOfCollider().getSize().y / 2;
+	inheritedTransform.position.x -= colliderScale.x / 2;
+	inheritedTransform.position.y -= colliderScale.y / 2;
+	inheritedTransform.scale.x += colliderScale.x / colliderTexture->getSize().width();
+	inheritedTransform.scale.y += colliderScale.y / colliderTexture->getSize().height();
+	//		std::cout << inheritedTransform.scale.x << " " << inheritedTransform.scale.y << std::endl;
+
+	renderer.renderTexture( inheritedTransform, *colliderTexture );
 }
 
 Vector2D ICollider::getWorldPosition() const
