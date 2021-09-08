@@ -54,4 +54,6 @@ public:
 	SDL::Window * getWindow();
 
 	unsigned long getMaxFPS();
+private:
+	void _updateEditor( GameContext context );
 };

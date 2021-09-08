@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "Texture.h"
 #include "Color.h"
+#include "Editor.h"
 #include "InputManager.h"
 #include "RenderEngine.h"
 #include "PhysicsEngine.h"
@@ -150,4 +151,9 @@ void GameEngine::initializeSDL()
 	{
 		SDL::passSDLError( "Failed to initialize SDL image" );
 	}
+}
+
+void GameEngine::_updateEditor( GameContext context )
+{
+	context.getEditor()->update( context.getInputManager(), context.getScene() );
 }
