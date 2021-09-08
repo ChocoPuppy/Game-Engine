@@ -10,10 +10,12 @@ public:
 	virtual ~PhysicsObject();
 
 	virtual void simulatePhysics( unsigned long millisecondsToSimulate );
+	virtual bool isFacingLeft() const;
 	void rawMove( Vector2D toPosition );
 
 	std::shared_ptr<Transform2D const> transform() const;
 	std::shared_ptr<Transform2D> transform();
+	Vector2D const & velocity() const;
 	Vector2D & velocity();
 
 	bool affectedByGravity() const;

@@ -25,16 +25,6 @@ void GameObject::render( unsigned long, AssetManager * assets, RenderEngine * re
 		getCollider()->render( *assets, *renderer );
 	}
 
-	static constexpr float PI = 3.14159265f;
-	bool faceLeft = false;
-	if (velocity().magnitude() > 0)
-	{
-		//If the velocity is facing left, flip the image left.
-		if (abs( velocity().angle() ) > ( PI / 2.f ))
-		{
-			faceLeft = true;
-		}
-	}
-	SDL_RendererFlip flip = ( faceLeft ) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+	SDL_RendererFlip flip = ( isFacingLeft() ) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 	renderer->renderTexture( *transform(), *assets->getAsset<Texture>( textureID() ), flip );
 }

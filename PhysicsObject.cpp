@@ -20,6 +20,11 @@ void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate )
 	}
 }
 
+bool PhysicsObject::isFacingLeft() const
+{
+	return velocity().isAngledLeft();
+}
+
 void PhysicsObject::rawMove( Vector2D toPosition )
 {
 	transform()->position = toPosition;
@@ -33,6 +38,11 @@ std::shared_ptr<Transform2D const> PhysicsObject::transform() const
 std::shared_ptr<Transform2D> PhysicsObject::transform()
 {
 	return _transform;
+}
+
+Vector2D const & PhysicsObject::velocity() const
+{
+	return _velocity;
 }
 
 Vector2D & PhysicsObject::velocity()
