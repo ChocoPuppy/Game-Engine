@@ -110,6 +110,11 @@ void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * as
 	_simulateState( millisecondsToSimulate, movement, assets );
 	//	std::cout << _xInput.getValue() << std::endl;
 		//	std::cout << movement.magnitude() << std::endl;
+	if (movement.magnitude() > 0)
+	{
+		_lastMovedLeftwards = movement.isAngledLeft();
+	}
+
 	constexpr double ANTI_NYOOM_COEFFICIENT = 0.000000002;
 	Vector2D pushVelocity = movement.normalize() * (float)getSpeed() * (float)ANTI_NYOOM_COEFFICIENT * millisecondsToSimulate;
 	push( pushVelocity );
@@ -117,4 +122,14 @@ void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * as
 	_xInput.updateGravity( millisecondsToSimulate );
 	_yInput.updateGravity( millisecondsToSimulate );
 	_sprintInput.updateGravity( millisecondsToSimulate );
+}
+
+void Player::render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer )
+{
+	AnimatedGameObject::render( millisecondsToSimulate, assets, renderer );
+}
+
+bool Player::isFacingLeft() const
+{
+	return _lastMovedLeftwards;
 }
