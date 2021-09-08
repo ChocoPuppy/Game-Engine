@@ -19,9 +19,16 @@ class VirtualInputJoystick :
 			{
 				_parent._inputPush( true );
 			}
-			if (input->isButtonDownOrPressed( negativeButton ))
+			switch (negativeButton)
 			{
-				_parent._inputPush( false );
+			case Button::NONE:
+				break;
+			default:
+				if (input->isButtonDownOrPressed( negativeButton ))
+				{
+					_parent._inputPush( false );
+				}
+				break;
 			}
 		}
 	};
