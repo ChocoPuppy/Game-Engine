@@ -1,5 +1,8 @@
 #include "InputManager.h"
-
+#include "resource.h"
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <SDL_syswm.h>
 using namespace Event::SmartEvent;
 
 InputManager::InputManager() : _buttonDownEvent(), _buttonPressedEvent(), _buttonReleasedEvent()
@@ -13,22 +16,38 @@ InputManager::InputManager() : _buttonDownEvent(), _buttonPressedEvent(), _butto
 void InputManager::_updateInputs()
 {
 	std::unordered_set<Button> hasBeenPushedThisFrame;
-	Button currentlySelectedButton;
-	SDL_Event checkEvent;
-	while (SDL_PollEvent( &checkEvent ))
 	{
-		switch (checkEvent.type)
+		Button currentlySelectedButton;
+		SDL_Event checkEvent;
+		while (SDL_PollEvent( &checkEvent ))
 		{
-		case SDL_QUIT:
-			_buttonStates[Button::QUIT] = _ButtonState::DOWN;
-			hasBeenPushedThisFrame.emplace( Button::QUIT );
-			break;
-		case SDL_KEYDOWN:
-			if (_keyBoundToButton.find( checkEvent.key.keysym.scancode ) != _keyBoundToButton.cend())
+			switch (checkEvent.type)
 			{
-				currentlySelectedButton = _keyBoundToButton[checkEvent.key.keysym.scancode];
-				_pushButton( currentlySelectedButton );
-				hasBeenPushedThisFrame.emplace( currentlySelectedButton );
+			case SDL_SYSWMEVENT:
+				switch (checkEvent.syswm.msg->msg.win.msg)
+				{
+				case WM_COMMAND:
+					switch (LOWORD( checkEvent.syswm.msg->msg.win.wParam ))
+					{
+					case ID_FILE_EXIT:
+						_buttonStates[Button::QUIT] = _ButtonState::DOWN;
+						hasBeenPushedThisFrame.emplace( Button::QUIT );
+						break;
+					}
+					break;
+				}
+				break;
+			case SDL_QUIT:
+				_buttonStates[Button::QUIT] = _ButtonState::DOWN;
+				hasBeenPushedThisFrame.emplace( Button::QUIT );
+				break;
+			case SDL_KEYDOWN:
+				if (_keyBoundToButton.find( checkEvent.key.keysym.scancode ) != _keyBoundToButton.cend())
+				{
+					currentlySelectedButton = _keyBoundToButton[checkEvent.key.keysym.scancode];
+					_pushButton( currentlySelectedButton );
+					hasBeenPushedThisFrame.emplace( currentlySelectedButton );
+				}
 			}
 		}
 	}
@@ -56,7 +75,7 @@ void InputManager::_pushButton( Button button )
 	_ButtonState state = _buttonStates[button];
 	switch (state)
 	{
-		[[__fallthrough]]
+		__fallthrough;
 	case _ButtonState::UP:
 	case _ButtonState::RELEASED:
 		_buttonStates[button] = _ButtonState::PRESSED;
@@ -74,7 +93,7 @@ void InputManager::_liftButton( Button button )
 	switch (_buttonStates[button])
 	{
 		//If pressed or down, set to release. The fallthrough tag just tells the compiler to not complain about the lack of a break on the first case.
-		[[__fallthrough]]
+		__fallthrough;
 	case _ButtonState::PRESSED:
 	case _ButtonState::DOWN:
 		_buttonStates[button] = _ButtonState::RELEASED;
