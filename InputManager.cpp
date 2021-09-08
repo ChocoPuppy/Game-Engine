@@ -116,6 +116,7 @@ void InputManager::_regenerateButtonKeyPairings()
 	_keyBoundToButton.emplace( SDL_SCANCODE_S, Button::DOWN );
 	_keyBoundToButton.emplace( SDL_SCANCODE_A, Button::LEFT );
 	_keyBoundToButton.emplace( SDL_SCANCODE_D, Button::RIGHT );
+	_keyBoundToButton.emplace( SDL_SCANCODE_LSHIFT, Button::SPRINT );
 }
 
 void InputManager::_updateAllButtonEvents()

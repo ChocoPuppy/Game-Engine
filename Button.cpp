@@ -16,6 +16,8 @@ std::string ButtonHelper::buttonToString( Button button )
 		return "Left";
 	case Button::RIGHT:
 		return "Right";
+	case Button::SPRINT:
+		return "Sprint";
 	default:
 		return "And you think to yourself \"how did I get here?\"? Because I have no clue how you triggered this text to display.";
 	}

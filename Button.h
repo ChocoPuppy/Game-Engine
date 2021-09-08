@@ -7,7 +7,8 @@ enum class Button
 	UP,
 	DOWN,
 	LEFT,
-	RIGHT
+	RIGHT,
+	SPRINT
 };
 
 namespace ButtonHelper
