@@ -11,6 +11,9 @@ class AssetManager
 public:
 	AssetManager( SDL::Renderer * renderer );
 	~AssetManager();
+
+	template<class AssetType>
+	AssetType const * getAsset( std::string id ) const;
 	template<class AssetType>
 	AssetType * getAsset( std::string id );
 private:
@@ -21,20 +24,26 @@ private:
 };
 
 template<class AssetType>
-AssetType * AssetManager::getAsset( std::string id )
+inline AssetType const * AssetManager::getAsset( std::string id ) const
 {
 	if (_assets.find( id ) == _assets.end())
 	{
 		std::cerr << "Attempted to find an asset that was not loaded. ID: " << id << std::endl;
 		exit( 1 );
 	}
-	AssetType * target = dynamic_cast<AssetType *>( _assets[id] );
+	AssetType const * target = dynamic_cast<AssetType *>( _assets.at( id ) );
 	if (target == NULL)
 	{
 		std::cerr << "Attempted to convert Asset to invalid type. ID: " << id << std::endl;
 		exit( 1 );
 	}
 	return target;
+}
+
+template<class AssetType>
+AssetType * AssetManager::getAsset( std::string id )
+{
+	return const_cast<AssetType *>( ( (AssetManager const *)this )->getAsset<AssetType>( id ) );
 }
 
 template<class AssetType, typename ...ConstructorArgs>

@@ -12,6 +12,8 @@
 #include "Texture.h"
 #include "Color.h"
 #include "InputManager.h"
+#include "RenderEngine.h"
+#include "PhysicsEngine.h"
 
 using std::cout;
 using std::cerr;
@@ -35,14 +37,14 @@ void GameEngine::setMaxFPS( float )
 	//	maxFPS = desiredFPS;
 }
 
-void GameEngine::update( GameContext context, InputManager * input )
+void GameEngine::update( GameContext context )
 {
 	frameStartTimeMilliseconds = SDL::getTicks();
 	const unsigned long previousFrameDurationMilliseconds = frameEndTimeMilliseconds - frameStartTimeMilliseconds;
 	//	cout << frameEndTimeMilliseconds << endl;
 	//	cout << frameStartTimeMilliseconds << endl;
 	//	cout << previousFrameDurationMilliseconds << endl << endl;
-	simulate( previousFrameDurationMilliseconds, context, input );
+	simulate( previousFrameDurationMilliseconds, context );
 	const unsigned long currentTimeMilliseconds = SDL::getTicks();
 	const unsigned long frameDurationMilliseconds = currentTimeMilliseconds - frameStartTimeMilliseconds;
 	frameEndTimeMilliseconds = SDL::getTicks();
@@ -56,7 +58,7 @@ void GameEngine::update( GameContext context, InputManager * input )
 	//	cout << frameEndTimeMilliseconds - frameStartTimeMilliseconds << endl;
 }
 
-SDL::Renderer * GameEngine::getRenderer()
+RenderEngine * GameEngine::getRenderer()
 {
 	return _renderer;
 }
@@ -71,12 +73,12 @@ unsigned long GameEngine::getMaxFPS()
 	return maxFPS;
 }
 
-void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext context, InputManager * input )
+void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext context )
 {
 	simulateAI( millisecondsToSimulate, context );
 	simulatePhysics( millisecondsToSimulate, context );
 	render( millisecondsToSimulate, context );
-	updateInput( millisecondsToSimulate, context, input );
+	updateInput( millisecondsToSimulate, context );
 }
 
 void GameEngine::simulateAI( unsigned long, GameContext )
@@ -87,15 +89,15 @@ void GameEngine::simulateAI( unsigned long, GameContext )
 void GameEngine::simulatePhysics( unsigned long millisecondsToSimulate, GameContext context )
 {
 	auto gameObjects = context.getScene()->getGameObjects();
+	auto physicsObjects = std::vector<PhysicsObject *>();
 	for (auto gameObject : gameObjects)
-	{
-		gameObject->simulatePhysics( millisecondsToSimulate, context.getAssets() );
-	}
+		physicsObjects.emplace_back( static_cast<PhysicsObject *>( gameObject ) );
+	context.getPhysicsEngine()->updatePhysics( millisecondsToSimulate, physicsObjects );
 }
 
 void GameEngine::render( unsigned long millisecondsToSimulate, GameContext context )
 {
-	SDL::Renderer * renderer = getRenderer();
+	RenderEngine * renderer = getRenderer();
 
 	renderer->setDrawColor( Color::Yellow() );
 
@@ -107,9 +109,9 @@ void GameEngine::render( unsigned long millisecondsToSimulate, GameContext conte
 	renderer->present();
 }
 
-void GameEngine::updateInput( unsigned long, GameContext, InputManager * input )
+void GameEngine::updateInput( unsigned long, GameContext context )
 {
-	input->_updateInputs();
+	context.getInputManager()->_updateInputs();
 }
 
 void GameEngine::generateWindow()
@@ -129,7 +131,7 @@ void GameEngine::generateWindow()
 
 void GameEngine::generateRenderer()
 {
-	_renderer = new SDL::Renderer( getWindow() );
+	_renderer = new RenderEngine( getWindow() );
 }
 
 void GameEngine::initializeSDL()
