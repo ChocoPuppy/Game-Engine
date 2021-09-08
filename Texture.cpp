@@ -49,9 +49,9 @@ SDL_Texture * Texture::_getData()
 	return _data;
 }
 
-void Texture::render( Renderer * render, SDL_Rect clip, SDL_Rect destination, double rotation ) const
+void Texture::render( Renderer * render, SDL_Rect clip, SDL_Rect destination, double rotation, SDL_RendererFlip flip ) const
 {
-	const int renderResult = SDL_RenderCopyEx( render->_getRenderer(), const_cast<SDL_Texture *>( _getData() ), &clip, &destination, rotation, NULL, SDL_FLIP_NONE );
+	const int renderResult = SDL_RenderCopyEx( render->_getRenderer(), const_cast<SDL_Texture *>( _getData() ), &clip, &destination, rotation, NULL, flip );
 	if (renderResult != SDL::SDLGenericSuccessCode)
 	{
 		SDL::passSDLError( "Failed to render texture" );

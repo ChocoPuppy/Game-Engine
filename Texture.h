@@ -12,7 +12,7 @@ namespace SDL
 		Texture( std::string path, Renderer * renderer );
 		~Texture();
 
-		virtual void render( Renderer * renderer, SDL_Rect clip, SDL_Rect destination, double rotation = 0 ) const;
+		virtual void render( Renderer * renderer, SDL_Rect clip, SDL_Rect destination, double rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE ) const;
 
 		Size getSize() const;
 	};

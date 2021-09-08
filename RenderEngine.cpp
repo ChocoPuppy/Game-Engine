@@ -6,7 +6,7 @@
 
 RenderEngine::RenderEngine( SDL::Window * window ) : SDL::Renderer( window ) {}
 
-void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture ) const
+void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip ) const
 {
 	Size textureSize = texture.getSize();
 	SDL_Rect clip{};
@@ -28,5 +28,5 @@ void RenderEngine::renderTexture( Transform2D const & transform, Texture const &
 	destination.w = (int)std::round( transform.scale.x );
 	destination.h = (int)std::round( transform.scale.y );
 
-	texture.render( const_cast<SDL::Renderer *>( static_cast<SDL::Renderer const *>( this ) ), clip, destination, transform.rotation );
+	texture.render( const_cast<SDL::Renderer *>( static_cast<SDL::Renderer const *>( this ) ), clip, destination, transform.rotation, flip );
 }
