@@ -14,6 +14,8 @@ AssetManager::AssetManager( SDL::Renderer * renderer )
 	_loadAsset<AnimatedTexture>( "Texture.Dino.Walking", "Assets/dino.walking.png", renderer, frameCount, frameDurationMilliseconds );
 	//	_assets["Texture.Dino.Walking"] = new AnimatedTexture( "Assets/dino.walking.png", renderer, frameCount, frameDurationMilliseconds );
 
+	_loadAsset<AnimatedTexture>( "Texture.Player.Idle", "Assets/player.idle.png", renderer, frameCount, frameDurationMilliseconds );
+	_loadAsset<AnimatedTexture>( "Texture.Player.Walking", "Assets/player.walking.png", renderer, frameCount, frameDurationMilliseconds );
 	_loadAsset<AnimatedTexture>( "Texture.Player.Running", "Assets/player.running.png", renderer, frameCount, frameDurationMilliseconds );
 }
 
