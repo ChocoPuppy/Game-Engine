@@ -28,6 +28,13 @@ struct Vector2D : std::pair<double, double>
 	constexpr Vector2D abs() const { return { std::abs( x ),std::abs( y ) }; }
 
 	constexpr float angle() const { return -atan2f( y, x ); }
+	constexpr bool isAngledLeft() const
+	{
+		constexpr float PI = 3.14159265f;
+		bool const isMoving = magnitude() > 0;
+		bool const isMovingLeft = std::abs( angle() ) > ( PI / 2.f );
+		return isMoving && isMovingLeft;
+	}
 
 	constexpr float magnitude() const
 	{
