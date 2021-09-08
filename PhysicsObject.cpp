@@ -25,6 +25,11 @@ void PhysicsObject::rawMove( Vector2D toPosition )
 	transform()->position = toPosition;
 }
 
+std::shared_ptr<Transform2D const> PhysicsObject::transform() const
+{
+	return _transform;
+}
+
 std::shared_ptr<Transform2D> PhysicsObject::transform()
 {
 	return _transform;
