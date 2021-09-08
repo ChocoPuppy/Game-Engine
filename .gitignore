@@ -391,3 +391,4 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 *.cd
+*.res
