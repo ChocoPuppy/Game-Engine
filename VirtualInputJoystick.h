@@ -4,7 +4,7 @@
 #include "ButtonEvent.h"
 #include "InputManager.h"
 
-template<Button positiveButton, Button negativeButton>
+template<Button positiveButton, Button negativeButton = Button::NONE>
 class VirtualInputJoystick :
 	public Joystick
 {
