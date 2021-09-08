@@ -30,6 +30,14 @@ BEGIN
     BEGIN
         MENUITEM "Exit",                        ID_FILE_EXIT
     END
+    POPUP "Player"
+    BEGIN
+        POPUP "Speed"
+        BEGIN
+            MENUITEM "Increase",                    ID_SPEED_INCREASE
+            MENUITEM "Decrease",                    ID_SPEED_DECREASE
+        END
+    END
 END
 
 #endif    // English (United States) resources
