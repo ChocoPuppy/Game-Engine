@@ -2,8 +2,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <memory>
-#include <vector>
 #include "Window.h"
 class GameObject;
 

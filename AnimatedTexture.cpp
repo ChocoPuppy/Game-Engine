@@ -12,7 +12,7 @@ void AnimatedTexture::updateFrame( unsigned long millisecondsToSimulate )
 	_currentFrame = ( _totalTimeMilliseconds / _frameDurationMilliseconds ) % _frameCount;
 }
 
-void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect, SDL_Rect destination )
+void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect, SDL_Rect destination ) const
 {
 	Size textureSize = getSize();
 	const int frameWidth = textureSize.width() / _frameCount;
