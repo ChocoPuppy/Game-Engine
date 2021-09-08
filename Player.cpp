@@ -25,11 +25,11 @@ void Player::_enterState( _State state, AssetManager * )
 		break;
 	case _State::WALKING:
 		_textureID = "Texture.Player.Walking";
-		_speed = 1;
+		_baseSpeed = 1;
 		break;
 	case _State::RUNNING:
 		_textureID = "Texture.Player.Running";
-		_speed = 1.5;
+		_baseSpeed = 1.5;
 		std::cout << "Player is running!" << std::endl;
 		break;
 	}
@@ -83,7 +83,7 @@ void Player::_simulateState( unsigned long, Vector2D movement, AssetManager * as
 		break;
 	}
 }
-Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Idle" ), _xInput( 0.9 ), _yInput( 0.9 ), _sprintInput( 1 ), _speed( 1 )
+Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Idle" ), _xInput( 0.9 ), _yInput( 0.9 ), _sprintInput( 1 ), _debugSpeedInput( 1 ), _debugTeleportInput( 1 ), _baseSpeed( 1 ), _additiveSpeed( 0 )
 {
 	transform()->position.x = 200;
 	transform()->position.y = 200;
@@ -97,6 +97,8 @@ Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Idle"
 	_yInput.setDead( 0.01 );
 	//	_yInput.setWillSnap( true );
 	_sprintInput.setGravity( 1 );
+	_debugSpeedInput.setGravity( 1 );
+	_debugTeleportInput.setGravity( 1 );
 
 	_state.push( _State::IDLE );
 	std::cout << "Player has spawned" << std::endl;
@@ -115,13 +117,26 @@ void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * as
 		_lastMovedLeftwards = movement.isAngledLeft();
 	}
 
+	if (_debugTeleportInput.getValue() > 0)
+	{
+		rawMove( { 0,0 } );
+	}
+
+	if (_debugSpeedInput.getValue() != 0)
+	{
+		AddToAdditiveSpeed( _debugSpeedInput.getValue() / 10 );
+		std::cout << "Speed modified by " << _debugSpeedInput.getValue() / 10 << std::endl;
+	}
+
 	constexpr double ANTI_NYOOM_COEFFICIENT = 0.000000002;
-	Vector2D pushVelocity = movement.normalize() * (float)getSpeed() * (float)ANTI_NYOOM_COEFFICIENT * millisecondsToSimulate;
+	Vector2D pushVelocity = movement.normalize() * (float)getTotalSpeed() * (float)ANTI_NYOOM_COEFFICIENT * millisecondsToSimulate;
 	push( pushVelocity );
 	//	std::cout << movement.x << std::endl;
 	_xInput.updateGravity( millisecondsToSimulate );
 	_yInput.updateGravity( millisecondsToSimulate );
 	_sprintInput.updateGravity( millisecondsToSimulate );
+	_debugSpeedInput.updateGravity( millisecondsToSimulate );
+	_debugTeleportInput.updateGravity( millisecondsToSimulate );
 }
 
 void Player::render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer )

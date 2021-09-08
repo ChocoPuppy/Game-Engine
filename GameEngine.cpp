@@ -120,7 +120,7 @@ void GameEngine::render( unsigned long millisecondsToSimulate, GameContext conte
 
 void GameEngine::updateInput( unsigned long, GameContext context )
 {
-	context.getInputManager()->_updateInputs();
+	context.getInputManager()->_update();
 }
 
 void GameEngine::generateWindow()

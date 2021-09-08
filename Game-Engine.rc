@@ -37,6 +37,7 @@ BEGIN
             MENUITEM "Increase",                    ID_SPEED_INCREASE
             MENUITEM "Decrease",                    ID_SPEED_DECREASE
         END
+        MENUITEM "Teleport to 0,0",             ID_PLAYER_TELEPORTTO0
     END
 END
 

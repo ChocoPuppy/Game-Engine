@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <memory>
+#include <stack>
 #include "ButtonEvent.h"
 #include <SmartEvent/EventHandle.h>
 
@@ -36,6 +37,8 @@ private:
 
 	mutable std::unordered_map<Button, _ButtonStatus> _buttonStates;
 	std::unordered_map<SDL_Scancode, Button> _keyBoundToButton;
+	std::unordered_map<long, Button> _systemKeyBoundToButton;
+	std::stack<long> _systemKeysToUnpressAtStartOfFrame;
 
 	EventHandle<ButtonEvent> _buttonEvent;
 	//	EventHandle<ButtonPressedEvent> _buttonPressedEvent;
@@ -45,6 +48,7 @@ private:
 
 	void _regenerateButtonKeyPairings();
 	void _updateAllButtonEvents();
+	void _unpressSystemKeys();
 
 	//	bool _canButtonBeUpdated( Button button ) const;
 
@@ -52,6 +56,9 @@ private:
 	void _liftButton( Button button );
 
 	void _updateInputs();
+	void _update();
+
+	Button _getButtonBoundToSystemKey( long systemButtonWord ) const;
 
 	_ButtonState _checkButton( Button button ) const;
 	bool _isButtonState( Button button, _ButtonState state ) const;

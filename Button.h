@@ -8,7 +8,10 @@ enum class Button
 	DOWN,
 	LEFT,
 	RIGHT,
-	SPRINT
+	SPRINT,
+	DEBUG_INCREASE_SPEED,
+	DEBUG_DECREASE_SPEED,
+	DEBUG_TELEPORT_TO_00
 };
 
 namespace ButtonHelper
