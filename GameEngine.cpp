@@ -2,8 +2,10 @@
 
 #include <chrono>
 #include <thread>
-#include <SDL_Image.h>
 
+#include <queue>
+
+#include <SDL_Image.h>
 #include "SDLMain.h"
 #include "SDLVideo.h"
 #include "SDLError.h"
@@ -19,7 +21,7 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-GameEngine::GameEngine() : exitInputHandler()
+GameEngine::GameEngine() : _exitInputHandler()
 {
 	initializeSDL();
 
@@ -106,7 +108,9 @@ void GameEngine::render( unsigned long millisecondsToSimulate, GameContext conte
 	renderer->setDrawColor( Color::Yellow() );
 
 	renderer->clear();
-	for (GameObject * obj : context.getScene()->getGameObjects())
+	auto sceneGameObjects = context.getScene()->getGameObjects();
+	auto sortedList = _sortFromLowestToHighestY( sceneGameObjects );
+	for (GameObject * obj : sortedList)
 	{
 		obj->render( millisecondsToSimulate, context.getAssets(), renderer );
 	}
@@ -136,6 +140,13 @@ void GameEngine::generateWindow()
 void GameEngine::generateRenderer()
 {
 	_renderer = new RenderEngine( getWindow() );
+}
+
+std::vector<GameObject *> GameEngine::_sortFromLowestToHighestY( std::vector<GameObject *> list )
+{
+	static const auto sortLowestYLevelFirst = []( PhysicsObject const * lhs, PhysicsObject const * rhs ) { return lhs->transform()->position.y < rhs->transform()->position.y; };
+	std::sort( list.begin(), list.end(), sortLowestYLevelFirst );
+	return list;
 }
 
 void GameEngine::initializeSDL()
