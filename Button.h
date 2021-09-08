@@ -2,11 +2,13 @@
 #include <string>
 enum class Button
 {
+	NONE,
 	QUIT,
 	UP,
 	DOWN,
 	LEFT,
-	RIGHT
+	RIGHT,
+	SPRINT
 };
 
 namespace ButtonHelper

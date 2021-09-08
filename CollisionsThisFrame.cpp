@@ -13,6 +13,16 @@ std::set<CollisionsThisFrame::ColliderPair *> CollisionsThisFrame::getCollisions
 	return relatedCollisions;
 }
 
+std::set<CollisionsThisFrame::ColliderPair> CollisionsThisFrame::getCollisions()
+{
+	std::set<ColliderPair> results{};
+	for (auto & collision : *this)
+	{
+		results.emplace( ColliderPair( collision.first ) );
+	}
+	return results;
+}
+
 CollisionData CollisionsThisFrame::dataOfCollision( ColliderPair key ) const
 {
 	return at( key );
