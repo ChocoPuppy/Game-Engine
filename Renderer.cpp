@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "SDLError.h"
-SDL_Renderer * SDL::Renderer::_getRenderer()
+
+SDL_Renderer * SDL::Renderer::_getRenderer() const
 {
 	return _renderer;
 }
@@ -17,6 +18,13 @@ SDL::Renderer::Renderer( Window * window )
 SDL::Renderer::~Renderer()
 {
 	SDL_DestroyRenderer( _getRenderer() );
+}
+
+Size SDL::Renderer::getResolution() const
+{
+	Size resolutionSize = Size();
+	SDL_GetRendererOutputSize( _getRenderer(), &resolutionSize.width(), &resolutionSize.height() );
+	return resolutionSize;
 }
 
 void SDL::Renderer::setDrawColor( Color color )
