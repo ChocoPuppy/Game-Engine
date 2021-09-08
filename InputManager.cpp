@@ -28,23 +28,20 @@ void InputManager::_updateInputs()
 					switch (LOWORD( checkEvent.syswm.msg->msg.win.wParam ))
 					{
 					case ID_FILE_EXIT:
-						_buttonStates[Button::QUIT] = _ButtonState::DOWN;
-						hasBeenPushedThisFrame.emplace( Button::QUIT );
+						_buttonStates[Button::QUIT] = { _ButtonState::DOWN };
 						break;
 					}
 					break;
 				}
 				break;
 			case SDL_QUIT:
-				_buttonStates[Button::QUIT] = _ButtonState::DOWN;
-				hasBeenPushedThisFrame.emplace( Button::QUIT );
+				_buttonStates[Button::QUIT] = { _ButtonState::DOWN };
 				break;
 			case SDL_KEYDOWN:
 				if (_keyBoundToButton.find( checkEvent.key.keysym.scancode ) != _keyBoundToButton.cend())
 				{
 					currentlySelectedButton = _keyBoundToButton[checkEvent.key.keysym.scancode];
 					_pushButton( currentlySelectedButton );
-					hasBeenPushedThisFrame.emplace( currentlySelectedButton );
 				}
 			case SDL_KEYUP:
 				if (_keyBoundToButton.find( checkEvent.key.keysym.scancode ) != _keyBoundToButton.cend())
