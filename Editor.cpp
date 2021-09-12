@@ -5,8 +5,9 @@
 #include "resource.h"
 #include "InputManager.h"
 #include "Scene.h"
+#include "CreditsWindow.h"
 
-Editor::Editor( LPCWSTR windowName )
+Editor::Editor( LPCWSTR windowName ) : _creditsWindow( nullptr ), _showCreditsInputHandler( 1 )
 {
 	_window = FindWindow( NULL, windowName );
 	if (_window == NULL)
@@ -41,4 +42,15 @@ Editor::~Editor()
 {}
 
 void Editor::update( InputManager *, Scene * )
-{}
+{
+	bool isCreditsWindowOpen = _creditsWindow != nullptr;
+	bool shouldOpenCreditsWindow = _showCreditsInputHandler.getValue() > 0;
+	if (isCreditsWindowOpen && _creditsWindow->isDirty())
+	{
+		delete( _creditsWindow );
+	}
+	else if (!isCreditsWindowOpen && shouldOpenCreditsWindow)
+	{
+		_creditsWindow = new CreditsWindow( _window );
+	}
+}

@@ -148,6 +148,7 @@ void InputManager::_regenerateButtonKeyPairings()
 	_systemKeyBoundToButton.emplace( ID_SPEED_INCREASE, Button::DEBUG_INCREASE_SPEED );
 	_systemKeyBoundToButton.emplace( ID_SPEED_DECREASE, Button::DEBUG_DECREASE_SPEED );
 	_systemKeyBoundToButton.emplace( ID_PLAYER_TELEPORTTO0, Button::DEBUG_TELEPORT_TO_00 );
+	_systemKeyBoundToButton.emplace( ID_CREDITS_DEVELOPER, Button::SHOW_CREDITS );
 }
 
 void InputManager::_updateAllButtonEvents()

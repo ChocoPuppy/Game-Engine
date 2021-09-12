@@ -132,11 +132,6 @@ void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * as
 	Vector2D pushVelocity = movement.normalize() * (float)getTotalSpeed() * (float)ANTI_NYOOM_COEFFICIENT * millisecondsToSimulate;
 	push( pushVelocity );
 	//	std::cout << movement.x << std::endl;
-	_xInput.updateGravity( millisecondsToSimulate );
-	_yInput.updateGravity( millisecondsToSimulate );
-	_sprintInput.updateGravity( millisecondsToSimulate );
-	_debugSpeedInput.updateGravity( millisecondsToSimulate );
-	_debugTeleportInput.updateGravity( millisecondsToSimulate );
 }
 
 void Player::render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer )

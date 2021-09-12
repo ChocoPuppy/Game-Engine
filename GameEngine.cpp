@@ -82,7 +82,7 @@ void GameEngine::simulate( unsigned long millisecondsToSimulate, GameContext con
 	simulateAI( millisecondsToSimulate, context );
 	simulatePhysics( millisecondsToSimulate, context );
 	render( millisecondsToSimulate, context );
-	updateInput( millisecondsToSimulate, context );
+	_updateEditor( context );
 }
 
 void GameEngine::simulateAI( unsigned long millisecondsToSimulate, GameContext context )

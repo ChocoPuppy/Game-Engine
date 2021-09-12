@@ -15,6 +15,7 @@ class VirtualInputJoystick :
 
 		virtual void update( InputManager * input ) override
 		{
+			_parent.updateGravity();
 			if (input->isButtonDownOrPressed( positiveButton ))
 			{
 				_parent._inputPush( true );
@@ -58,7 +59,6 @@ class VirtualInputJoystick :
 protected:
 	void setPushForce( double value ) { _pushForce = clampToMinMaxSize( value ); }
 public:
-	using Joystick::updateGravity;
 
 	VirtualInputJoystick( double pushForce ) : inputObserver( *this ), _pushForce( pushForce ) {}
 
