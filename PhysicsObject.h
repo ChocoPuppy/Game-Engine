@@ -17,12 +17,16 @@ public:
 	bool affectedByGravity() const;
 	bool isKinematic() const;
 	float getMass() const;
+	Vector2D getForce() const;
+	Vector2D getAcceleration() const;
 
 	void setIsAffectedByGravity( bool value );
 	void setIsKinematic( bool value );
 	void setMass( float value );
 
 	void impulse( Vector2D velocity );
+	void addForce( Vector2D force );
+
 	void push( Vector2D force );
 
 	template<class ColliderType = Collision::ICollider>
@@ -33,9 +37,12 @@ public:
 private:
 	std::shared_ptr<Transform2D> _transform;
 	Vector2D _velocity;
+	Vector2D _force;
 	bool _useGravity;
 	bool _isKinematic;
 	float _mass;
 
 	Collision::ICollider * _collider;
+
+	void _clearForce();
 };

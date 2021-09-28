@@ -6,8 +6,10 @@ void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate )
 {
 	if (!isKinematic())
 	{
+		velocity() += getAcceleration() * (float)millisecondsToSimulate;
 		transform()->position += velocity() * (float)millisecondsToSimulate;
 	}
+	_clearForce();
 }
 
 void PhysicsObject::rawMove( Vector2D toPosition )
@@ -37,6 +39,17 @@ float PhysicsObject::getMass() const
 {
 	return _mass;
 }
+Vector2D PhysicsObject::getForce() const
+{
+	return _force;
+}
+Vector2D PhysicsObject::getAcceleration() const
+{
+	Vector2D acceleration;
+	acceleration.x() = getForce().x() / getMass();
+	acceleration.y() = getForce().y() / getMass();
+	return acceleration;
+}
 void PhysicsObject::setIsAffectedByGravity( bool value )
 {
 	_useGravity = value;
@@ -57,8 +70,18 @@ void PhysicsObject::impulse( Vector2D velocity )
 	_velocity += velocity;
 }
 
+void PhysicsObject::addForce( Vector2D force )
+{
+	_force += force;
+}
+
 void PhysicsObject::push( Vector2D force )
 {
 	if (!isKinematic())
 		transform()->position += force;
+}
+
+void PhysicsObject::_clearForce()
+{
+	_force = {};
 }
