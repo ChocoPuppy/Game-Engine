@@ -56,9 +56,7 @@ namespace Collision
 	typename std::enable_if_t<DoesSpecificOverlapTestForPairExist<ColB, ColA>::value && !DoesSpecificOverlapTestForPairExist<ColA, ColB>::value, bool>
 		testSpecificOverlap( ColA const & colA, ColB const & colB, CollisionData & data )
 	{
-		bool result = testSpecificOverlap( colB, colA, data );
-
-		return result;
+		return testSpecificOverlap( colB, colA, data );
 	}
 
 	CollisionData testForGenericOverlap( ICollider const & colA, ICollider const & colB );

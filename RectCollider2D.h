@@ -9,9 +9,9 @@ namespace Collision
 
 		virtual Rect2D extentsOfCollider() const override;
 
-		virtual Vector2D getSupportPointOf( Vector2D point ) const override;
-
 		RectCollider2D( std::shared_ptr<Transform2D> transform, Rect2D rectangle = Rect2D( { 100,100 } ) );
+
+		virtual Vector2D getSupportPointOf( Vector2D point ) const override;
 
 		Rect2D getSize() const;
 		void setSize( Rect2D size );

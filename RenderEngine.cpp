@@ -3,16 +3,16 @@
 #include "Texture.h"
 #include "TextureWrapper.h"
 
-RenderEngine::RenderEngine( SDL::Window * window ) : SDL::Renderer( window ) {}
+RenderEngine::RenderEngine( SDL::Window * window ) : SDL::Renderer( window ), _window( *window ) {}
 
-void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture ) const
+void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip ) const
 {
 	SDL_Rect destination{};
 
-	destination.x = (int)transform.position.x();
-	destination.y = (int)transform.position.y();
-	destination.w = (int)transform.scale.x();
-	destination.h = (int)transform.scale.y();
+	destination.x = (int)( transform.position.x );
+	destination.y = (int)( transform.position.y );
+	destination.w = (int)( transform.scale.x );
+	destination.h = (int)( transform.scale.y );
 
 	SDL_Rect clip{};
 	{
@@ -21,5 +21,5 @@ void RenderEngine::renderTexture( Transform2D const & transform, Texture const &
 		clip.w = textureSize.width();
 		clip.h = textureSize.height();
 	}
-	texture.render( const_cast<SDL::Renderer *>( static_cast<SDL::Renderer const *>( this ) ), clip, destination );
+	texture.render( const_cast<SDL::Renderer *>( static_cast<SDL::Renderer const *>( this ) ), clip, destination, flip );
 }

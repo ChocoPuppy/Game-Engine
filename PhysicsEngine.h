@@ -2,6 +2,7 @@
 #include <vector>
 #include <map>
 #include <SmartEvent/EventHandle.h>
+#include "GetCollidersEvent.h"
 #include "OverlapEvent.h"
 #include "PhysicsEvent.h"
 #include "CollisionTester.h"

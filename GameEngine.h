@@ -28,7 +28,7 @@ private:
 
 	//	float timeSinceLastFrame;
 
-	ExitHandler exitInputHandler;
+	ExitHandler _exitInputHandler;
 
 	RenderEngine * _renderer;
 	SDL::Window * _window;
@@ -47,6 +47,8 @@ private:
 	void initializeSDL();
 	void generateWindow();
 	void generateRenderer();
+
+	static std::vector<GameObject *> _sortFromLowestToHighestY( std::vector<GameObject *> list );
 public:
 	void update( GameContext context );
 
@@ -54,4 +56,6 @@ public:
 	SDL::Window * getWindow();
 
 	unsigned long getMaxFPS();
+private:
+	void _updateEditor( GameContext context );
 };

@@ -79,7 +79,7 @@ SDL_Window * SDL::Window::_getWindow() const
 
 SDL_Window * SDL::Window::_getWindow()
 {
-	return const_cast<SDL_Window *>( const_cast<const SDL::Window *>( this )->_getWindow() );
+	return const_cast<SDL_Window *>( const_cast<SDL::Window const *>( this )->_getWindow() );
 }
 
 Uint32 SDL::Window::getFlags() const
@@ -95,7 +95,7 @@ SDL_bool SDL::Window::convertBool( bool input )
 
 void SDL::Window::setPosition( Coordinates coords )
 {
-	SDL_SetWindowPosition( _getWindow(), coords.x(), coords.y() );
+	SDL_SetWindowPosition( _getWindow(), coords.x, coords.y );
 }
 
 void SDL::Window::setSize( Size size )
@@ -158,7 +158,7 @@ void SDL::Window::restore()
 Coordinates SDL::Window::getPosition() const
 {
 	Coordinates coords;
-	SDL_GetWindowPosition( _getWindow(), &coords.x(), &coords.y() );
+	SDL_GetWindowPosition( _getWindow(), &coords.x, &coords.y );
 	return coords;
 }
 

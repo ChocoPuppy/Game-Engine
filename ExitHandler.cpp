@@ -1,13 +1,9 @@
 #include "ExitHandler.h"
-
-void ExitHandler::update( InputManager *, const Button button )
+#include "InputManager.h"
+void ExitHandler::update( InputManager * input )
 {
-	switch (button)
+	if (input->isButtonPressed( Button::QUIT ))
 	{
-	case Button::QUIT:
 		exit( 0 );
-		break;
-	default:
-		return;
 	}
 }

@@ -12,7 +12,7 @@ void AnimatedTexture::updateFrame( unsigned long millisecondsToSimulate )
 	_currentFrame = ( _totalTimeMilliseconds / _frameDurationMilliseconds ) % _frameCount;
 }
 
-void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect, SDL_Rect destination ) const
+void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect, SDL_Rect destination, double rotation, SDL_RendererFlip flip ) const
 {
 	Size textureSize = getSize();
 	const int frameWidth = textureSize.width() / _frameCount;
@@ -21,5 +21,6 @@ void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect, SDL_Rect desti
 	frameClip.h = textureSize.height();
 	frameClip.x = _currentFrame * frameWidth;
 	frameClip.y = 0;
-	Texture::render( renderer, frameClip, destination );
+
+	Texture::render( renderer, frameClip, destination, rotation, flip );
 }

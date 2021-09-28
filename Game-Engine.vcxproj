@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -182,7 +182,9 @@
     <ClCompile Include="CircleCollider2D.cpp" />
     <ClCompile Include="CollisionsThisFrame.cpp" />
     <ClCompile Include="CollisionTester.cpp" />
+    <ClCompile Include="CreditsWindow.cpp" />
     <ClCompile Include="Dino.cpp" />
+    <ClCompile Include="Editor.cpp" />
     <ClCompile Include="ExitHandler.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -190,8 +192,10 @@
     <ClCompile Include="ICollider.cpp" />
     <ClCompile Include="InputOld.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Joystick.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="Rect2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp" />
@@ -202,6 +206,7 @@
     <ClCompile Include="SDLMain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="VirtualInputJoystick.cpp" />
     <ClCompile Include="WalkingDino.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -213,14 +218,21 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Circle2D.h" />
     <ClInclude Include="CircleCollider2D.h" />
+    <ClInclude Include="ColliderTypes.h" />
     <ClInclude Include="CollisionsThisFrame.h" />
+    <ClInclude Include="CreditsWindow.h" />
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="CollisionTesterExperimental.h" />
+    <ClInclude Include="GetCollidersEvent.h" />
     <ClInclude Include="ICollider.h" />
     <ClInclude Include="CollisionTester.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Coordinates.h" />
+    <ClInclude Include="CustomMaths.h" />
     <ClInclude Include="Dino.h" />
     <ClInclude Include="ExitHandler.h" />
+    <ClInclude Include="Framerate.h" />
     <ClInclude Include="GameContext.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameObject.h" />
@@ -229,6 +241,9 @@
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="OverlapEvent.h" />
+    <ClInclude Include="Joystick.h" />
+    <ClInclude Include="ParameterPack.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PhysicsConstants.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsEvent.h" />
@@ -237,6 +252,7 @@
     <ClInclude Include="RectCollider2D.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SDLBase.h" />
     <ClInclude Include="SDLError.h" />
@@ -248,8 +264,12 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="VirtualInputJoystick.h" />
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game-Engine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

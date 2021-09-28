@@ -1,5 +1,6 @@
 #pragma once
 #include "TextureWrapper.h"
+#include "SDLBase.h"
 #include "Size.h"
 class AnimatedTexture : public Texture
 {
@@ -8,7 +9,7 @@ public:
 	~AnimatedTexture();
 
 	void updateFrame( unsigned long millisecondsToSimulate );
-	virtual void render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect  destination ) const override;
+	virtual void render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect  destination, double rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE ) const override;
 private:
 	int _frameCount;
 	unsigned long _frameDurationMilliseconds;
