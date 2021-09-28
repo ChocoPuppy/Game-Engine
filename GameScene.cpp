@@ -5,17 +5,17 @@
 GameScene::GameScene() : Scene( "Game" )
 {
 	Dino * dino = new Dino();
-	_gameObjects[dino->ID()] = dino;
+	addGameObject( dino );
 
 	WalkingDino * dinoWalking = new WalkingDino( "WalkingDino" );
-	_gameObjects[dinoWalking->ID()] = dinoWalking;
+	addGameObject( dinoWalking );
 
 	/*	WalkingDino * dinoWalking2 = new WalkingDino( "WalkingDino2" );
 		dinoWalking2->rawMove( { 200, 200 } );
 		_gameObjects[dinoWalking2->ID()] = dinoWalking2;*/
 
 	Player * player = new Player( "Player" );
-	_gameObjects[player->ID()] = player;
+	addGameObject( player );
 }
 
 GameScene::~GameScene()

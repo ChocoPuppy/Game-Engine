@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "GameObject.h"
 #include <iostream>
 Scene::Scene( std::string ID )
 {
@@ -31,4 +32,19 @@ std::vector<GameObject *> Scene::getGameObjects() const
 std::string Scene::getID() const
 {
 	return _ID;
+}
+
+void Scene::addGameObject( GameObject * object )
+{
+	_gameObjects.emplace( object->ID(), object );
+}
+
+void Scene::removeGameObject( std::string ID )
+{
+	_gameObjects.erase( ID );
+}
+
+void Scene::removeGameObject( GameObject * object )
+{
+	removeGameObject( object->ID() );
 }
