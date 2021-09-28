@@ -223,6 +223,9 @@
     <ClInclude Include="CreditsWindow.h" />
     <ClInclude Include="Editor.h" />
     <ClInclude Include="CollisionTesterExperimental.h" />
+    <ClInclude Include="GemObject.h" />
+    <ClInclude Include="GemsScene.h" />
+    <ClInclude Include="GemType.h" />
     <ClInclude Include="GetCollidersEvent.h" />
     <ClInclude Include="ICollider.h" />
     <ClInclude Include="CollisionTester.h" />

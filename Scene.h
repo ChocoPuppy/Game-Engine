@@ -19,6 +19,10 @@ public:
 	std::string getID() const;
 
 protected:
+	void addGameObject( GameObject * object );
+	void removeGameObject( std::string ID );
+	void removeGameObject( GameObject * object );
+private:
 	std::map<std::string, GameObject *> _gameObjects;
 	std::string _ID;
 };
