@@ -24,6 +24,10 @@ namespace Collision
 		/// @brief Returns the minimum size of rectangle that can fit the entire collider in it.
 		/// @return The smallest possible rectangle that can fit the collider in it.
 		virtual Rect2D extentsOfCollider() const = 0;
+		/// @brief Get the closest point inside the collider to a given point.
+		/// @param point The position to get the closest collider point to. Worldspace.
+		/// @return The clostest position inside the collider to the point. Worldspace.
+		virtual Vector2D getSupportPointOf( Vector2D point ) const = 0;
 
 		virtual void render( AssetManager const & assets, RenderEngine const & renderer ) const;
 
