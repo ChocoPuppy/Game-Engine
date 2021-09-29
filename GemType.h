@@ -6,5 +6,6 @@ enum class GemType
 	BLUE,
 	GREEN,
 	WHITE,
+	RAINBOW,
 	BOMB
 };
