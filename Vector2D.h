@@ -54,6 +54,13 @@ struct Vector2D : std::pair<double, double>
 	constexpr float crossProduct( Vector2D const & rhs ) const noexcept { return ( x * rhs.y ) - ( y * rhs.x ); }
 	constexpr float dotProduct( Vector2D const & rhs ) const noexcept { return x * rhs.x + y * rhs.y; }
 
+	//Static constant constructors for basic directions. Can be added and normalized to form diagonal directions.
+	static constexpr Vector2D up() { return { 0,1 }; }
+	static constexpr Vector2D down() { return { 0,-1 }; }
+	static constexpr Vector2D left() { return { -1,0 }; }
+	static constexpr Vector2D right() { return { 1,0 }; }
+	static constexpr Vector2D none() { return { 0,0 }; }
+
 	constexpr Vector2D & operator+=( Vector2D const & rhs ) noexcept { x += rhs.x; y += rhs.y; return *this; }
 	constexpr Vector2D & operator-=( Vector2D const & rhs ) noexcept { x -= rhs.x; y -= rhs.y; return *this; }
 
