@@ -317,6 +317,9 @@
     <ClInclude Include="GemType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MatchMaker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game-Engine.rc">
