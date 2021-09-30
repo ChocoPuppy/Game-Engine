@@ -1,9 +1,11 @@
 #pragma once
 #include <utility>
 #include <math.h>
+#include "TransversalDirections.h"
 struct Vector2D : std::pair<double, double>
 {
 	constexpr Vector2D( double x = 0, double y = 0 ) noexcept : std::pair<double, double>{ x,y }, x( first ), y( second ) {}
+	constexpr Vector2D( TransversalDirection dir ) noexcept : Vector2D( transversalDirectionToVector( dir ) ) {}
 	constexpr Vector2D( Vector2D const & vector2D ) noexcept : Vector2D( vector2D.x, vector2D.y ) {}
 	constexpr Vector2D( Vector2D && vector2D ) noexcept : Vector2D( vector2D.x, vector2D.y ) {}
 
@@ -54,12 +56,24 @@ struct Vector2D : std::pair<double, double>
 	constexpr float crossProduct( Vector2D const & rhs ) const noexcept { return ( x * rhs.y ) - ( y * rhs.x ); }
 	constexpr float dotProduct( Vector2D const & rhs ) const noexcept { return x * rhs.x + y * rhs.y; }
 
+	static constexpr Vector2D transversalDirectionToVector( TransversalDirection direction ) noexcept
+	{
+		using TD = TransversalDirection;
+		switch (direction)
+		{
+		case TD::NONE: return none();
+		case TD::UP: return up();
+		case TD::DOWN: return down();
+		case TD::LEFT: return left();
+		case TD::RIGHT: return right();
+		}
+	}
 	//Static constant constructors for basic directions. Can be added and normalized to form diagonal directions.
-	static constexpr Vector2D up() { return { 0,1 }; }
-	static constexpr Vector2D down() { return { 0,-1 }; }
-	static constexpr Vector2D left() { return { -1,0 }; }
-	static constexpr Vector2D right() { return { 1,0 }; }
-	static constexpr Vector2D none() { return { 0,0 }; }
+	static constexpr Vector2D up() noexcept { return { 0,1 }; }
+	static constexpr Vector2D down() noexcept { return { 0,-1 }; }
+	static constexpr Vector2D left() noexcept { return { -1,0 }; }
+	static constexpr Vector2D right() noexcept { return { 1,0 }; }
+	static constexpr Vector2D none() noexcept { return { 0,0 }; }
 
 	constexpr Vector2D & operator+=( Vector2D const & rhs ) noexcept { x += rhs.x; y += rhs.y; return *this; }
 	constexpr Vector2D & operator-=( Vector2D const & rhs ) noexcept { x -= rhs.x; y -= rhs.y; return *this; }
