@@ -215,5 +215,8 @@
     <ClInclude Include="RectCollider2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RaycastCollider2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

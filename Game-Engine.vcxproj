@@ -224,6 +224,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="PhysicsConstants.h" />
     <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="RaycastCollider2D.h" />
     <ClInclude Include="Rect2D.h" />
     <ClInclude Include="RectCollider2D.h" />
     <ClInclude Include="RenderEngine.h" />
