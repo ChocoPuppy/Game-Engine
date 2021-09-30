@@ -81,6 +81,15 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Joystick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualInputJoystick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="PhysicsObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -91,6 +100,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CollisionTester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RectCollider2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionsThisFrame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Joystick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualInputJoystick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RaycastCollider2D.cpp">
@@ -191,6 +224,15 @@
     <ClInclude Include="UnConstGetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Joystick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMaths.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="PhysicsObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -218,6 +260,56 @@
     <ClInclude Include="RectCollider2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OverlapEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionsThisFrame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Joystick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomMaths.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualInputJoystick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Framerate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GetCollidersEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParameterPack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionTesterExperimental.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game-Engine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
     <ClInclude Include="RaycastCollider2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
