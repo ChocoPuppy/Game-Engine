@@ -266,6 +266,7 @@
     <ClInclude Include="Size.h" />
     <ClInclude Include="TextureWrapper.h" />
     <ClInclude Include="Transform2D.h" />
+    <ClInclude Include="TransversalDirections.h" />
     <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
     <ClInclude Include="VirtualInputJoystick.h" />
