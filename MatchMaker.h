@@ -3,11 +3,14 @@
 #include <map>
 #include <memory>
 #include <string>
-class GemObject;
+#include <vector>
+#include "TransversalDirections.h"
+class GemScene;
 class MatchMaker
 {
+	static constexpr float MAX_ADJACENCY_DISTANCE = 1;
+
 public:
-	void findMatches( std::set<std::weak_ptr<GemObject>> board, std::set<std::string> updatedObjects )
-	{
-	}
+	void findPotentialMatches( GemScene const & scene );
+	void findMatches( GemScene const & scene );
 };
