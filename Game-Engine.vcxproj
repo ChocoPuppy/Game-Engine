@@ -241,6 +241,7 @@
     <ClInclude Include="ButtonEvent.h" />
     <ClInclude Include="InputOld.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IShape.h" />
     <ClInclude Include="OverlapEvent.h" />
     <ClInclude Include="Joystick.h" />
     <ClInclude Include="ParameterPack.h" />
