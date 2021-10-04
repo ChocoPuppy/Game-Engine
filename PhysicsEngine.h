@@ -42,5 +42,6 @@ namespace Collision
 
 	public:
 		void updatePhysics( unsigned long millisecondsToSimulate, std::vector<PhysicsObject *> & physicsObjects );
+		float getDistanceBetweenColliders( ICollider const & obj1, ICollider const & obj2 );
 	};
 }
