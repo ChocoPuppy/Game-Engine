@@ -3,7 +3,7 @@
 PhysicsObject::PhysicsObject() :_transform( std::make_shared<Transform2D>() ), _velocity{ 0,0 }, _rotationalVelocity( 0 ), _useGravity( true ), _isStatic( false ), _isActive( true ), _mass( 1 )
 {
 	Circle2D colliderSize = { 50 };
-	auto collider = new Collision::CircleCollider2D( transform(), colliderSize );
+	auto * collider = new Collision::CircleCollider2D( transform(), colliderSize );
 	collider->setOffsetFromTransform( { colliderSize.radius / 2,colliderSize.radius / 2 } );
 	setCollider( collider );
 }
@@ -20,7 +20,6 @@ void PhysicsObject::simulatePhysics( unsigned long millisecondsToSimulate )
 		transform()->rotation += _rotationalVelocity;
 	}
 	_clearForce();
-}
 }
 
 bool PhysicsObject::isFacingLeft() const
@@ -81,8 +80,8 @@ Vector2D PhysicsObject::getForce() const
 Vector2D PhysicsObject::getAcceleration() const
 {
 	Vector2D acceleration;
-	acceleration.x() = getForce().x() / getMass();
-	acceleration.y() = getForce().y() / getMass();
+	acceleration.x = getForce().x / getMass();
+	acceleration.y = getForce().y / getMass();
 	return acceleration;
 }
 void PhysicsObject::setIsAffectedByGravity( bool value )
@@ -128,7 +127,7 @@ void PhysicsObject::addForce( Vector2D force )
 
 void PhysicsObject::push( Vector2D force )
 {
-	if (!isKinematic())
+	if (!isStatic())
 		rawMove( transform()->position + force );
 }
 
