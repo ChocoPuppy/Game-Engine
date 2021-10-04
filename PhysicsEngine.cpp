@@ -3,6 +3,8 @@
 #include "CollisionTester.h"
 #include <utility>
 #include <algorithm>
+#include <queue>
+#include "LineCollider2D.h"
 #include "PhysicsObject.h"
 #include "CollisionTesterExperimental.h"
 using namespace Collision;
@@ -40,22 +42,95 @@ void PhysicsEngine::_updatePhysicsEvent( CollisionsThisFrame & physicsCollisions
 	_physicsEvent.update( &physicsCollisions );
 }
 
+CollisionsThisFrame Collision::PhysicsEngine::_getOverlapsOfSpecificCollider( ICollider * specificCollider, std::vector<ICollider *> colliders ) const
+{
+	CollisionsThisFrame::BaseMap collisions{};
+
+	auto furthestFromSpecificCollider = [specificCollider]( ICollider * lhs, ICollider * rhs )
+	{
+		Vector2D const lhsRelativePos = specificCollider->worldPositionToRelativePosition( lhs->getWorldPosition() );
+		Vector2D const rhsRelativePos = specificCollider->worldPositionToRelativePosition( rhs->getWorldPosition() );
+		return lhsRelativePos.magnitude() > rhsRelativePos.magnitude();
+	};
+
+	//Sorts all other colliders to be in order of closest object to furthest object.
+	std::priority_queue<ICollider *, std::vector<ICollider *>, decltype( furthestFromSpecificCollider )> queuedColliders( colliders.begin(), colliders.end(), furthestFromSpecificCollider );
+
+	bool isntRaycastCollider;
+	{
+		LineCollider2D * potentialLineCollider = dynamic_cast<LineCollider2D *>( specificCollider );
+		bool isLineCollider = potentialLineCollider != nullptr;
+		isntRaycastCollider = ( isLineCollider ) ? !potentialLineCollider->isRay() : true;
+	}
+	bool hasntCollidedYet = true;
+
+	//If the target collider isn't a raycast collider and the queuedColliders isn't empty, continue. If the target collider is a raycast collider, hasn't detected a collision yet and there are still queuedColliders, continue. If it is a raycast collider and we've detected a collision or we're out of queued colliders, stop.
+	while (!queuedColliders.empty() && ( isntRaycastCollider || hasntCollidedYet ))
+	{
+		ICollider * rhs = queuedColliders.top();
+		queuedColliders.pop();
+		CollisionData collisionData = Experimental::testForOverlap( *specificCollider, *rhs );
+		if (collisionData.intersectDistance != 0)
+		{
+			hasntCollidedYet = false;
+			collisions.emplace( std::make_pair( specificCollider, rhs ) );
+		}
+	}
+	return collisions;
+}
+
 Collision::CollisionsThisFrame PhysicsEngine::_getOverlapCollisions( std::vector<ICollider *> colliders ) const
 {
 	CollisionsThisFrame::BaseMap collisions{};
-	//Basically tests every element against each other, but it's just optimised so it doesn't pull out already checked pairs. We don't need to check x against itself, so we check every element after x against it. We know every element less than x has already been checked against every other element, so we don't bother checking them.
-	for (size_t x = 0; x < colliders.size(); x++)
-		for (size_t y = x + 1; y < colliders.size(); y++)
-		{
-			ICollider * colX = colliders[x];
-			ICollider * colY = colliders[y];
 
-			CollisionData collisionData = Experimental::testForOverlap( *colX, *colY );
-			if (collisionData.intersectDistance != 0)
+	//Sorts the queue so that raycast colliders go first due to their special nature. I really probably should find a better way to do raycasts, but for now this works.
+	std::queue<ICollider *, std::vector<ICollider *>> sortedColliderQueue{};
+	{
+		std::queue<ICollider *, std::vector<ICollider *>> nonRaycastQueue{};
+
+		for (ICollider *& collider : colliders)
+		{
+			LineCollider2D * potentialRaycastCollider = dynamic_cast<LineCollider2D *>( collider );
+			bool const isLineCollider = potentialRaycastCollider != nullptr;
+			bool const isRaycastCollider = ( isLineCollider ) ? potentialRaycastCollider->isRay() : false;
+			if (isRaycastCollider)
 			{
-				collisions.emplace( std::make_pair( colX, colY ), collisionData );
+				sortedColliderQueue.emplace( collider );
+			}
+			else
+			{
+				nonRaycastQueue.emplace( collider );
 			}
 		}
+		while (!nonRaycastQueue.empty())
+		{
+			ICollider * toAddCollider = nonRaycastQueue.front();
+			nonRaycastQueue.pop();
+			sortedColliderQueue.push( toAddCollider );
+		}
+	}
+
+	while (!sortedColliderQueue.empty())
+	{
+		ICollider * targetCollider = sortedColliderQueue.front();
+		sortedColliderQueue.pop();
+
+		auto newCollisions = _getOverlapsOfSpecificCollider( targetCollider, colliders );
+		collisions.merge( newCollisions );
+	}
+	////Basically tests every element against each other, but it's just optimised so it doesn't pull out already checked pairs. We don't need to check x against itself, so we check every element after x against it. We know every element less than x has already been checked against every other element, so we don't bother checking them.
+	//for (size_t x = 0; x < colliders.size(); x++)
+	//	for (size_t y = x + 1; y < colliders.size(); y++)
+	//	{
+	//		ICollider * colX = colliders[x];
+	//		ICollider * colY = colliders[y];
+
+	//		CollisionData collisionData = Experimental::testForOverlap( *colX, *colY );
+	//		if (collisionData.intersectDistance != 0)
+	//		{
+	//			collisions.emplace( std::make_pair( colX, colY ), collisionData );
+	//		}
+	//	}
 	return collisions;
 }
 

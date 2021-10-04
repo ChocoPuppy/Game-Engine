@@ -31,6 +31,8 @@ namespace Collision
 		void _updateOverlapEvent( CollisionsThisFrame & overlapCollisions );
 		void _updatePhysicsEvent( CollisionsThisFrame & physicsCollisions );
 
+		CollisionsThisFrame _getOverlapsOfSpecificCollider( ICollider * specificCollider, std::vector<ICollider *> colliders ) const;
+
 		CollisionsThisFrame _getOverlapCollisions( std::vector<ICollider *> colliders ) const;
 		CollisionsThisFrame _getPhysicsCollisions( CollisionsThisFrame const & overlapCollisions, std::vector<PhysicsObject *> const & physicsObjects ) const;
 
