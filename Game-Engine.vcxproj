@@ -197,7 +197,8 @@
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="RaycastCollider2D.cpp" />
+    <ClCompile Include="Line2D.cpp" />
+    <ClCompile Include="LineCollider2D.cpp" />
     <ClCompile Include="Rect2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
@@ -250,9 +251,11 @@
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsEvent.h" />
     <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="RaycastCollider2D.h" />
+    <ClInclude Include="Line2D.h" />
+    <ClInclude Include="LineCollider2D.h" />
     <ClInclude Include="Rect2D.h" />
     <ClInclude Include="RectCollider2D.h" />
+    <ClInclude Include="RectLineCollisionTest.h" />
     <ClInclude Include="RenderEngine.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
@@ -267,6 +270,7 @@
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="UnConstGetter.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Vector3D.h" />
     <ClInclude Include="VirtualInputJoystick.h" />
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />

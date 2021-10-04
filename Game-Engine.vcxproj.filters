@@ -24,7 +24,7 @@
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="RaycastCollider2D.cpp" />
+    <ClCompile Include="LineCollider2D.cpp" />
     <ClCompile Include="Rect2D.cpp" />
     <ClCompile Include="RectCollider2D.cpp" />
     <ClCompile Include="RenderEngine.cpp" />
@@ -37,6 +37,7 @@
     <ClCompile Include="VirtualInputJoystick.cpp" />
     <ClCompile Include="WalkingDino.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Line2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedGameObject.h" />
@@ -76,7 +77,7 @@
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="PhysicsEvent.h" />
     <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="RaycastCollider2D.h" />
+    <ClInclude Include="LineCollider2D.h" />
     <ClInclude Include="Rect2D.h" />
     <ClInclude Include="RectCollider2D.h" />
     <ClInclude Include="RenderEngine.h" />
@@ -97,6 +98,9 @@
     <ClInclude Include="WalkingDino.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="IShape.h" />
+    <ClInclude Include="Line2D.h" />
+    <ClInclude Include="RectLineCollisionTest.h" />
+    <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game-Engine.rc" />
