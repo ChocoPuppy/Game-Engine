@@ -40,6 +40,15 @@ Vector2D ICollider::getWorldPosition() const
 	return _attatchedToTransform->position + getOffsetFromTransform();
 }
 
+Vector2D Collision::ICollider::getSupportPointOf( Vector2D point ) const noexcept
+{
+	IShape const & baseShape = getShape();
+	Vector2D const relativePoint = worldPositionToRelativePosition( point );
+	Vector2D const relativeSupportPoint = baseShape.getSupportPointOf( relativePoint );
+	Vector2D const worldSupportPoint = relativePositionToWorldPosition( relativeSupportPoint );
+	return worldSupportPoint;
+}
+
 std::shared_ptr<Transform2D const> ICollider::attatchedToTransform() const
 {
 	return _attatchedToTransform;

@@ -28,6 +28,20 @@ namespace Collision
 		ColliderCensus _census;
 		std::shared_ptr<Transform2D const> _attatchedToTransform;
 		Vector2D _offset;
+
+		std::unique_ptr<IShape> _baseShape;
+	protected:
+		template<class ShapeType = IShape>
+		ShapeType const & getShape() const
+		{
+			return *dynamic_cast<ShapeType *>( _baseShape.get() );
+		}
+
+		template<class ShapeType>
+		void setShape( ShapeType const & shape ) { setShape( std::move( shape ) ); }
+		template<class ShapeType>
+		void setShape( ShapeType && shape ) { _baseShape = std::make_unique<ShapeType>( shape ); }
+
 	public:
 		ICollider( std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
 		virtual ~ICollider();
@@ -39,12 +53,17 @@ namespace Collision
 		/// @brief Get the closest point inside the collider to a given point.
 		/// @param point The position to get the closest collider point to. Worldspace.
 		/// @return The clostest position inside the collider to the point. Worldspace.
-		virtual Vector2D getSupportPointOf( Vector2D point ) const = 0;
+		Vector2D getSupportPointOf( Vector2D point ) const noexcept;
 
 		std::shared_ptr<Transform2D const> attatchedToTransform() const;
 		Vector2D getOffsetFromTransform() const;
 		Vector2D getWorldPosition() const;
 
+		template<>
+		IShape const & getShape<IShape>() const
+		{
+			return *_baseShape;
+		}
 		/// @brief Translates the position relative to this collider into the world position.
 		/// @param relativePosition
 		/// @return

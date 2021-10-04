@@ -15,9 +15,9 @@ namespace Collision
 
 		virtual Rect2D extentsOfCollider() const override;
 
-		Circle2D getCircle() const { return _circle; }
+		Circle2D getCircle() const { return getShape<Circle2D>(); }
 
-		void setCircle( Circle2D circle ) { _circle = circle; }
+		void setCircle( Circle2D circle ) { setShape( circle ); }
 	private:
 		Circle2D _circle;
 	};

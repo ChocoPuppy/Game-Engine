@@ -19,10 +19,10 @@ Collision::RectCollider2D::RectCollider2D( std::shared_ptr<Transform2D> transfor
 
 Rect2D Collision::RectCollider2D::getSize() const
 {
-	return _rect;
+	return getShape<Rect2D>();
 }
 
 void Collision::RectCollider2D::setSize( Rect2D size )
 {
-	_rect = size;
+	setShape( size );
 }
