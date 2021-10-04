@@ -38,7 +38,7 @@ struct Vector2D : std::pair<double, double>
 
 	constexpr float magnitude() const
 	{
-		return sqrtf( (float)( x * x + y * y ) );
+		return sqrtf( ( dotProduct( *this ) );
 	}
 
 	constexpr float distance( Vector2D point ) const noexcept
