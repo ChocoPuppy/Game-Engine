@@ -12,7 +12,7 @@ Editor::Editor( LPCWSTR windowName ) : _creditsWindow( nullptr ), _showCreditsIn
 	_window = FindWindow( NULL, windowName );
 	if (_window == NULL)
 	{
-		std::cout << "Failed to find window. Window name: " << windowName << std::endl;
+		//		std::cout << "Failed to find window. Window name: " << windowName << std::endl;
 		exit( 1 );
 	}
 
