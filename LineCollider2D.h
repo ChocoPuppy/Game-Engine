@@ -12,6 +12,8 @@ namespace Collision
 		bool _isRay;
 	public:
 
+		LineCollider2D( Line2D line, bool isRay = false, std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
+
 		Line2D getLine() const;
 		//When doing collisions for this object, don't collide with objects past the closest collided one.
 		bool isRay() const;
@@ -26,9 +28,9 @@ namespace Collision
 	template<>
 	struct TestForSpecificOverlap<LineCollider2D, LineCollider2D>
 	{
-		void operator()( LineCollider2D const & lineA, LineCollider2D const & lineB, CollisionData & data )
+		void operator()( LineCollider2D const &, LineCollider2D const &, CollisionData & )
 		{
-			Vector2D const lineBRelativeToLineA = lineA.worldPositionToRelativePosition( lineB.getWorldPosition() );
+			//			Vector2D const lineBRelativeToLineA = lineA.worldPositionToRelativePosition( lineB.getWorldPosition() );
 		}
 	};
 }

@@ -1,5 +1,10 @@
 #include "LineCollider2D.h"
 
+Collision::LineCollider2D::LineCollider2D( Line2D line, bool isRay, std::shared_ptr<Transform2D const> attatchedTo ) : ICollider( attatchedTo ), _isRay( isRay )
+{
+	setShape( line );
+}
+
 Line2D Collision::LineCollider2D::getLine() const
 {
 	return getShape<Line2D>();
