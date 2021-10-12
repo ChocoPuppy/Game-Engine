@@ -24,3 +24,9 @@ Vector2D Line2D::getSupportPointOf( Vector2D point ) const noexcept
 
 	return supportPoint;
 }
+
+Vector2D Line2D::lerp( double t ) const
+{
+	Vector2D const lerpValue = getDirection().scalar( t );
+	return lerpValue;
+}
