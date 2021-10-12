@@ -31,7 +31,7 @@ class Player : public AnimatedGameObject
 public:
 	Player( std::string ID );
 
-	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) override;
+	virtual void simulateAI( unsigned long millisecondsToSimulate, GameContext context ) override;
 
 	virtual void render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer ) override;
 

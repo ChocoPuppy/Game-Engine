@@ -8,5 +8,5 @@ WalkingDino::WalkingDino( std::string ID ) : AnimatedGameObject( ID, "Texture.Di
 	transform()->scale.y = 100;
 }
 
-void WalkingDino::simulateAI( unsigned long, AssetManager * )
+void WalkingDino::simulateAI( unsigned long, GameContext )
 {}

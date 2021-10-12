@@ -104,12 +104,12 @@ Player::Player( std::string ID ) : AnimatedGameObject( ID, "Texture.Player.Idle"
 	std::cout << "Player has spawned" << std::endl;
 }
 
-void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets )
+void Player::simulateAI( unsigned long millisecondsToSimulate, GameContext context )
 {
 	Vector2D movement = Vector2D{};
 	movement.x = _xInput.getValue();
 	movement.y = -_yInput.getValue();
-	_simulateState( millisecondsToSimulate, movement, assets );
+	_simulateState( millisecondsToSimulate, movement, context.getAssets() );
 	//	std::cout << _xInput.getValue() << std::endl;
 		//	std::cout << movement.magnitude() << std::endl;
 	if (movement.magnitude() > 0)

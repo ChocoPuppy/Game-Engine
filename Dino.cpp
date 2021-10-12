@@ -11,5 +11,5 @@ Dino::Dino() : GameObject( "Dino", "Texture.Dino" )
 	setRotationalVelocity( 0.0000001f );
 }
 
-void Dino::simulateAI( unsigned long, AssetManager * )
+void Dino::simulateAI( unsigned long, GameContext )
 {}

@@ -89,7 +89,7 @@ void GameEngine::simulateAI( unsigned long millisecondsToSimulate, GameContext c
 {
 	for (GameObject * obj : context.getScene()->getGameObjects())
 	{
-		obj->simulateAI( millisecondsToSimulate, context.getAssets() );
+		obj->simulateAI( millisecondsToSimulate, context );
 	}
 }
 
