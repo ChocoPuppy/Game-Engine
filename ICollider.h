@@ -38,9 +38,9 @@ namespace Collision
 		}
 
 		template<class ShapeType>
-		void setShape( ShapeType const & shape ) { setShape( std::move( shape ) ); }
+		void setShape( ShapeType const & shape ) { setShape<ShapeType>( std::move( shape ) ); }
 		template<class ShapeType>
-		void setShape( ShapeType && shape ) { _baseShape = std::make_unique<ShapeType>( shape ); }
+		void setShape( ShapeType && shape ) { _baseShape = std::make_unique<std::remove_cvref_t<ShapeType>>( std::forward<ShapeType>( shape ) ); }
 
 	public:
 		ICollider( std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
