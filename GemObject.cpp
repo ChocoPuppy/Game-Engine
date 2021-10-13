@@ -2,6 +2,11 @@
 void GemObject::simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets )
 {}
 
+void GemObject::_changeGemTextureTo( GemType::GemType type )
+{
+	_textureID = GemType::toTextureID( type );
+}
+
 void GemObject::_setGemType( GemType::GemType newType )
 {
 	_gemType = newType;
