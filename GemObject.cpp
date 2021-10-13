@@ -1,5 +1,5 @@
 #include "GemObject.h"
-void GemObject::simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets )
+void GemObject::simulateAI( unsigned long, AssetManager * )
 {}
 
 void GemObject::_changeGemTextureTo( GemType::GemType type )
