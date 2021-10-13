@@ -1,17 +1,22 @@
 #pragma once
 #include "GameObject.h"
 #include "GemType.h"
-class GemObject : GameObject
+class GemObject : public GameObject
 {
-	GemType _gemType;
+	GemType::GemTypes _gemType;
 	Coordinates _targetBoardPosition;
 	float _lerpSpeed;
-public:
-	GemType getGemType();
-	void setGemType( GemType newType );
 
-	Vector2D getBoardPosition();
-	float getLerpSpeed();
-	void setLerpSpeed( float );
+	void _changeGemTextureTo( GemType::GemType type );
+public:
+	GemObject( std::string ID );
+
+	GemType::GemType getGemType() const;
+	void setGemType( GemType::GemType newType );
+
+	float getLerpSpeed() const;
+	void setLerpSpeed( float speed );
 	void moveToBoardPosition( Coordinates position );
+
+	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) override;
 };

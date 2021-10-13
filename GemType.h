@@ -1,11 +1,17 @@
 #pragma once
-enum class GemType
+#include <string>
+namespace GemType
 {
-	NONE,
-	RED,
-	BLUE,
-	GREEN,
-	WHITE,
-	RAINBOW,
-	BOMB
-};
+	enum GemType
+	{
+		NONE,
+		RED,
+		BLUE,
+		GREEN,
+		WHITE,
+		RAINBOW,
+		BOMB
+	};
+
+	std::string toTextureID( GemType type );
+}
