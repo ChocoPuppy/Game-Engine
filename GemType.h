@@ -13,5 +13,7 @@ namespace GemType
 		BOMB
 	};
 
+	std::string toString( GemType type );
+
 	std::string toTextureID( GemType type );
 }
