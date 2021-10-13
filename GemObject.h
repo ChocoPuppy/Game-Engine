@@ -3,11 +3,12 @@
 #include "GemType.h"
 class GemObject : public GameObject
 {
-	GemType::GemTypes _gemType;
+	GemType::GemType _gemType;
 	Coordinates _targetBoardPosition;
 	float _lerpSpeed;
 
 	void _changeGemTextureTo( GemType::GemType type );
+	void _setGemType( GemType::GemType newType );
 public:
 	GemObject( std::string ID );
 
