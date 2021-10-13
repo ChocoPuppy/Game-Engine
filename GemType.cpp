@@ -25,6 +25,6 @@ std::string GemType::toString( GemType type )
 
 std::string GemType::toTextureID( GemType type )
 {
-	static const std::string TEXTURE_PATH_CONSTANT = "Textures.Gem.";
+	static const std::string TEXTURE_PATH_CONSTANT = "Texture.Gem.";
 	return TEXTURE_PATH_CONSTANT + toString( type );
 }
