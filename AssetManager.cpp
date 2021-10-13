@@ -6,8 +6,14 @@ AssetManager::AssetManager( SDL::Renderer * renderer )
 	//	_assets["Texture.Dino"] = new Texture( "Assets/dino.png", renderer );
 
 	_loadAsset<Texture>( "Texture.Debug.Rectangle", "Assets/rectangle.png", renderer );
-
 	_loadAsset<Texture>( "Texture.Debug.Circle", "Assets/circle.png", renderer );
+
+	_loadAsset<Texture>( "Texture.Gem.Red", "Assets/gem.red.png", renderer );
+	_loadAsset<Texture>( "Texture.Gem.Blue", "Assets/gem.blue.png", renderer );
+	_loadAsset<Texture>( "Texture.Gem.Green", "Assets/gem.green.png", renderer );
+	_loadAsset<Texture>( "Texture.Gem.White", "Assets/gem.white.png", renderer );
+	_loadAsset<Texture>( "Texture.Gem.Bomb", "Assets/gem.bomb.png", renderer );
+	_loadAsset<Texture>( "Texture.Gem.Unknown", "Assets/gem.unknown.png", renderer );
 
 	constexpr int frameCount = 10;
 	constexpr unsigned long frameDurationMilliseconds = 100;
