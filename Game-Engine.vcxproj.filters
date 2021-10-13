@@ -132,6 +132,12 @@
     <ClCompile Include="GemObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GemsScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GemType.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine.h">

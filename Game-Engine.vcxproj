@@ -190,6 +190,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GemObject.cpp" />
+    <ClCompile Include="GemsScene.cpp" />
+    <ClCompile Include="GemType.cpp" />
     <ClCompile Include="ICollider.cpp" />
     <ClCompile Include="InputOld.cpp" />
     <ClCompile Include="InputManager.cpp" />
