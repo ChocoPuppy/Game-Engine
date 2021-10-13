@@ -12,3 +12,6 @@ Vector2D GemsScene::getMapBounds() const noexcept
 {
 	return _MAP_BOUNDS;
 }
+
+void GemsScene::update( SDL::Window * )
+{}
