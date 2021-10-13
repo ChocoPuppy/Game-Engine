@@ -8,7 +8,7 @@ GemsScene::GemsScene() : Scene( "Gem scene" )
 	addGameObject( newGem );
 }
 
-Vector2D GemsScene::getMapBounds() const
+Vector2D GemsScene::getMapBounds() const noexcept
 {
 	return _MAP_BOUNDS;
 }
