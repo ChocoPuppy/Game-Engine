@@ -38,5 +38,5 @@ void GemObject::setLerpSpeed( float speed )
 
 void GemObject::moveToBoardPosition( Coordinates position )
 {
-	transform()->position = { position.x,position.y };
+	transform()->position = { (double)position.x,(double)position.y };
 }
