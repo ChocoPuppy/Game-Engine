@@ -4,7 +4,7 @@
 #include "TransversalDirections.h"
 #include "Vector2D.h"
 class GemObject;
-class GemsScene : Scene
+class GemsScene : public Scene
 {
 public:
 	GemsScene();
