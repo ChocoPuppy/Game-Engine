@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 #include "Window.h"
 class GameObject;
 
@@ -9,7 +10,7 @@ class Scene
 {
 public:
 	Scene( std::string ID );
-	~Scene();
+	virtual ~Scene() = default;
 
 	virtual void update( SDL::Window * window ) = 0;
 
@@ -23,6 +24,6 @@ protected:
 	void removeGameObject( std::string ID );
 	void removeGameObject( GameObject * object );
 private:
-	std::map<std::string, GameObject *> _gameObjects;
+	std::map<std::string, std::unique_ptr<GameObject>> _gameObjects;
 	std::string _ID;
 };

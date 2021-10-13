@@ -6,8 +6,6 @@ Scene::Scene( std::string ID )
 	_ID = ID;
 }
 
-Scene::~Scene() = default;
-
 GameObject * Scene::getGameObject( std::string ID ) const
 {
 	if (_gameObjects.find( ID ) == _gameObjects.end())
@@ -15,7 +13,7 @@ GameObject * Scene::getGameObject( std::string ID ) const
 		std::cout << "Failed to find gameobject of ID: " << ID << " in scene ID: " << getID() << std::endl;
 		exit( 1 );
 	}
-	return _gameObjects.at( ID );
+	return _gameObjects.at( ID ).get();
 }
 
 std::vector<GameObject *> Scene::getGameObjects() const
@@ -24,7 +22,7 @@ std::vector<GameObject *> Scene::getGameObjects() const
 
 	for (auto & keyPair : _gameObjects)
 	{
-		objects.push_back( keyPair.second );
+		objects.push_back( keyPair.second.get() );
 	}
 	return objects;
 }
