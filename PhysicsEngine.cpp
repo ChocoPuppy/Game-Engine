@@ -3,7 +3,6 @@
 #include "CollisionTester.h"
 #include <utility>
 #include <algorithm>
-#include <queue>
 #include "LineCollider2D.h"
 #include "PhysicsObject.h"
 #include "CollisionTesterExperimental.h"
@@ -69,46 +68,25 @@ CollisionsThisFrame Collision::PhysicsEngine::_getOverlapsOfSpecificCollider( IC
 	{
 		ICollider * rhs = queuedColliders.top();
 		queuedColliders.pop();
-		CollisionData collisionData = Experimental::testForOverlap( *specificCollider, *rhs );
-		if (collisionData.intersectDistance != 0)
+		//Don't check for collisions if both colliders are the same one, since, we really don't care if it's colliding with itself.
+		if (rhs != specificCollider)
 		{
-			hasntCollidedYet = false;
-			collisions.emplace( std::make_pair( specificCollider, rhs ) );
+			CollisionData collisionData = Experimental::testForOverlap( *specificCollider, *rhs );
+			if (collisionData.intersectDistance != 0)
+			{
+				hasntCollidedYet = false;
+				collisions.emplace( std::make_pair( specificCollider, rhs ), collisionData );
+			}
 		}
 	}
 	return collisions;
 }
 
-Collision::CollisionsThisFrame PhysicsEngine::_getOverlapCollisions( std::vector<ICollider *> colliders ) const
+Collision::CollisionsThisFrame PhysicsEngine::_getOverlapCollisions( std::vector<ICollider *> const & colliders ) const
 {
 	CollisionsThisFrame::BaseMap collisions{};
 
-	//Sorts the queue so that raycast colliders go first due to their special nature. I really probably should find a better way to do raycasts, but for now this works.
-	std::queue<ICollider *, std::vector<ICollider *>> sortedColliderQueue{};
-	{
-		std::queue<ICollider *, std::vector<ICollider *>> nonRaycastQueue{};
-
-		for (ICollider *& collider : colliders)
-		{
-			LineCollider2D * potentialRaycastCollider = dynamic_cast<LineCollider2D *>( collider );
-			bool const isLineCollider = potentialRaycastCollider != nullptr;
-			bool const isRaycastCollider = ( isLineCollider ) ? potentialRaycastCollider->isRay() : false;
-			if (isRaycastCollider)
-			{
-				sortedColliderQueue.emplace( collider );
-			}
-			else
-			{
-				nonRaycastQueue.emplace( collider );
-			}
-		}
-		while (!nonRaycastQueue.empty())
-		{
-			ICollider * toAddCollider = nonRaycastQueue.front();
-			nonRaycastQueue.pop();
-			sortedColliderQueue.push( toAddCollider );
-		}
-	}
+	auto sortedColliderQueue = _sortRaycastsFirst( colliders );
 
 	while (!sortedColliderQueue.empty())
 	{
@@ -164,6 +142,27 @@ float Collision::PhysicsEngine::getDistanceBetweenColliders( ICollider const & o
 	}
 	float const distanceBetweenColliders = minowskiDifferenceOfSupports.magnitude();
 	return distanceBetweenColliders;
+}
+
+std::optional<RaycastCollisionData> Collision::PhysicsEngine::raycast( Vector2D position, Vector2D length )
+{
+	std::optional<RaycastCollisionData> data = std::nullopt;
+	Line2D const line = { length };
+	static constexpr bool IS_RAYCAST = true;
+	auto otherColliders = _getColliders();
+	LineCollider2D raycastCollider = LineCollider2D( line, IS_RAYCAST );
+	raycastCollider.setOffsetFromTransform( position );
+
+	auto collisionsWithThisObject = _getOverlapsOfSpecificCollider( &raycastCollider, otherColliders );
+	//This should be only one or zero elements, but even if it's somehow more, it just means a random thing gets picked as the collider from the cast, which isn't perfect, but I need to rework this system anyway so this should give me some extra reason to.
+	for (CollisionsThisFrame::ColliderPair pair : collisionsWithThisObject.getCollisions())
+	{
+		CollisionData superData = collisionsWithThisObject.dataOfCollision( pair );
+		data.emplace( superData );
+		data->collider = pair.second;
+	}
+
+	return data;
 }
 
 void Collision::PhysicsEngine::_resolvePhysicsCollisions( CollisionsThisFrame & physicsCollisions, std::vector<PhysicsObject *> const & physicsObjects )
@@ -224,6 +223,37 @@ void Collision::PhysicsEngine::_resolveCollisionWithPhysicsObject( PhysicsObject
 
 		object.push( pushForceToResolveCollision );
 	}
+}
+
+std::queue<ICollider *> Collision::PhysicsEngine::_sortRaycastsFirst( std::vector<ICollider *> colliders )
+{
+	//Sorts the queue so that raycast colliders go first due to their special nature. I really probably should find a better way to do raycasts, but for now this works.
+	std::queue<ICollider *> sortedColliderQueue{};
+	{
+		std::queue<ICollider *> nonRaycastQueue{};
+
+		for (ICollider *& collider : colliders)
+		{
+			LineCollider2D * potentialRaycastCollider = dynamic_cast<LineCollider2D *>( collider );
+			bool const isLineCollider = potentialRaycastCollider != nullptr;
+			bool const isRaycastCollider = ( isLineCollider ) ? potentialRaycastCollider->isRay() : false;
+			if (isRaycastCollider)
+			{
+				sortedColliderQueue.emplace( collider );
+			}
+			else
+			{
+				nonRaycastQueue.emplace( collider );
+			}
+		}
+		while (!nonRaycastQueue.empty())
+		{
+			ICollider * toAddCollider = nonRaycastQueue.front();
+			nonRaycastQueue.pop();
+			sortedColliderQueue.push( toAddCollider );
+		}
+	}
+	return sortedColliderQueue;
 }
 
 void PhysicsEngine::updatePhysics( unsigned long millisecondsToSimulate, std::vector<PhysicsObject *> & physicsObjects )

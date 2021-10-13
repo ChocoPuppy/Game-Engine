@@ -1,6 +1,8 @@
 #include <set>
 #include <vector>
 #include <map>
+#include <queue>
+#include <optional>
 #include <SmartEvent/EventHandle.h>
 #include "GetCollidersEvent.h"
 #include "OverlapEvent.h"
@@ -13,6 +15,11 @@ namespace Collision
 {
 	struct PhysicsCollisionData : public CollisionData
 	{};
+	struct RaycastCollisionData : public CollisionData
+	{
+		RaycastCollisionData( CollisionData superData ) : CollisionData( superData ) {}
+		ICollider * collider;
+	};
 	class PhysicsEngine
 	{
 		friend ICollider;
@@ -33,7 +40,7 @@ namespace Collision
 
 		CollisionsThisFrame _getOverlapsOfSpecificCollider( ICollider * specificCollider, std::vector<ICollider *> colliders ) const;
 
-		CollisionsThisFrame _getOverlapCollisions( std::vector<ICollider *> colliders ) const;
+		CollisionsThisFrame _getOverlapCollisions( std::vector<ICollider *> const & colliders ) const;
 		CollisionsThisFrame _getPhysicsCollisions( CollisionsThisFrame const & overlapCollisions, std::vector<PhysicsObject *> const & physicsObjects ) const;
 
 		void _resolvePhysicsCollisions( CollisionsThisFrame & physicsCollisions, std::vector<PhysicsObject *> const & physicsObjects );
@@ -42,8 +49,10 @@ namespace Collision
 		void _resolvePhysicsCollision( PhysicsObject & objA, PhysicsObject & objB, CollisionData & collisionData );
 		void _resolveCollisionWithPhysicsObject( PhysicsObject & object, PhysicsObject const & otherObject, CollisionData collisionData );
 
+		static std::queue<ICollider *> _sortRaycastsFirst( std::vector<ICollider *> colliders );
 	public:
 		void updatePhysics( unsigned long millisecondsToSimulate, std::vector<PhysicsObject *> & physicsObjects );
-		float getDistanceBetweenColliders( ICollider const & obj1, ICollider const & obj2 );
+		static float getDistanceBetweenColliders( ICollider const & obj1, ICollider const & obj2 );
+		std::optional<RaycastCollisionData> raycast( Vector2D position, Vector2D length );
 	};
 }
