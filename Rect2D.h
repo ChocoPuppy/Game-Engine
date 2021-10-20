@@ -37,13 +37,18 @@ struct Rect2D
 		_sizeFromMiddle.y /= 2;
 	}
 
-	constexpr float distanceFromPoint( Vector2D point )
+	//Get the closest point in the object to an outside point.
+	constexpr Vector2D supportPointOf( Vector2D point )
 	{
 		Vector2D difference{};
 		difference.x = std::max( { (float)( leftEdge() - point.x ),0.0f, (float)( point.x - rightEdge() ) } );
 		difference.y = std::max( { (float)( bottomEdge() - point.y ),0.0f, (float)( point.y - topEdge() ) } );
+		return difference;
+	}
 
-		return difference.magnitude();
+	constexpr float distanceFromPoint( Vector2D point )
+	{
+		return supportPointOf( point ).magnitude();
 	}
 
 	/// @brief Figures the minimum distance between two rectangles.
