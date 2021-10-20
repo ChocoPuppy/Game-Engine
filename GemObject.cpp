@@ -13,7 +13,9 @@ void GemObject::_setGemType( GemType::GemType newType )
 }
 
 GemObject::GemObject( std::string ID ) : GameObject( ID, "" )
-{}
+{
+	transform()->scale = { 30,30 };
+}
 
 GemType::GemType GemObject::getGemType() const
 {
