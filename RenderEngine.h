@@ -20,9 +20,10 @@ public:
 	Vector2D worldPosToScreenPos( Vector2D worldPos ) const;
 	Vector2D worldPosToSubPixelPos( Vector2D worldPos ) const;
 	Coordinates worldPosToPixelPos( Vector2D worldPos ) const;
+	//Currently equivalent to screenPosToWorldPos as at the moment world positions are equivalent to pixel positions. I may change that, which is why this has been left here.
 	Vector2D screenPosToSubPixelPos( Vector2D screenPos ) const;
 	//Converts the screen position in 0-1 screenspace to the equivalent world position.
 	Vector2D screenPosToWorldPos( Vector2D screenPos ) const;
 
-	void renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip = SDL_FLIP_NONE ) const;
+	void renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip = SDL_FLIP_NONE );
 };
