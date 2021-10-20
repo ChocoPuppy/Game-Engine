@@ -182,6 +182,7 @@
     <ClCompile Include="CircleCollider2D.cpp" />
     <ClCompile Include="CollisionsThisFrame.cpp" />
     <ClCompile Include="CollisionTester.cpp" />
+    <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="CreditsWindow.cpp" />
     <ClCompile Include="Dino.cpp" />
     <ClCompile Include="Editor.cpp" />
