@@ -14,23 +14,18 @@ struct Vector2D : std::pair<double, double>
 	double & x;
 	double & y;
 
-	constexpr Vector2D normalize() const
+	constexpr Vector2D normalize() const noexcept
 	{
-		Vector2D normalizedVector{ x,y };
+		Vector2D normalizedVector = *this;
 		const float mag = magnitude();
-
-		if (mag > 0)
-		{
-			normalizedVector.x /= mag;
-			normalizedVector.y /= mag;
-		}
+		if (mag > 0) normalizedVector / mag;
 		return normalizedVector;
 	}
 
-	constexpr Vector2D abs() const { return { std::abs( x ),std::abs( y ) }; }
+	constexpr Vector2D abs() const noexcept { return { std::abs( x ),std::abs( y ) }; }
 
 	constexpr float angle() const { return -atan2f( y, x ); }
-	constexpr bool isAngledLeft() const
+	constexpr bool isAngledLeft() const noexcept
 	{
 		constexpr float PI = 3.14159265f;
 		bool const isMoving = magnitude() > 0;
@@ -38,9 +33,12 @@ struct Vector2D : std::pair<double, double>
 		return isMoving && isMovingLeft;
 	}
 
-	constexpr float magnitude() const
+	constexpr float magnitude() const noexcept
 	{
-		return sqrtf( (float)( x * x + y * y ) );
+		float const selfDotProduct = dotProduct( *this );
+		float const absoluteSelfDotProduct = std::abs( selfDotProduct );
+		float const magnitude = sqrt( absoluteSelfDotProduct );
+		return magnitude;
 	}
 
 	constexpr float distance( Vector2D point ) const noexcept
@@ -49,7 +47,8 @@ struct Vector2D : std::pair<double, double>
 		return difference.magnitude();
 	}
 
-	constexpr Vector2D scalar( float scale ) const noexcept { return { x * scale, y * scale }; }
+	constexpr Vector2D scalar( float scale ) const noexcept { return ( *this ) * scale; }
+	constexpr Vector2D divisionScalar( float scale ) const noexcept { return ( *this ) / scale; }
 	/// @brief Cross product of this and rhs.
 	/// @param rhs The other vector2D to cross product with.
 	/// @return The magnitude of a vector (the cross product of the 3D version of these two vectors) at a right angle to both values.
@@ -75,19 +74,23 @@ struct Vector2D : std::pair<double, double>
 	static constexpr Vector2D right() noexcept { return { 1,0 }; }
 	static constexpr Vector2D none() noexcept { return { 0,0 }; }
 
-	constexpr Vector2D & operator+=( Vector2D const & rhs ) noexcept { x += rhs.x; y += rhs.y; return *this; }
-	constexpr Vector2D & operator-=( Vector2D const & rhs ) noexcept { x -= rhs.x; y -= rhs.y; return *this; }
+	constexpr Vector2D & operator+=( Vector2D const & rhs ) noexcept { return _add( rhs ); }
+	constexpr Vector2D & operator-=( Vector2D const & rhs ) noexcept { return _subtract( rhs ); }
+	constexpr Vector2D & operator*=( float rhs ) noexcept { return _scalar( rhs ); }
+	constexpr Vector2D & operator/=( float rhs ) noexcept { return _divisionScalar( rhs ); }
 
 	friend constexpr Vector2D operator+( Vector2D lhs, Vector2D const & rhs ) noexcept { return lhs += rhs; }
 	friend constexpr Vector2D operator-( Vector2D lhs, Vector2D const & rhs ) noexcept { return lhs -= rhs; }
+
+	friend constexpr Vector2D operator*( Vector2D lhs, float rhs ) noexcept { return lhs *= rhs; }
+
 	friend constexpr Vector2D operator-( Vector2D lhs ) noexcept { lhs.x = -lhs.x; lhs.y = -lhs.y; return lhs; }
 
-	/// @brief An unsided non-assigning scalar multiplication.
-	/// @detail The compiler, when reading operators, doesn't consider arguments in any specific order (so writing float * Vector2D is exactly the same as writing Vector2D * float to the compiler). When interpreting operators, it considered operator overrides of the lhs first if the lhs has a valid override, it'll call lhs.operator*(rhs), if the lhs has no valid operator overrides, then it considers global operator overrides, however it never tries to find any overrides in the rhs, so even if the right hand symbol has a perfectly valid operator override, it will never call rhs.operator*(lhs). As of such, by writing this as a friend function (friend functions are actually global unless specified otherwise and only connects to the class it's in in that it can access private members, so this function can't actually be called via Vector2D.operator*())
-	/// @param lhs
-	/// @param rhs
-	/// @return a Vector2D with all values multiplied by rhs.
-	friend constexpr Vector2D operator*( Vector2D const & lhs, float rhs ) noexcept { return lhs.scalar( rhs ); }
+	constexpr Vector2D operator/( float rhs ) const noexcept { Vector2D scaledVector = *this; scaledVector /= rhs; return scaledVector; }
 
-	//	friend Vector2D operator/( Vector2D lhs, float rhs );
+private:
+	Vector2D & _add( Vector2D const & rhs ) noexcept { x += rhs.x; y += rhs.y; return *this; }
+	Vector2D & _subtract( Vector2D const & rhs ) noexcept { return _add( -rhs ); }
+	Vector2D & _scalar( float rhs ) noexcept { x *= rhs; y *= rhs; return *this; }
+	Vector2D & _divisionScalar( float rhs ) noexcept { x /= rhs; y /= rhs; return *this; }
 };
