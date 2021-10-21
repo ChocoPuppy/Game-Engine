@@ -61,10 +61,8 @@ Vector2D RenderEngine::worldPosToSubPixelPos( Vector2D worldPos ) const
 
 Coordinates RenderEngine::worldPosToPixelPos( Vector2D worldPos ) const
 {
-	Vector2D subPixelPos = worldPosToSubPixelPos( worldPos );
-	subPixelPos.x = std::round( subPixelPos.x );
-	subPixelPos.y = std::round( subPixelPos.y );
-	Coordinates pixelPos{ (int)subPixelPos.x,(int)subPixelPos.y };
+	Vector2D const subPixelPos = worldPosToSubPixelPos( worldPos );
+	Coordinates const pixelPos{ subPixelPos };
 	return pixelPos;
 }
 
