@@ -2,6 +2,7 @@
 #include "Transform2D.h"
 #include "Texture.h"
 #include "TextureWrapper.h"
+#include <cmath>
 
 Vector2D RenderEngine::_getCameraClip() const
 {
@@ -15,14 +16,18 @@ SDL::Window const & RenderEngine::getWindow() const noexcept
 	return _window;
 }
 
-void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip ) const
+void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip )
 {
 	SDL_Rect destination{};
+	{
+		Coordinates pixelPos = worldPosToPixelPos( transform.position );
+		destination.x = pixelPos.x;
+		destination.y = pixelPos.y;
 
-	destination.x = (int)( transform.position.x );
-	destination.y = (int)( transform.position.y );
-	destination.w = (int)( transform.scale.x );
-	destination.h = (int)( transform.scale.y );
+		Coordinates pixelScale = worldPosToPixelPos( transform.scale );
+		destination.w = pixelScale.x;
+		destination.h = pixelScale.y;
+	}
 
 	SDL_Rect clip{};
 	{
@@ -31,7 +36,7 @@ void RenderEngine::renderTexture( Transform2D const & transform, Texture const &
 		clip.w = textureSize.width();
 		clip.h = textureSize.height();
 	}
-	texture.render( const_cast<SDL::Renderer *>( static_cast<SDL::Renderer const *>( this ) ), clip, destination, flip );
+	texture.render( this, clip, destination, flip );
 }
 
 Vector2D RenderEngine::worldPosToScreenPos( Vector2D worldPos ) const
@@ -42,15 +47,37 @@ Vector2D RenderEngine::worldPosToScreenPos( Vector2D worldPos ) const
 	return screenPos;
 }
 
+Vector2D RenderEngine::worldPosToSubPixelPos( Vector2D worldPos ) const
+{
+	//At the moment this conversion does nothing as world positions are equivalent to subPixel positions, however if I change it to become different, this should become the body of this function
+	/*
+	Vector2D const screenPos = worldPosToScreenPos( worldPos );
+	Vector2D const subPixelPos = screenPosToSubPixelPos( screenPos );
+	return subPixelPos;
+	*/
+
+	return worldPos;
+}
+
 Coordinates RenderEngine::worldPosToPixelPos( Vector2D worldPos ) const
 {
-	return { (int)worldPos.x,(int)worldPos.y };
+	Vector2D const subPixelPos = worldPosToSubPixelPos( worldPos );
+	Coordinates const pixelPos{ subPixelPos };
+	return pixelPos;
+}
+
+Vector2D RenderEngine::screenPosToSubPixelPos( Vector2D screenPos ) const
+{
+	Vector2D subPixelPos{};
+	subPixelPos.x = _getCameraClip().x * screenPos.x;
+	subPixelPos.y = _getCameraClip().y * screenPos.y;
+	return subPixelPos;
 }
 
 Vector2D RenderEngine::screenPosToWorldPos( Vector2D screenPos ) const
 {
 	Vector2D worldPos{};
-	worldPos.x = screenPos.x * _getCameraClip().x;
-	worldPos.y = screenPos.y * _getCameraClip().y;
+	worldPos.x = _getCameraClip().x * screenPos.x;
+	worldPos.y = _getCameraClip().y * screenPos.y;
 	return worldPos;
 }

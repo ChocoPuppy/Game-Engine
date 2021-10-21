@@ -138,6 +138,12 @@
     <ClCompile Include="GemType.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CreditsWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine.h">
@@ -330,6 +336,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TransversalDirections.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
