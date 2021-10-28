@@ -1,5 +1,5 @@
 #include "GemObject.h"
-void GemObject::simulateAI( unsigned long, AssetManager * )
+void GemObject::simulateAI( unsigned long millisecondsToSimulate, AssetManager * )
 {}
 
 void GemObject::_changeGemTextureTo( GemType::GemType type )
@@ -38,7 +38,7 @@ void GemObject::setLerpSpeed( float speed )
 	_lerpSpeed = speed;
 }
 
-void GemObject::moveToBoardPosition( Coordinates position )
+void GemObject::lerpToPosition( Vector2D position )
 {
-	transform()->position = { (double)position.x,(double)position.y };
+	_targetBoardPosition = position;
 }

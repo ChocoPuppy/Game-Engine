@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObject.h"
 #include "GemType.h"
+#include "Lerp.h"
+#include <optional>
+
 class GemObject : public GameObject
 {
 	GemType::GemType _gemType;
-	Coordinates _targetBoardPosition;
+	std::optional<Lerp> _lerp;
 	float _lerpSpeed;
-
 	void _changeGemTextureTo( GemType::GemType type );
 	void _setGemType( GemType::GemType newType );
 public:
@@ -17,7 +19,7 @@ public:
 
 	float getLerpSpeed() const;
 	void setLerpSpeed( float speed );
-	void moveToBoardPosition( Coordinates position );
+	void lerpToPosition( Vector2D position );
 
 	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) override;
 };
