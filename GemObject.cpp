@@ -62,5 +62,8 @@ void GemObject::setLerpSpeed( float speed )
 
 void GemObject::lerpToPosition( Vector2D position )
 {
-	_targetBoardPosition = position;
+	Lerp<> newLerp = Lerp<>();
+	newLerp.origin = transform()->position;
+	newLerp.target = position;
+	_lerp = newLerp;
 }
