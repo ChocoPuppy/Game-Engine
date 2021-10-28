@@ -7,10 +7,12 @@
 class GemObject : public GameObject
 {
 	GemType::GemType _gemType;
-	std::optional<Lerp> _lerp;
+	std::optional<Lerp<>> _lerp;
 	float _lerpSpeed;
 	void _changeGemTextureTo( GemType::GemType type );
 	void _setGemType( GemType::GemType newType );
+
+	void _endLerp();
 public:
 	GemObject( std::string ID );
 
