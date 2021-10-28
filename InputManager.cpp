@@ -54,10 +54,27 @@ void InputManager::_updateInputs()
 	}
 }
 
+void InputManager::_updateMouse()
+{
+	SDL_PumpEvents();
+	Uint32 mouseStateMask = SDL_GetMouseState( &_currentMousePosition.x, &_currentMousePosition.y );
+	for (Button mouseButton : ButtonHelper::mouseButtons())
+	{
+		unsigned int const maskForButton = _getMaskBoundToMouseButton( mouseButton );
+		unsigned int const isMaskSet = mouseStateMask & maskForButton;
+		bool const isButtonPressed = isMaskSet != 0;
+		if (isButtonPressed)
+			_pushButton( mouseButton );
+		else
+			_liftButton( mouseButton );
+	}
+}
+
 void InputManager::_update()
 {
 	_unpressSystemKeys();
 	_updateInputs();
+	_updateMouse();
 	//This is called at the end of the function instead of as pressed buttons are found so that all the other buttons are confirmed to be updated (for example, dual key combos like ctrl+v might not trigger depending on which key has been pressed first)
 	_updateAllButtonEvents();
 }
@@ -66,6 +83,21 @@ Button InputManager::_getButtonBoundToSystemKey( long systemButtonWord ) const
 {
 	bool const isKeyBoundToButton = _systemKeyBoundToButton.find( systemButtonWord ) != _systemKeyBoundToButton.cend();
 	return ( isKeyBoundToButton ) ? _systemKeyBoundToButton.at( systemButtonWord ) : Button::NONE;
+}
+
+unsigned int InputManager::_getMaskBoundToMouseButton( Button mouseButton ) const
+{
+	switch (mouseButton)
+	{
+	case Button::LEFT_MOUSE:
+		return SDL_BUTTON_LMASK;
+	case Button::MIDDLE_MOUSE:
+		return SDL_BUTTON_MMASK;
+	case Button::RIGHT_MOUSE:
+		return SDL_BUTTON_RMASK;
+	default:
+		return 0;
+	}
 }
 
 InputManager::_ButtonState InputManager::_checkButton( Button button ) const
@@ -178,6 +210,11 @@ bool InputManager::isButtonDownOrPressed( Button button ) const
 bool InputManager::isButtonReleased( Button button ) const
 {
 	return _isButtonState( button, _ButtonState::RELEASED );
+}
+
+Vector2D InputManager::getMousePosition() const
+{
+	return Vector2D( _currentMousePosition.x, _currentMousePosition.y );
 }
 
 void InputManager::_unpressSystemKeys()

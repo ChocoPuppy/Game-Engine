@@ -8,6 +8,8 @@
 #include <stack>
 #include "ButtonEvent.h"
 #include <SmartEvent/EventHandle.h>
+#include "Coordinates.h"
+#include "Vector2D.h"
 
 namespace
 {
@@ -40,6 +42,8 @@ private:
 	std::unordered_map<long, Button> _systemKeyBoundToButton;
 	std::stack<long> _systemKeysToUnpressAtStartOfFrame;
 
+	Coordinates _currentMousePosition;
+
 	EventHandle<ButtonEvent> _buttonEvent;
 	//	EventHandle<ButtonPressedEvent> _buttonPressedEvent;
 	//	EventHandle<ButtonReleasedEvent> _buttonReleasedEvent;
@@ -56,9 +60,11 @@ private:
 	void _liftButton( Button button );
 
 	void _updateInputs();
+	void _updateMouse();
 	void _update();
 
 	Button _getButtonBoundToSystemKey( long systemButtonWord ) const;
+	unsigned int _getMaskBoundToMouseButton( Button mouseButton ) const;
 
 	_ButtonState _checkButton( Button button ) const;
 	bool _isButtonState( Button button, _ButtonState state ) const;
@@ -69,4 +75,6 @@ public:
 	bool isButtonPressed( Button button ) const;
 	bool isButtonDownOrPressed( Button button ) const;
 	bool isButtonReleased( Button button ) const;
+
+	Vector2D getMousePosition() const;
 };
