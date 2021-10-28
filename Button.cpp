@@ -16,6 +16,12 @@ std::string ButtonHelper::buttonToString( Button button )
 		return "Left";
 	case Button::RIGHT:
 		return "Right";
+	case Button::LEFT_MOUSE:
+		return "Left mouse";
+	case Button::MIDDLE_MOUSE:
+		return "Middle mouse";
+	case Button::RIGHT_MOUSE:
+		return "Right mouse";
 	case Button::SPRINT:
 		return "Sprint";
 	case Button::DEBUG_INCREASE_SPEED:
@@ -27,6 +33,17 @@ std::string ButtonHelper::buttonToString( Button button )
 	case Button::SHOW_CREDITS:
 		return "Show Credits";
 	default:
-		return "And you think to yourself \"how did I get here?\"? Because I have no clue how you triggered this text to display.";
+		return "Unknown button.";
 	}
+}
+
+std::set<Button> const ButtonHelper::mouseButtons()
+{
+	std::set<Button> const mouseButtons = std::set<Button>
+	{
+		Button::LEFT_MOUSE,
+		Button::MIDDLE_MOUSE,
+		Button::RIGHT_MOUSE
+	};
+	return mouseButtons;
 }

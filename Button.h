@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <set>
 enum class Button
 {
 	NONE,
@@ -9,6 +10,9 @@ enum class Button
 	LEFT,
 	RIGHT,
 	SPRINT,
+	LEFT_MOUSE,
+	MIDDLE_MOUSE,
+	RIGHT_MOUSE,
 	DEBUG_INCREASE_SPEED,
 	DEBUG_DECREASE_SPEED,
 	DEBUG_TELEPORT_TO_00,
@@ -18,4 +22,5 @@ enum class Button
 namespace ButtonHelper
 {
 	std::string buttonToString( Button button );
+	std::set<Button> const mouseButtons();
 }
