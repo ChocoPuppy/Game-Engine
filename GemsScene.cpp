@@ -27,7 +27,7 @@ Coordinates GemsScene::worldPosToGemsMapPos( Vector2D worldPos )
 
 Vector2D GemsScene::gemsMapPosToWorldPos( Coordinates gemsMapPos )
 {
-	Vector2D const floatingPointCoordinates{ gemsMapPos.x,gemsMapPos.y };
+	Vector2D const floatingPointCoordinates{ (double)gemsMapPos.x,(double)gemsMapPos.y };
 	Vector2D const worldPos = floatingPointCoordinates.dotProduct( _WORLD_TO_MAP_POS_SCALE );
 	return worldPos;
 }
