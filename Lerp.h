@@ -8,7 +8,7 @@ struct Lerp
 	LerpType origin;
 	LerpType target;
 	//The time of the lerp, if this is 1, getCurrentPoint will return target, if this is 0, getCurrentPoint will return origin.
-	float currentTime;
+	float currentTime = 0;
 
 	void update( float addTime )
 	{
