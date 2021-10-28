@@ -15,3 +15,19 @@ Vector2D GemsScene::getMapBounds() const noexcept
 
 void GemsScene::update( SDL::Window * )
 {}
+
+Coordinates GemsScene::worldPosToGemsMapPos( Vector2D worldPos )
+{
+	Vector2D scaleTo = _WORLD_TO_MAP_POS_SCALE;
+	scaleTo.x /= worldPos.x;
+	scaleTo.y /= worldPos.y;
+	Coordinates const GemsMapPos = Coordinates( scaleTo );
+	return GemsMapPos;
+}
+
+Vector2D GemsScene::gemsMapPosToWorldPos( Coordinates gemsMapPos )
+{
+	Vector2D const floatingPointCoordinates{ gemsMapPos.x,gemsMapPos.y };
+	Vector2D const worldPos = floatingPointCoordinates.dotProduct( _WORLD_TO_MAP_POS_SCALE );
+	return worldPos;
+}
