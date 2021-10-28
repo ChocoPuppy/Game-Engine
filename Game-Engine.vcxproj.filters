@@ -341,6 +341,9 @@
     <ClInclude Include="CreditsWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Lerp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game-Engine.rc">
