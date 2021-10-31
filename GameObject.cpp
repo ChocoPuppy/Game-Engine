@@ -16,11 +16,6 @@ std::string GameObject::ID()
 	return _ID;
 }
 
-std::string GameObject::textureID()
-{
-	return _textureID;
-}
-
 void GameObject::render( unsigned long, AssetManager * assets, RenderEngine * renderer )
 {
 	if (Config::displayColliders)
