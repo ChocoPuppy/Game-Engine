@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include "PhysicsObject.h"
+#include "Texture.h"
 class RenderEngine;
 class GameObject : public PhysicsObject
 {
 public:
-	GameObject( std::string ID, std::string textureID );
+	GameObject( std::string ID, std::string textureID, AssetManager * manager, RenderEngine * renderer );
 	virtual ~GameObject();
 
 	std::string ID();
@@ -16,4 +17,6 @@ public:
 protected:
 	std::string _ID;
 	std::string _textureID;
+
+	SDL::Texture _texture;
 };

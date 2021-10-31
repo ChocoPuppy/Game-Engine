@@ -5,33 +5,16 @@
 
 #include "SDLError.h"
 #include "UnConstGetter.h"
+#include "Surface.h"
 using namespace SDL;
 
-Texture::Texture( std::string path, Renderer * renderer )
+Texture::Texture( Surface * parent, Renderer * renderer )
 {
-	SDL_Surface * textureSurface = nullptr;
-	if (path.find( ".bmp" ) != std::string::npos)
-	{
-		textureSurface = SDL_LoadBMP( path.c_str() );
-	}
-	else if (path.find( ".png" ) != std::string::npos)
-	{
-		textureSurface = IMG_Load( path.c_str() );
-	}
-	else
-	{
-		SDL::passSDLError( "Unknown image format. Path: " + path );
-	}
-	if (textureSurface == NULL)
-	{
-		SDL::passSDLError( "Failed to load image. Path: " + path );
-	}
-	_data = SDL_CreateTextureFromSurface( renderer->_getRenderer(), textureSurface );
+	_data = SDL_CreateTextureFromSurface( renderer->_getRenderer(), parent->_getData() );
 	if (_data == NULL)
 	{
-		SDL::passSDLError( "Failed to convert image to texture. Path: " + path );
+		SDL::passSDLError( "Failed to convert surface to texture." );
 	}
-	SDL_FreeSurface( textureSurface );
 }
 
 Texture::~Texture()

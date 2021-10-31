@@ -4,7 +4,7 @@
 #include "Coordinates.h"
 #include "SDLBase.h"
 struct Transform2D;
-class Texture;
+namespace SDL { class Texture; }
 class RenderEngine : public SDL::Renderer
 {
 	SDL::Window & _window;
@@ -25,5 +25,5 @@ public:
 	//Converts the screen position in 0-1 screenspace to the equivalent world position.
 	Vector2D screenPosToWorldPos( Vector2D screenPos ) const;
 
-	void renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip = SDL_FLIP_NONE );
+	void renderTexture( Transform2D const & transform, SDL::Texture const & texture, SDL_RendererFlip flip = SDL_FLIP_NONE );
 };

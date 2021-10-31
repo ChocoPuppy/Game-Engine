@@ -132,6 +132,9 @@
     <ClCompile Include="Coordinates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine.h">
@@ -309,6 +312,14 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CreditsWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+
+
+    <ClInclude Include="Surface.h">
+      <Filter>Header Files\SDLWrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

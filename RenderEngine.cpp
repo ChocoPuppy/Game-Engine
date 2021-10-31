@@ -1,7 +1,6 @@
 #include "RenderEngine.h"
 #include "Transform2D.h"
 #include "Texture.h"
-#include "TextureWrapper.h"
 #include <cmath>
 
 Vector2D RenderEngine::_getCameraClip() const
@@ -16,7 +15,7 @@ SDL::Window const & RenderEngine::getWindow() const noexcept
 	return _window;
 }
 
-void RenderEngine::renderTexture( Transform2D const & transform, Texture const & texture, SDL_RendererFlip flip )
+void RenderEngine::renderTexture( Transform2D const & transform, SDL::Texture const & texture, SDL_RendererFlip flip )
 {
 	SDL_Rect destination{};
 	{

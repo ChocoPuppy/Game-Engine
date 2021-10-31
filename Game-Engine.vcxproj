@@ -205,6 +205,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="SDLMain.cpp" />
+    <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VirtualInputJoystick.cpp" />
@@ -258,6 +259,8 @@
     <ClInclude Include="SDLBase.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="SDLMain.h" />
+    <ClInclude Include="Surface.h" />
+    <ClInclude Include="SurfaceWrapper.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="SDLVideo.h" />
     <ClInclude Include="Size.h" />
