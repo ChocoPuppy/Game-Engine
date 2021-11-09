@@ -1,6 +1,6 @@
 #include "AnimatedTexture.h"
 #include "SDLError.h"
-AnimatedTexture::AnimatedTexture( std::string ID, std::shared_ptr<Surface> surface, SDL::Renderer * renderer, int frameCount, unsigned long frameDurationMilliseconds ) : Texture( ID, surface, renderer ), _frameCount( frameCount ), _frameDurationMilliseconds( frameDurationMilliseconds )
+AnimatedTexture::AnimatedTexture( std::string ID, std::shared_ptr<Surface> surface, SDL::Renderer * renderer ) : Texture( ID, surface, renderer )
 {}
 
 AnimatedTexture::~AnimatedTexture()
@@ -9,13 +9,13 @@ AnimatedTexture::~AnimatedTexture()
 void AnimatedTexture::updateFrame( unsigned long millisecondsToSimulate )
 {
 	_totalTimeMilliseconds += millisecondsToSimulate;
-	_currentFrame = ( _totalTimeMilliseconds / getAnimationProperties().frameDurationMilliseconds ) % getAnimationProperties()._frameCount;
+	_currentFrame = ( _totalTimeMilliseconds / getAnimationProperties().frameDurationMilliseconds ) % getAnimationProperties().frameCount;
 }
 
 void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect destination, double rotation, SDL_RendererFlip flip ) const
 {
 	Size textureSize = getSize();
-	const int frameWidth = textureSize.width() / getAnimationProperties()._frameCount;
+	const int frameWidth = textureSize.width() / getAnimationProperties().frameCount;
 	SDL_Rect frameClip{};
 	frameClip.w = std::max( frameWidth, clip.w );
 	frameClip.h = std::max( textureSize.height(), clip.h );
@@ -25,9 +25,18 @@ void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect 
 	Texture::render( renderer, frameClip, destination, rotation, flip );
 }
 
-AnimationProperties AnimatedTexture::getAnimationProperties()
+AnimationProperties AnimatedTexture::getAnimationProperties() const
 {
-	return _animationPropertiesOverride.get();
+	AnimationProperties properties;
+	if (_animationPropertiesOverride)
+	{
+		properties = _animationPropertiesOverride.get();
+	}
+	else
+	{
+		properties = getAnimatedSurface()->getAnimationProperties();
+	}
+	return properties;
 }
 
 void AnimatedTexture::overrideAnimProperties( OptionalAnimProperties properties )
@@ -38,4 +47,9 @@ void AnimatedTexture::overrideAnimProperties( OptionalAnimProperties properties 
 void AnimatedTexture::clearAnimationPropertiesOverride()
 {
 	overrideAnimProperties( std::nullopt );
+}
+
+std::shared_ptr<AnimatedSurface const> AnimatedTexture::getAnimatedSurface() const
+{
+	return std::dynamic_pointer_cast<AnimatedSurface const>( getSurface() );
 }
