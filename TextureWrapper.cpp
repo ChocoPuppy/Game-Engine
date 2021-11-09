@@ -1,6 +1,6 @@
 #include "TextureWrapper.h"
 #include "AnimatedTexture.h"
-std::shared_ptr<Surface const> Texture::getSurface()
+std::shared_ptr<Surface const> Texture::getSurface() const
 {
 	return _surface;
 }
