@@ -3,7 +3,7 @@
 
 #include "AnimatedTexture.h"
 
-AnimatedGameObject::AnimatedGameObject( std::string ID, std::string textureID, AssetManager * assets, RenderEngine * renderer ) : GameObject( ID, textureID, assets, renderer )
+AnimatedGameObject::AnimatedGameObject( std::string ID, std::string textureID ) : GameObject( ID, textureID )
 {}
 
 void AnimatedGameObject::render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer )
