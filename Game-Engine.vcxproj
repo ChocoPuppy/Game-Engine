@@ -177,6 +177,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimatedGameObject.cpp" />
+    <ClCompile Include="AnimatedSurface.cpp" />
     <ClCompile Include="AnimatedTexture.cpp" />
     <ClCompile Include="AnimationProperties.cpp" />
     <ClCompile Include="Asset.cpp" />
@@ -219,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedGameObject.h" />
+    <ClInclude Include="AnimatedSurface.h" />
     <ClInclude Include="AnimatedTexture.h" />
     <ClInclude Include="AnimationProperties.h" />
     <ClInclude Include="Asset.h" />
