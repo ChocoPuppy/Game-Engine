@@ -21,14 +21,14 @@ void Player::_enterState( _State state, AssetManager * )
 	switch (state)
 	{
 	case _State::IDLE:
-		_textureID = "Texture.Player.Idle";
+		_setTextureID( "Texture.Player.Idle" );
 		break;
 	case _State::WALKING:
-		_textureID = "Texture.Player.Walking";
+		_setTextureID( "Texture.Player.Walking" );
 		_baseSpeed = 1;
 		break;
 	case _State::RUNNING:
-		_textureID = "Texture.Player.Running";
+		_setTextureID( "Texture.Player.Running" );
 		_baseSpeed = 1.5;
 		std::cout << "Player is running!" << std::endl;
 		break;
