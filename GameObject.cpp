@@ -16,10 +16,7 @@ std::string GameObject::ID()
 
 void GameObject::render( unsigned long, AssetManager * assets, RenderEngine * renderer )
 {
-	if (_getTextureID() != _getTexture()->getID())
-	{
-		refreshTexture( assets, renderer );
-	}
+	_switchIfTexturesChanged( assets, renderer );
 	if (Config::displayColliders)
 	{
 		getCollider()->render( *renderer );
@@ -42,6 +39,14 @@ void GameObject::_setTextureID( std::string ID )
 Texture * GameObject::_getTexture()
 {
 	return _texture.get();
+}
+
+void GameObject::_switchIfTexturesChanged( AssetManager * assets, RenderEngine * renderer )
+{
+	if (_getTextureID() != _getTexture()->getID())
+	{
+		refreshTexture( assets, renderer );
+	}
 }
 
 void GameObject::refreshTexture( AssetManager * assets, RenderEngine * renderer )

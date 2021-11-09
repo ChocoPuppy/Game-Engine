@@ -176,6 +176,7 @@
   <ItemGroup>
     <ClCompile Include="AnimatedGameObject.cpp" />
     <ClCompile Include="AnimatedTexture.cpp" />
+    <ClCompile Include="AnimationProperties.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -206,7 +207,9 @@
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="SDLMain.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="SurfaceWrapper.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureWrapper.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VirtualInputJoystick.cpp" />
     <ClCompile Include="WalkingDino.cpp" />
@@ -215,6 +218,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatedGameObject.h" />
     <ClInclude Include="AnimatedTexture.h" />
+    <ClInclude Include="AnimationProperties.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Button.h" />

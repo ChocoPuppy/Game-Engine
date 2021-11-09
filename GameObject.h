@@ -16,10 +16,11 @@ public:
 	virtual void render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer );
 protected:
 	std::string _getTextureID() const;
-
 	void _setTextureID( std::string ID );
 
 	Texture * _getTexture();
+
+	void _switchIfTexturesChanged( AssetManager * assets, RenderEngine * renderer );
 private:
 
 	std::string _ID;

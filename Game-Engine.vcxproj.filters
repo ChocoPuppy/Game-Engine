@@ -135,6 +135,15 @@
     <ClCompile Include="Surface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationProperties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine.h">
@@ -314,12 +323,13 @@
     <ClInclude Include="CreditsWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-
-
     <ClInclude Include="Surface.h">
       <Filter>Header Files\SDLWrapper</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

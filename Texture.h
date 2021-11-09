@@ -11,7 +11,7 @@ namespace SDL
 		SDL_Texture const * _getData() const;
 		SDL_Texture * _getData();
 	public:
-		Texture( Surface * parent, Renderer * renderer );
+		Texture( SDL::Surface * parent, Renderer * renderer );
 		virtual ~Texture();
 
 		virtual void render( Renderer * renderer, SDL_Rect clip, SDL_Rect destination, double rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE ) const;

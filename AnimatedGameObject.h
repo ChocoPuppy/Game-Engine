@@ -5,5 +5,5 @@ class AnimatedGameObject :
 {
 public:
 	AnimatedGameObject( std::string id, std::string textureId, AssetManager * assets, RenderEngine * renderer );
-	virtual void render( unsigned long millisecondsToSimulate, RenderEngine * renderer ) override;
+	virtual void render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer ) override;
 };
