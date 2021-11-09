@@ -6,5 +6,5 @@ class Asset
 public:
 	Asset( std::string ID ) : _ID( ID ) {}
 	virtual ~Asset() = default;
-	std::string const & getID() { return _ID; }
+	std::string const & getID() const { return _ID; }
 };
