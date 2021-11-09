@@ -28,9 +28,9 @@ void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect 
 AnimationProperties AnimatedTexture::getAnimationProperties() const
 {
 	AnimationProperties properties;
-	if (_animationPropertiesOverride)
+	if (_animationPropertiesOverride.has_value())
 	{
-		properties = _animationPropertiesOverride.get();
+		properties = _animationPropertiesOverride.value();
 	}
 	else
 	{
