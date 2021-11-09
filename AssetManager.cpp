@@ -1,7 +1,7 @@
 #include "AssetManager.h"
 #include "AnimatedTexture.h"
 #include "SurfaceWrapper.h"
-AssetManager::AssetManager( SDL::Renderer * renderer )
+AssetManager::AssetManager()
 {
 	_loadAsset<Surface>( "Texture.Dino", "Assets/dino.png" );
 	//	_assets["Texture.Dino"] = new Texture( "Assets/dino.png", renderer );

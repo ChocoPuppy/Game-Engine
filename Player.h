@@ -33,8 +33,6 @@ public:
 
 	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) override;
 
-	virtual void render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer ) override;
-
 	virtual bool isFacingLeft() const override;
 
 	double getBaseSpeed() { return _baseSpeed; }

@@ -5,7 +5,7 @@
 class AnimatedTexture : public Texture
 {
 public:
-	AnimatedTexture( std::string ID, std::string path, SDL::Renderer * renderer, int frameCount, unsigned long frameDurationMilliseconds );
+	AnimatedTexture( std::string ID, SDL::Surface * surface, SDL::Renderer * renderer, int frameCount, unsigned long frameDurationMilliseconds );
 	~AnimatedTexture();
 
 	void updateFrame( unsigned long millisecondsToSimulate );

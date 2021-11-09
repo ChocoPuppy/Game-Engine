@@ -13,9 +13,18 @@ public:
 	std::string ID();
 
 	virtual void simulateAI( unsigned long millisecondsToSimulate, AssetManager * assets ) = 0;
-	virtual void render( unsigned long millisecondsToSimulate, RenderEngine * renderer );
+	virtual void render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer );
 protected:
-	std::string _ID;
+	std::string _getTextureID() const;
 
-	std::unique_ptr<SDL::Texture> _texture;
+	void _setTextureID( std::string ID );
+
+	Texture * _getTexture();
+private:
+
+	std::string _ID;
+	std::string _textureID;
+	std::unique_ptr<Texture> _texture;
+
+	void refreshTexture( AssetManager * assets, RenderEngine * renderer );
 };

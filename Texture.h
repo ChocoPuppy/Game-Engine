@@ -12,7 +12,7 @@ namespace SDL
 		SDL_Texture * _getData();
 	public:
 		Texture( Surface * parent, Renderer * renderer );
-		~Texture();
+		virtual ~Texture();
 
 		virtual void render( Renderer * renderer, SDL_Rect clip, SDL_Rect destination, double rotation = 0, SDL_RendererFlip flip = SDL_FLIP_NONE ) const;
 

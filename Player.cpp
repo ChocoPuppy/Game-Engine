@@ -134,11 +134,6 @@ void Player::simulateAI( unsigned long millisecondsToSimulate, AssetManager * as
 	//	std::cout << movement.x << std::endl;
 }
 
-void Player::render( unsigned long millisecondsToSimulate, AssetManager * assets, RenderEngine * renderer )
-{
-	AnimatedGameObject::render( millisecondsToSimulate, assets, renderer );
-}
-
 bool Player::isFacingLeft() const
 {
 	return _lastMovedLeftwards;

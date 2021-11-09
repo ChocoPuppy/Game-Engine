@@ -14,7 +14,7 @@ namespace SDL
 		SDL_Surface * _getData();
 	public:
 		Surface( std::string path );
-		~Surface();
+		virtual ~Surface();
 
 		Size getSize() const;
 	};

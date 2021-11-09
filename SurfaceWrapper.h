@@ -3,6 +3,7 @@
 #include "Asset.h"
 class Surface : public SDL::Surface, public Asset
 {
-	Surface( std::string ID, std::string path ) : Asset( ID ), SDL::Surface( path )
+public:
+	Surface( std::string ID, std::string path ) : SDL::Surface( path ), Asset( ID )
 	{}
 };

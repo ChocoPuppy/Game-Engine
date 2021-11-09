@@ -9,7 +9,7 @@
 class AssetManager
 {
 public:
-	AssetManager( SDL::Renderer * renderer );
+	AssetManager();
 	~AssetManager();
 
 	template<class AssetType>
