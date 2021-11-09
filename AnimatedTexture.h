@@ -9,7 +9,7 @@ namespace
 class AnimatedTexture : public Texture
 {
 public:
-	AnimatedTexture( std::string ID, std::shared_ptr<Surface> surface, SDL::Renderer * renderer );
+	AnimatedTexture( std::shared_ptr<Surface> surface, SDL::Renderer * renderer );
 	~AnimatedTexture();
 
 	void updateFrame( unsigned long millisecondsToSimulate );
