@@ -19,7 +19,7 @@ void GameObject::render( unsigned long, AssetManager * assets, RenderEngine * re
 	_switchIfTexturesChanged( assets, renderer );
 	if (Config::displayColliders)
 	{
-		getCollider()->render( *renderer );
+		getCollider()->render( *assets, *renderer );
 	}
 
 	SDL_RendererFlip flip = ( isFacingLeft() ) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
@@ -43,7 +43,7 @@ Texture * GameObject::_getTexture()
 
 void GameObject::_switchIfTexturesChanged( AssetManager * assets, RenderEngine * renderer )
 {
-	if (_getTextureID() != _getTexture()->getID())
+	if (_getTextureID() != _getTexture()->getSurface()->getID())
 	{
 		refreshTexture( assets, renderer );
 	}
@@ -51,5 +51,6 @@ void GameObject::_switchIfTexturesChanged( AssetManager * assets, RenderEngine *
 
 void GameObject::refreshTexture( AssetManager * assets, RenderEngine * renderer )
 {
-	_texture = std::make_unique<Texture>( _getTextureID(), assets->getAsset<Surface>( _getTextureID() ), renderer );
+	TextureFactory texFactory = TextureFactory();
+	_texture = texFactory.result( assets->getAsset<Surface>( _getTextureID() ), renderer );
 }
