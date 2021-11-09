@@ -5,8 +5,11 @@
 
 class Texture : public SDL::Texture
 {
-	std::shared_ptr<Surface const> _surface;
 	friend class TextureFactory;
+	std::shared_ptr<Surface const> _surface;
+
+protected:
+
 	Texture( std::shared_ptr<Surface> surface, SDL::Renderer * renderer ) : SDL::Texture( surface.get(), renderer ), _surface( surface ) {}
 public:
 	std::shared_ptr<Surface const> getSurface() const;
