@@ -23,11 +23,11 @@ void ICollider::render( AssetManager & assets, RenderEngine & renderer )
 	inheritedTransform.rotation = 0;
 	inheritedTransform.scale = attatchedToTransform()->scale;
 	Vector2D colliderScale{};
-	Texture const * colliderTexture = assets.getAsset<Texture>( getTextureID() );
 	colliderScale.x = extentsOfCollider().getSize().x / 2;
 	colliderScale.y = extentsOfCollider().getSize().y / 2;
 	inheritedTransform.position.x -= colliderScale.x / 2;
 	inheritedTransform.position.y -= colliderScale.y / 2;
+	std::shared_ptr<Texture const> colliderTexture = assets.getAsset<Texture>( getTextureID() );
 	inheritedTransform.scale.x += colliderScale.x / colliderTexture->getSize().width();
 	inheritedTransform.scale.y += colliderScale.y / colliderTexture->getSize().height();
 	//		std::cout << inheritedTransform.scale.x << " " << inheritedTransform.scale.y << std::endl;
