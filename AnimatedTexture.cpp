@@ -1,6 +1,6 @@
 #include "AnimatedTexture.h"
 #include "SDLError.h"
-AnimatedTexture::AnimatedTexture( std::shared_ptr<Surface> surface, SDL::Renderer * renderer ) : Texture( surface, renderer )
+AnimatedTexture::AnimatedTexture( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer ) : Texture( surface, renderer )
 {}
 
 AnimatedTexture::~AnimatedTexture()

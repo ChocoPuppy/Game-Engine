@@ -10,18 +10,18 @@ class Texture : public SDL::Texture
 
 protected:
 
-	Texture( std::shared_ptr<Surface> surface, SDL::Renderer * renderer ) : SDL::Texture( surface.get(), renderer ), _surface( surface ) {}
+	Texture( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer );
 public:
-	std::shared_ptr<Surface const> getSurface() const;
+	std::shared_ptr<Surface const> const & getSurface() const;
 };
 
 class TextureFactory
 {
 	template<class TextureType>
-	Texture * _constructTexture( std::shared_ptr<Surface> surface, SDL::Renderer * renderer )
+	Texture * _constructTexture( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer )
 	{
 		return new TextureType( surface, renderer );
 	}
 public:
-	std::unique_ptr<Texture> result( std::shared_ptr<Surface> surface, SDL::Renderer * renderer );
+	std::unique_ptr<Texture> result( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer );
 };

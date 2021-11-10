@@ -1,14 +1,16 @@
 #include "TextureWrapper.h"
 #include "AnimatedTexture.h"
+Texture::Texture( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer ) : SDL::Texture( surface.get(), renderer ), _surface( surface ) {}
 std::shared_ptr<Surface const> Texture::getSurface() const
 {
 	return _surface;
 }
 
-std::unique_ptr<Texture> TextureFactory::result( std::shared_ptr<Surface> surface, SDL::Renderer * renderer )
+std::unique_ptr<Texture> TextureFactory::result( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer )
 {
 	Texture * constructedTexture;
-	if (surface->isAnimation())
+	AnimatedSurface * animatedSurface = dynamic_cast<AnimatedSurface *>( surface.get() );
+	if (animatedSurface != nullptr)
 	{
 		constructedTexture = _constructTexture<Texture>( surface, renderer );
 	}
