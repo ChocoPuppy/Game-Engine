@@ -13,7 +13,7 @@ AssetManager::AssetManager()
 	AnimationProperties animProperties{};
 
 	animProperties.frameCount = 10;
-	animProperties.frameDurationMilliseconds = 200;
+	animProperties.frameDurationMilliseconds = 100;
 
 	_loadAsset<AnimatedSurface>( "Texture.Dino.Walking", "Assets/dino.walking.png", animProperties );
 
