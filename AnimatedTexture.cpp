@@ -15,26 +15,32 @@ void AnimatedTexture::updateFrame( unsigned long millisecondsToSimulate )
 void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect destination, double rotation, SDL_RendererFlip flip ) const
 {
 	Size textureSize = getSize();
-	const int frameWidth = textureSize.width() / getAnimationProperties().frameCount;
+
+	const int frameCount = getAnimationProperties().frameCount;
+	const int totalTextureWidth = textureSize.width();
+	const int frameMaxWidth = totalTextureWidth / frameCount;
+	const int frameMaxHeight = textureSize.height();
 	SDL_Rect frameClip{};
 	{
-		auto clipWidth = std::min( frameWidth, clip.w );
+		const int manualClipWidth = clip.w;
+		const int clipWidth = std::min( frameMaxWidth, manualClipWidth );
 		frameClip.w = clipWidth;
 	}
 	{
-		auto clipHeight = std::min( textureSize.height(), clip.h );
+		const int manualClipHeight = clip.h;
+		const int clipHeight = std::min( frameMaxHeight, manualClipHeight );
 		frameClip.h = clipHeight;
 	}
 	{
-		int zeroBasedFrame = ( _currentFrame - 1 );
-		int clipXPos = frameClip.w;
-		int frameClipXPos = zeroBasedFrame * clipXPos;
-		int manualClipX = clip.x;
-		int frameClipXPosPlusManualClip = frameClipXPos + manualClipX;
+		//		const int zeroBasedFrame = _currentFrame - 1;
+		const int clipXPos = frameClip.w;
+		const int frameClipXPos = _currentFrame * clipXPos;
+		const int manualClipX = clip.x;
+		const int frameClipXPosPlusManualClip = frameClipXPos + manualClipX;
 		frameClip.x = frameClipXPosPlusManualClip;
 	}
 	{
-		int manualClipY = clip.y;
+		const int manualClipY = clip.y;
 		frameClip.y = manualClipY;
 	}
 
