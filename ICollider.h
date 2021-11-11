@@ -6,6 +6,7 @@
 #include <memory>
 #include <SmartEvent/ASmartObserver.h>
 #include "GetCollidersEvent.h"
+#include "Texture.h"
 class AssetManager;
 
 class RenderEngine;
@@ -28,6 +29,8 @@ namespace Collision
 		ColliderCensus _census;
 		std::shared_ptr<Transform2D const> _attatchedToTransform;
 		Vector2D _offset;
+
+		std::unique_ptr<Texture> _texture;
 	public:
 		ICollider( std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
 		virtual ~ICollider();
