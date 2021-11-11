@@ -9,6 +9,17 @@
 
 using namespace Collision;
 
+Texture * Collision::ICollider::_getTexture( AssetManager & assets, RenderEngine & renderer )
+{
+	if (_texture == nullptr || _texture->getSurface()->getID() != getTextureID())
+	{
+		auto texFactory = TextureFactory();
+		std::shared_ptr<Surface> baseSurface = assets.getAsset<Surface>( getTextureID() );
+		_texture = texFactory.result( baseSurface, &renderer );
+	}
+	return _texture.get();
+}
+
 ICollider::ICollider( std::shared_ptr<Transform2D const> attatchedTo ) : _census( this ), _attatchedToTransform( attatchedTo )
 {}
 
@@ -27,7 +38,8 @@ void ICollider::render( AssetManager & assets, RenderEngine & renderer )
 	colliderScale.y = extentsOfCollider().getSize().y / 2;
 	inheritedTransform.position.x -= colliderScale.x / 2;
 	inheritedTransform.position.y -= colliderScale.y / 2;
-	std::shared_ptr<Texture const> colliderTexture = assets.getAsset<Texture>( getTextureID() );
+
+	Texture * colliderTexture = _getTexture( assets, renderer );
 	inheritedTransform.scale.x += colliderScale.x / colliderTexture->getSize().width();
 	inheritedTransform.scale.y += colliderScale.y / colliderTexture->getSize().height();
 	//		std::cout << inheritedTransform.scale.x << " " << inheritedTransform.scale.y << std::endl;

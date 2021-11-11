@@ -6,7 +6,7 @@
 #include <memory>
 #include <SmartEvent/ASmartObserver.h>
 #include "GetCollidersEvent.h"
-#include "Texture.h"
+#include "TextureWrapper.h"
 class AssetManager;
 
 class RenderEngine;
@@ -31,6 +31,8 @@ namespace Collision
 		Vector2D _offset;
 
 		std::unique_ptr<Texture> _texture;
+
+		Texture * _getTexture( AssetManager & assets, RenderEngine & renderer );
 	public:
 		ICollider( std::shared_ptr<Transform2D const> attatchedTo = std::make_shared<Transform2D>() );
 		virtual ~ICollider();
