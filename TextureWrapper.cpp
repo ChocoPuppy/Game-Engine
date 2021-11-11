@@ -11,7 +11,7 @@ std::unique_ptr<Texture> TextureFactory::result( std::shared_ptr<Surface> const 
 {
 	Texture * constructedTexture;
 	AnimatedSurface * animatedSurface = dynamic_cast<AnimatedSurface *>( surface.get() );
-	if (animatedSurface != nullptr)
+	if (animatedSurface == nullptr)
 	{
 		constructedTexture = _constructTexture<Texture>( surface, renderer );
 	}
