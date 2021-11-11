@@ -17,10 +17,26 @@ void AnimatedTexture::render( SDL::Renderer * renderer, SDL_Rect clip, SDL_Rect 
 	Size textureSize = getSize();
 	const int frameWidth = textureSize.width() / getAnimationProperties().frameCount;
 	SDL_Rect frameClip{};
-	frameClip.w = std::max( frameWidth, clip.w );
-	frameClip.h = std::max( textureSize.height(), clip.h );
-	frameClip.x = ( _currentFrame - 1 ) * frameWidth + clip.x;
-	frameClip.y = clip.y;
+	{
+		auto clipWidth = std::min( frameWidth, clip.w );
+		frameClip.w = clipWidth;
+	}
+	{
+		auto clipHeight = std::min( textureSize.height(), clip.h );
+		frameClip.h = clipHeight;
+	}
+	{
+		int zeroBasedFrame = ( _currentFrame - 1 );
+		int clipXPos = frameClip.w;
+		int frameClipXPos = zeroBasedFrame * clipXPos;
+		int manualClipX = clip.x;
+		int frameClipXPosPlusManualClip = frameClipXPos + manualClipX;
+		frameClip.x = frameClipXPosPlusManualClip;
+	}
+	{
+		int manualClipY = clip.y;
+		frameClip.y = manualClipY;
+	}
 
 	Texture::render( renderer, frameClip, destination, rotation, flip );
 }
@@ -34,7 +50,8 @@ AnimationProperties AnimatedTexture::getAnimationProperties() const
 	}
 	else
 	{
-		properties = getAnimatedSurface()->getAnimationProperties();
+		auto animatedSurface = getAnimatedSurface();
+		properties = animatedSurface->getAnimationProperties();
 	}
 	return properties;
 }
@@ -51,5 +68,6 @@ void AnimatedTexture::clearAnimationPropertiesOverride()
 
 std::shared_ptr<AnimatedSurface const> AnimatedTexture::getAnimatedSurface() const
 {
-	return std::dynamic_pointer_cast<AnimatedSurface const>( getSurface() );
+	auto & surface = getSurface();
+	return std::dynamic_pointer_cast<AnimatedSurface const>( surface );
 }
