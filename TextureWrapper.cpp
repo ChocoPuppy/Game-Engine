@@ -1,7 +1,8 @@
 #include "TextureWrapper.h"
 #include "AnimatedTexture.h"
 Texture::Texture( std::shared_ptr<Surface> const & surface, SDL::Renderer * renderer ) : SDL::Texture( surface.get(), renderer ), _surface( surface ) {}
-std::shared_ptr<Surface const> Texture::getSurface() const
+
+std::shared_ptr<Surface const> const & Texture::getSurface() const
 {
 	return _surface;
 }
