@@ -10,13 +10,18 @@ AssetManager::AssetManager()
 
 	_loadAsset<Surface>( "Texture.Debug.Circle", "Assets/circle.png" );
 
-	_loadAsset<Surface>( "Texture.Dino.Walking", "Assets/dino.walking.png" );
+	AnimationProperties animProperties{};
+
+	animProperties.frameCount = 10;
+	animProperties.frameDurationMilliseconds = 600;
+
+	_loadAsset<AnimatedSurface>( "Texture.Dino.Walking", "Assets/dino.walking.png", animProperties );
 
 	//	_assets["Texture.Dino.Walking"] = new AnimatedTexture( "Assets/dino.walking.png", renderer, frameCount, frameDurationMilliseconds );
 
-	_loadAsset<Surface>( "Texture.Player.Idle", "Assets/player.idle.png" );
-	_loadAsset<Surface>( "Texture.Player.Walking", "Assets/player.walking.png" );
-	_loadAsset<Surface>( "Texture.Player.Running", "Assets/player.running.png" );
+	_loadAsset<AnimatedSurface>( "Texture.Player.Idle", "Assets/player.idle.png", animProperties );
+	_loadAsset<AnimatedSurface>( "Texture.Player.Walking", "Assets/player.walking.png", animProperties );
+	_loadAsset<AnimatedSurface>( "Texture.Player.Running", "Assets/player.running.png", animProperties );
 }
 
 AssetManager::~AssetManager()
