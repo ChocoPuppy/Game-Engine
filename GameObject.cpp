@@ -43,7 +43,7 @@ Texture * GameObject::_getTexture()
 
 void GameObject::_switchIfTexturesChanged( AssetManager * assets, RenderEngine * renderer )
 {
-	if (_getTextureID() != _getTexture()->getSurface()->getID())
+	if (_getTexture() == nullptr || _getTextureID() != _getTexture()->getSurface()->getID())
 	{
 		refreshTexture( assets, renderer );
 	}
